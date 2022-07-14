@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="COMPANYNAME">
+          <DataField>COMPANYNAME</DataField>
+        </Field>
+        <Field Name="Rating">
+          <DataField>Rating</DataField>
+        </Field>
+        <Field Name="RatingFormat">
+          <DataField>RatingFormat</DataField>
+        </Field>
+        <Field Name="Vendor_Rating__Vendor_Rating__Reject">
+          <DataField>Vendor_Rating__Vendor_Rating__Reject</DataField>
+        </Field>
+        <Field Name="Vendor_Rating__Vendor_Rating__RejectFormat">
+          <DataField>Vendor_Rating__Vendor_Rating__RejectFormat</DataField>
+        </Field>
+        <Field Name="Vendor_Rating__Vendor_Rating__Rework">
+          <DataField>Vendor_Rating__Vendor_Rating__Rework</DataField>
+        </Field>
+        <Field Name="Vendor_Rating__Vendor_Rating__ReworkFormat">
+          <DataField>Vendor_Rating__Vendor_Rating__ReworkFormat</DataField>
+        </Field>
+        <Field Name="Vendor_Rating__Vendor_Rating___Accepted_UD_">
+          <DataField>Vendor_Rating__Vendor_Rating___Accepted_UD_</DataField>
+        </Field>
+        <Field Name="Vendor_Rating__Vendor_Rating___Accepted_UD_Format">
+          <DataField>Vendor_Rating__Vendor_Rating___Accepted_UD_Format</DataField>
+        </Field>
+        <Field Name="Vendor_Rating__Vendor_Rating__Accepted">
+          <DataField>Vendor_Rating__Vendor_Rating__Accepted</DataField>
+        </Field>
+        <Field Name="Vendor_Rating__Vendor_Rating__AcceptedFormat">
+          <DataField>Vendor_Rating__Vendor_Rating__AcceptedFormat</DataField>
+        </Field>
+        <Field Name="Vendor_Rating__Vendor_Rating__Inspected">
+          <DataField>Vendor_Rating__Vendor_Rating__Inspected</DataField>
+        </Field>
+        <Field Name="Vendor_Rating__Vendor_Rating__InspectedFormat">
+          <DataField>Vendor_Rating__Vendor_Rating__InspectedFormat</DataField>
+        </Field>
+        <Field Name="Vendor_Rating__Item_No__">
+          <DataField>Vendor_Rating__Item_No__</DataField>
+        </Field>
+        <Field Name="Vendor_Rating__Vendor_No__">
+          <DataField>Vendor_Rating__Vendor_No__</DataField>
+        </Field>
+        <Field Name="Vendor_Rating__Item_No___Control1000000000">
+          <DataField>Vendor_Rating__Item_No___Control1000000000</DataField>
+        </Field>
+        <Field Name="Vendor_Rating__Vendor_No___Control1000000002">
+          <DataField>Vendor_Rating__Vendor_No___Control1000000002</DataField>
+        </Field>
+        <Field Name="Rating_PointsCaption">
+          <DataField>Rating_PointsCaption</DataField>
+        </Field>
+        <Field Name="Vendor_Rating__Vendor_Rating__RejectCaption">
+          <DataField>Vendor_Rating__Vendor_Rating__RejectCaption</DataField>
+        </Field>
+        <Field Name="Vendor_Rating__Vendor_Rating__ReworkCaption">
+          <DataField>Vendor_Rating__Vendor_Rating__ReworkCaption</DataField>
+        </Field>
+        <Field Name="Vendor_Rating__Vendor_Rating___Accepted_UD_Caption">
+          <DataField>Vendor_Rating__Vendor_Rating___Accepted_UD_Caption</DataField>
+        </Field>
+        <Field Name="Vendor_Rating__Vendor_Rating__AcceptedCaption">
+          <DataField>Vendor_Rating__Vendor_Rating__AcceptedCaption</DataField>
+        </Field>
+        <Field Name="InspectedCaption">
+          <DataField>InspectedCaption</DataField>
+        </Field>
+        <Field Name="Vendor_Rating__Item_No__Caption">
+          <DataField>Vendor_Rating__Item_No__Caption</DataField>
+        </Field>
+        <Field Name="Vendor_Rating__Vendor_No___Control1000000002Caption">
+          <DataField>Vendor_Rating__Vendor_No___Control1000000002Caption</DataField>
+        </Field>
+        <Field Name="Vendor_RatingCaption">
+          <DataField>Vendor_RatingCaption</DataField>
+        </Field>
+        <Field Name="IR_Acceptance_Levels_QuantityCaption">
+          <DataField>IR_Acceptance_Levels_QuantityCaption</DataField>
+        </Field>
+        <Field Name="IR_Acceptance_Levels__Reason_Code_Caption">
+          <DataField>IR_Acceptance_Levels__Reason_Code_Caption</DataField>
+        </Field>
+        <Field Name="IR_Acceptance_Levels__Acceptance_Code_Caption">
+          <DataField>IR_Acceptance_Levels__Acceptance_Code_Caption</DataField>
+        </Field>
+        <Field Name="IR_Acceptance_Levels__Quality_Type_Caption">
+          <DataField>IR_Acceptance_Levels__Quality_Type_Caption</DataField>
+        </Field>
+        <Field Name="Vendor_Rating__Item_No___Control1000000000Caption">
+          <DataField>Vendor_Rating__Item_No___Control1000000000Caption</DataField>
+        </Field>
+        <Field Name="Vendor_Rating__Vendor_No___Control1000000002Caption_Control1000000003">
+          <DataField>Vendor_Rating__Vendor_No___Control1000000002Caption_Control1000000003</DataField>
+        </Field>
+        <Field Name="IR_Acceptance_Levels__Quality_Type_">
+          <DataField>IR_Acceptance_Levels__Quality_Type_</DataField>
+        </Field>
+        <Field Name="IR_Acceptance_Levels__Acceptance_Code_">
+          <DataField>IR_Acceptance_Levels__Acceptance_Code_</DataField>
+        </Field>
+        <Field Name="IR_Acceptance_Levels__Reason_Code_">
+          <DataField>IR_Acceptance_Levels__Reason_Code_</DataField>
+        </Field>
+        <Field Name="IR_Acceptance_Levels_Quantity">
+          <DataField>IR_Acceptance_Levels_Quantity</DataField>
+        </Field>
+        <Field Name="IR_Acceptance_Levels_QuantityFormat">
+          <DataField>IR_Acceptance_Levels_QuantityFormat</DataField>
+        </Field>
+        <Field Name="IR_Acceptance_Levels_Quantity_Control1000000013">
+          <DataField>IR_Acceptance_Levels_Quantity_Control1000000013</DataField>
+        </Field>
+        <Field Name="IR_Acceptance_Levels_Quantity_Control1000000013Format">
+          <DataField>IR_Acceptance_Levels_Quantity_Control1000000013Format</DataField>
+        </Field>
+        <Field Name="VendorRating">
+          <DataField>VendorRating</DataField>
+        </Field>
+        <Field Name="VendorRatingFormat">
+          <DataField>VendorRatingFormat</DataField>
+        </Field>
+        <Field Name="Total_QuantityCaption">
+          <DataField>Total_QuantityCaption</DataField>
+        </Field>
+        <Field Name="IR_Acceptance_Levels_Inspection_Receipt_No_">
+          <DataField>IR_Acceptance_Levels_Inspection_Receipt_No_</DataField>
+        </Field>
+        <Field Name="IR_Acceptance_Levels_Line_No_">
+          <DataField>IR_Acceptance_Levels_Line_No_</DataField>
+        </Field>
+        <Field Name="IR_Acceptance_Levels_Item_No_">
+          <DataField>IR_Acceptance_Levels_Item_No_</DataField>
+        </Field>
+        <Field Name="IR_Acceptance_Levels_Vendor_No_">
+          <DataField>IR_Acceptance_Levels_Vendor_No_</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

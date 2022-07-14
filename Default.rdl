@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="AsOfCalcDate">
+          <DataField>AsOfCalcDate</DataField>
+        </Field>
+        <Field Name="CompanyName">
+          <DataField>CompanyName</DataField>
+        </Field>
+        <Field Name="TodayFormatted">
+          <DataField>TodayFormatted</DataField>
+        </Field>
+        <Field Name="ItemTableCaptionFilter">
+          <DataField>ItemTableCaptionFilter</DataField>
+        </Field>
+        <Field Name="ItemFilter">
+          <DataField>ItemFilter</DataField>
+        </Field>
+        <Field Name="No_Item">
+          <DataField>No_Item</DataField>
+        </Field>
+        <Field Name="Desc_Item">
+          <DataField>Desc_Item</DataField>
+        </Field>
+        <Field Name="QtyExplosionofBOMCapt">
+          <DataField>QtyExplosionofBOMCapt</DataField>
+        </Field>
+        <Field Name="CurrReportPageNoCapt">
+          <DataField>CurrReportPageNoCapt</DataField>
+        </Field>
+        <Field Name="BOMQtyCaption">
+          <DataField>BOMQtyCaption</DataField>
+        </Field>
+        <Field Name="BomCompLevelQtyCapt">
+          <DataField>BomCompLevelQtyCapt</DataField>
+        </Field>
+        <Field Name="BomCompLevelDescCapt">
+          <DataField>BomCompLevelDescCapt</DataField>
+        </Field>
+        <Field Name="BomCompLevelNoCapt">
+          <DataField>BomCompLevelNoCapt</DataField>
+        </Field>
+        <Field Name="LevelCapt">
+          <DataField>LevelCapt</DataField>
+        </Field>
+        <Field Name="BomCompLevelUOMCodeCapt">
+          <DataField>BomCompLevelUOMCodeCapt</DataField>
+        </Field>
+        <Field Name="BomCompLevelNo">
+          <DataField>BomCompLevelNo</DataField>
+        </Field>
+        <Field Name="BomCompLevelDesc">
+          <DataField>BomCompLevelDesc</DataField>
+        </Field>
+        <Field Name="BOMQty">
+          <DataField>BOMQty</DataField>
+        </Field>
+        <Field Name="BOMQtyFormat">
+          <DataField>BOMQtyFormat</DataField>
+        </Field>
+        <Field Name="FormatLevel">
+          <DataField>FormatLevel</DataField>
+        </Field>
+        <Field Name="BomCompLevelQty">
+          <DataField>BomCompLevelQty</DataField>
+        </Field>
+        <Field Name="BomCompLevelQtyFormat">
+          <DataField>BomCompLevelQtyFormat</DataField>
+        </Field>
+        <Field Name="BomCompLevelUOMCode">
+          <DataField>BomCompLevelUOMCode</DataField>
+        </Field>
+        <Field Name="ILEQtyCheck">
+          <DataField>ILEQtyCheck</DataField>
+        </Field>
+        <Field Name="ILEQtyCheckFormat">
+          <DataField>ILEQtyCheckFormat</DataField>
+        </Field>
+        <Field Name="ShrtQty">
+          <DataField>ShrtQty</DataField>
+        </Field>
+        <Field Name="ShrtQtyFormat">
+          <DataField>ShrtQtyFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

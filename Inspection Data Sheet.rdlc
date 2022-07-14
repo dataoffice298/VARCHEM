@@ -1,0 +1,563 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Picture_CompanyInfo">
+          <DataField>Picture_CompanyInfo</DataField>
+        </Field>
+        <Field Name="USERID">
+          <DataField>USERID</DataField>
+        </Field>
+        <Field Name="COMPANYNAME">
+          <DataField>COMPANYNAME</DataField>
+        </Field>
+        <Field Name="FORMAT_TODAY_0_4_">
+          <DataField>FORMAT_TODAY_0_4_</DataField>
+        </Field>
+        <Field Name="InspectDataHeader_Quantity">
+          <DataField>InspectDataHeader_Quantity</DataField>
+        </Field>
+        <Field Name="InspectDataHeader_QuantityFormat">
+          <DataField>InspectDataHeader_QuantityFormat</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Item_Description_">
+          <DataField>InspectDataHeader__Item_Description_</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Item_No__">
+          <DataField>InspectDataHeader__Item_No__</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Order_No__">
+          <DataField>InspectDataHeader__Order_No__</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Posting_Date_">
+          <DataField>InspectDataHeader__Posting_Date_</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Document_Date_">
+          <DataField>InspectDataHeader__Document_Date_</DataField>
+        </Field>
+        <Field Name="InspectDataHeader_Address">
+          <DataField>InspectDataHeader_Address</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Spec_ID_">
+          <DataField>InspectDataHeader__Spec_ID_</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Receipt_No__">
+          <DataField>InspectDataHeader__Receipt_No__</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Vendor_Name_">
+          <DataField>InspectDataHeader__Vendor_Name_</DataField>
+        </Field>
+        <Field Name="InspectDataHeader_Description">
+          <DataField>InspectDataHeader_Description</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Vendor_No__">
+          <DataField>InspectDataHeader__Vendor_No__</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__No__">
+          <DataField>InspectDataHeader__No__</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Inspection_Group_Code_">
+          <DataField>InspectDataHeader__Inspection_Group_Code_</DataField>
+        </Field>
+        <Field Name="SourceType_InspectDataHeader">
+          <DataField>SourceType_InspectDataHeader</DataField>
+        </Field>
+        <Field Name="Inspection_Data_SheetCaption">
+          <DataField>Inspection_Data_SheetCaption</DataField>
+        </Field>
+        <Field Name="InspectDataHeader_QuantityCaption">
+          <DataField>InspectDataHeader_QuantityCaption</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Item_Description_Caption">
+          <DataField>InspectDataHeader__Item_Description_Caption</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Item_No__Caption">
+          <DataField>InspectDataHeader__Item_No__Caption</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Order_No__Caption">
+          <DataField>InspectDataHeader__Order_No__Caption</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Posting_Date_Caption">
+          <DataField>InspectDataHeader__Posting_Date_Caption</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Document_Date_Caption">
+          <DataField>InspectDataHeader__Document_Date_Caption</DataField>
+        </Field>
+        <Field Name="InspectDataHeader_AddressCaption">
+          <DataField>InspectDataHeader_AddressCaption</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Spec_ID_Caption">
+          <DataField>InspectDataHeader__Spec_ID_Caption</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Receipt_No__Caption">
+          <DataField>InspectDataHeader__Receipt_No__Caption</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Vendor_Name_Caption">
+          <DataField>InspectDataHeader__Vendor_Name_Caption</DataField>
+        </Field>
+        <Field Name="InspectDataHeader_DescriptionCaption">
+          <DataField>InspectDataHeader_DescriptionCaption</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Vendor_No__Caption">
+          <DataField>InspectDataHeader__Vendor_No__Caption</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__No__Caption">
+          <DataField>InspectDataHeader__No__Caption</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Inspection_Group_Code_Caption">
+          <DataField>InspectDataHeader__Inspection_Group_Code_Caption</DataField>
+        </Field>
+        <Field Name="SourceTypeCaption">
+          <DataField>SourceTypeCaption</DataField>
+        </Field>
+        <Field Name="Qualitative_InspectionDataSheetLine">
+          <DataField>Qualitative_InspectionDataSheetLine</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Text__">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Text__</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Sampling_Plan_Code_">
+          <DataField>Inspection_Datasheet_Line__Sampling_Plan_Code_</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line_Description">
+          <DataField>Inspection_Datasheet_Line_Description</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Num__">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Num__</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Num__Format">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Num__Format</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Unit_of_Measure_Code_">
+          <DataField>Inspection_Datasheet_Line__Unit_of_Measure_Code_</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Character_Code_">
+          <DataField>Inspection_Datasheet_Line__Character_Code_</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Text__">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Text__</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Num__">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Num__</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Num__Format">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Num__Format</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Text__">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Text__</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Num__">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Num__</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Num__Format">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Num__Format</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Text___Control1000000029">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Text___Control1000000029</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Text___Control1000000031">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Text___Control1000000031</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Text___Control1000000033">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Text___Control1000000033</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Num___Control1000000035">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Num___Control1000000035</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Num___Control1000000035Format">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Num___Control1000000035Format</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Num___Control1000000036">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Num___Control1000000036</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Num___Control1000000036Format">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Num___Control1000000036Format</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Num___Control1000000037">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Num___Control1000000037</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Num___Control1000000037Format">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Num___Control1000000037Format</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Unit_of_Measure_Code__Control1000000038">
+          <DataField>Inspection_Datasheet_Line__Unit_of_Measure_Code__Control1000000038</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line_Description_Control1000000043">
+          <DataField>Inspection_Datasheet_Line_Description_Control1000000043</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Sampling_Plan_Code__Control1000000045">
+          <DataField>Inspection_Datasheet_Line__Sampling_Plan_Code__Control1000000045</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Character_Code__Control1000000047">
+          <DataField>Inspection_Datasheet_Line__Character_Code__Control1000000047</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Actual_Value__Num__">
+          <DataField>Inspection_Datasheet_Line__Actual_Value__Num__</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Actual_Value__Num__Format">
+          <DataField>Inspection_Datasheet_Line__Actual_Value__Num__Format</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Actual__Value__Text__">
+          <DataField>Inspection_Datasheet_Line__Actual__Value__Text__</DataField>
+        </Field>
+        <Field Name="SampleNo1">
+          <DataField>SampleNo1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Text__Caption">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Text__Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Sampling_Plan_Code_Caption">
+          <DataField>Inspection_Datasheet_Line__Sampling_Plan_Code_Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Text__Caption">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Text__Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Text__Caption">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Text__Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line_DescriptionCaption">
+          <DataField>Inspection_Datasheet_Line_DescriptionCaption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Num__Caption">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Num__Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Num__Caption">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Num__Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Num__Caption">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Num__Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Unit_of_Measure_Code_Caption">
+          <DataField>Inspection_Datasheet_Line__Unit_of_Measure_Code_Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Character_Code_Caption">
+          <DataField>Inspection_Datasheet_Line__Character_Code_Caption</DataField>
+        </Field>
+        <Field Name="Actual_Value__Num__Caption">
+          <DataField>Actual_Value__Num__Caption</DataField>
+        </Field>
+        <Field Name="Actual__Value__Text__Caption">
+          <DataField>Actual__Value__Text__Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Text___Control1000000029Caption">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Text___Control1000000029Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Text___Control1000000031Caption">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Text___Control1000000031Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Text___Control1000000033Caption">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Text___Control1000000033Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Num___Control1000000036Caption">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Num___Control1000000036Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Num___Control1000000035Caption">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Num___Control1000000035Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Unit_of_Measure_Code__Control1000000038Caption">
+          <DataField>Inspection_Datasheet_Line__Unit_of_Measure_Code__Control1000000038Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Num___Control1000000037Caption">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Num___Control1000000037Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line_Description_Control1000000043Caption">
+          <DataField>Inspection_Datasheet_Line_Description_Control1000000043Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Sampling_Plan_Code__Control1000000045Caption">
+          <DataField>Inspection_Datasheet_Line__Sampling_Plan_Code__Control1000000045Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Character_Code__Control1000000047Caption">
+          <DataField>Inspection_Datasheet_Line__Character_Code__Control1000000047Caption</DataField>
+        </Field>
+        <Field Name="Actual_Value__Num_Caption">
+          <DataField>Actual_Value__Num_Caption</DataField>
+        </Field>
+        <Field Name="Actual__Value__Text_Caption">
+          <DataField>Actual__Value__Text_Caption</DataField>
+        </Field>
+        <Field Name="S_NoCaption">
+          <DataField>S_NoCaption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line_Document_No_">
+          <DataField>Inspection_Datasheet_Line_Document_No_</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line_Line_No_">
+          <DataField>Inspection_Datasheet_Line_Line_No_</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line_Character_Group_No_">
+          <DataField>Inspection_Datasheet_Line_Character_Group_No_</DataField>
+        </Field>
+        <Field Name="MinValueText_InspectionDataSheetLine">
+          <DataField>MinValueText_InspectionDataSheetLine</DataField>
+        </Field>
+        <Field Name="MaxValueText_InspectionDataSheetLine">
+          <DataField>MaxValueText_InspectionDataSheetLine</DataField>
+        </Field>
+        <Field Name="MinValueTextCaption">
+          <DataField>MinValueTextCaption</DataField>
+        </Field>
+        <Field Name="MaxValueTextCaption">
+          <DataField>MaxValueTextCaption</DataField>
+        </Field>
+        <Field Name="QualitativeValueTrue">
+          <DataField>QualitativeValueTrue</DataField>
+        </Field>
+        <Field Name="Qualitative_InspectionDataSheetLine1">
+          <DataField>Qualitative_InspectionDataSheetLine1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Text__1">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Text__1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Sampling_Plan_Code_1">
+          <DataField>Inspection_Datasheet_Line__Sampling_Plan_Code_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line_Description1">
+          <DataField>Inspection_Datasheet_Line_Description1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Num__1">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Num__1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Num__1Format">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Num__1Format</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Unit_of_Measure_Code_1">
+          <DataField>Inspection_Datasheet_Line__Unit_of_Measure_Code_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Character_Code_1">
+          <DataField>Inspection_Datasheet_Line__Character_Code_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Text__1">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Text__1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Num__1">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Num__1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Num__1Format">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Num__1Format</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Text__1">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Text__1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Num__1">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Num__1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Num__1Format">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Num__1Format</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Text___Control1000000029_1">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Text___Control1000000029_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Text___Control1000000031_1">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Text___Control1000000031_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Text___Control1000000033_1">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Text___Control1000000033_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Num___Control1000000035_1">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Num___Control1000000035_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Num___Control1000000035_1Format">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Num___Control1000000035_1Format</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Num___Control1000000036_1">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Num___Control1000000036_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Num___Control1000000036_1Format">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Num___Control1000000036_1Format</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Num___Control1000000037_1">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Num___Control1000000037_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Num___Control1000000037_1Format">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Num___Control1000000037_1Format</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Unit_of_Measure_Code__Control1000000038_1">
+          <DataField>Inspection_Datasheet_Line__Unit_of_Measure_Code__Control1000000038_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line_Description_Control1000000043_1">
+          <DataField>Inspection_Datasheet_Line_Description_Control1000000043_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Sampling_Plan_Code__Control1000000045_1">
+          <DataField>Inspection_Datasheet_Line__Sampling_Plan_Code__Control1000000045_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Character_Code__Control1000000047_1">
+          <DataField>Inspection_Datasheet_Line__Character_Code__Control1000000047_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Actual_Value__Num___1">
+          <DataField>Inspection_Datasheet_Line__Actual_Value__Num___1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Actual_Value__Num___1Format">
+          <DataField>Inspection_Datasheet_Line__Actual_Value__Num___1Format</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Actual__Value__Text___1">
+          <DataField>Inspection_Datasheet_Line__Actual__Value__Text___1</DataField>
+        </Field>
+        <Field Name="SampleNo1_1">
+          <DataField>SampleNo1_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Text__Caption_1">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Text__Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Sampling_Plan_Code_Caption_1">
+          <DataField>Inspection_Datasheet_Line__Sampling_Plan_Code_Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Text__Caption_1">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Text__Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Text__Caption_1">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Text__Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line_DescriptionCaption_1">
+          <DataField>Inspection_Datasheet_Line_DescriptionCaption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Num__Caption_1">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Num__Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Num__Caption_1">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Num__Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Num__Caption_1">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Num__Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Unit_of_Measure_Code_Caption_1">
+          <DataField>Inspection_Datasheet_Line__Unit_of_Measure_Code_Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Character_Code_Caption_1">
+          <DataField>Inspection_Datasheet_Line__Character_Code_Caption_1</DataField>
+        </Field>
+        <Field Name="Actual_Value__Num__Caption_1">
+          <DataField>Actual_Value__Num__Caption_1</DataField>
+        </Field>
+        <Field Name="Actual__Value__Text__Caption_1">
+          <DataField>Actual__Value__Text__Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Text___Control1000000029Caption_1">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Text___Control1000000029Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Text___Control1000000031Caption_1">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Text___Control1000000031Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Text___Control1000000033Caption_1">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Text___Control1000000033Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Num___Control1000000036Caption_1">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Num___Control1000000036Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Num___Control1000000035Caption_1">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Num___Control1000000035Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Unit_of_Measure_Code__Control1000000038Caption_1">
+          <DataField>Inspection_Datasheet_Line__Unit_of_Measure_Code__Control1000000038Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Num___Control1000000037Caption_1">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Num___Control1000000037Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line_Description_Control1000000043Caption_1">
+          <DataField>Inspection_Datasheet_Line_Description_Control1000000043Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Sampling_Plan_Code__Control1000000045Caption_1">
+          <DataField>Inspection_Datasheet_Line__Sampling_Plan_Code__Control1000000045Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Character_Code__Control1000000047Caption_1">
+          <DataField>Inspection_Datasheet_Line__Character_Code__Control1000000047Caption_1</DataField>
+        </Field>
+        <Field Name="Actual_Value__Num_Caption_1">
+          <DataField>Actual_Value__Num_Caption_1</DataField>
+        </Field>
+        <Field Name="Actual__Value__Text_Caption_1">
+          <DataField>Actual__Value__Text_Caption_1</DataField>
+        </Field>
+        <Field Name="S_NoCaption_1">
+          <DataField>S_NoCaption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line_Document_No__1">
+          <DataField>Inspection_Datasheet_Line_Document_No__1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line_Line_No__1">
+          <DataField>Inspection_Datasheet_Line_Line_No__1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line_Character_Group_No__1">
+          <DataField>Inspection_Datasheet_Line_Character_Group_No__1</DataField>
+        </Field>
+        <Field Name="MinValueText_InspectionDataSheetLine_1">
+          <DataField>MinValueText_InspectionDataSheetLine_1</DataField>
+        </Field>
+        <Field Name="MaxValueText_InspectionDataSheetLine_1">
+          <DataField>MaxValueText_InspectionDataSheetLine_1</DataField>
+        </Field>
+        <Field Name="MinValueTextCaption_1">
+          <DataField>MinValueTextCaption_1</DataField>
+        </Field>
+        <Field Name="MaxValueTextCaption_1">
+          <DataField>MaxValueTextCaption_1</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

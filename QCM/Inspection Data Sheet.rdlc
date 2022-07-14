@@ -1,0 +1,3785 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>72275285-97b6-4376-9ea4-efc8b5b2daed</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <ReportItems>
+          <Tablix Name="Table1">
+            <TablixBody>
+              <TablixColumns>
+                <TablixColumn>
+                  <Width>2.10414cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.52631cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>3.12176cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.10171cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.04791cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.99729cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.97083cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.0488cm</Width>
+                </TablixColumn>
+              </TablixColumns>
+              <TablixRows>
+                <TablixRow>
+                  <Height>0.07938cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="SetData">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Constant" />
+                                  <Style>
+                                    <FontSize>6pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Visibility>
+                            <Hidden>=Code.SetData(Cstr(Fields!InspectDataHeader__No__Caption.Value) + Chr(177) + Cstr(Fields!InspectDataHeader__No__.Value) + Chr(177) + Cstr(Fields!InspectDataHeader_DescriptionCaption.Value) + Chr(177) + Cstr(Fields!InspectDataHeader_Description.Value) + Chr(177) + Cstr(Fields!InspectDataHeader__Receipt_No__Caption.Value) + Chr(177) + Cstr(Fields!InspectDataHeader__Receipt_No__.Value) + Chr(177) + CStr(Fields!InspectDataHeader__Order_No__Caption.Value) + Chr(177) + Cstr(Fields!InspectDataHeader__Order_No__.Value) + Chr(177) + Cstr(Fields!InspectDataHeader__Posting_Date_Caption.Value) + Chr(177) + Cstr(Fields!InspectDataHeader__Posting_Date_.Value) + Chr(177) + Cstr(Fields!InspectDataHeader__Document_Date_Caption.Value) + Chr(177) + Cstr(Fields!InspectDataHeader__Document_Date_.Value) + Chr(177) + Cstr(Fields!InspectDataHeader__Spec_ID_Caption.Value) + Chr(177) + Cstr(Fields!InspectDataHeader__Spec_ID_.Value) + Chr(177) + Cstr(Fields!SourceTypeCaption.Value) + Chr(177) + Cstr(Fields!SourceType_InspectDataHeader.Value) + Chr(177) + Cstr(Fields!InspectDataHeader__Inspection_Group_Code_Caption.Value) + Chr(177) + Cstr(Fields!InspectDataHeader__Inspection_Group_Code_.Value) + Chr(177) + Cstr(Fields!InspectDataHeader__Vendor_No__Caption.Value) + Chr(177) + Cstr(Fields!InspectDataHeader__Vendor_No__.Value) + Chr(177) + Cstr(Fields!InspectDataHeader__Vendor_Name_Caption.Value) + Chr(177) + Cstr(Fields!InspectDataHeader__Vendor_Name_.Value) + Chr(177) + Cstr(Fields!InspectDataHeader_AddressCaption.Value) + Chr(177) + Cstr(Fields!InspectDataHeader_Address.Value) + Chr(177) + Cstr(Fields!InspectDataHeader__Item_No__Caption.Value) + Chr(177) + Cstr(Fields!InspectDataHeader__Item_No__.Value) + Chr(177) + Cstr(Fields!InspectDataHeader__Item_Description_Caption.Value) + Chr(177) + Cstr(Fields!InspectDataHeader__Item_Description_.Value) + Chr(177) + Cstr(Fields!InspectDataHeader_QuantityCaption.Value) + Chr(177) + Cstr(Fields!InspectDataHeader_Quantity.Value) + Chr(177) + Cstr(Fields!Inspection_Datasheet_Line__Sampling_Plan_Code__Control1000000045Caption.Value) + Chr(177) + Cstr(Fields!Inspection_Datasheet_Line__Sampling_Plan_Code_.Value),1)</Hidden>
+                          </Visibility>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox16">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto" />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox16</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>0.3cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox18">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto" />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox18</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>0.3cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox19">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto" />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox19</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>0.3cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox20">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto" />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox20</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox21">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto" />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox21</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox22">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto" />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox22</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox23">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto" />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox23</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.846cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="S_NoCaption5">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=First(Fields!S_NoCaption.Value)</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                            </RightBorder>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>0.3cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Inspection_Datasheet_Line__Character_Code__Control1000000047Caption5">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=First(Fields!Inspection_Datasheet_Line__Character_Code__Control1000000047Caption.Value)</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>0.3cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Inspection_Datasheet_Line_Description_Control1000000043Caption5">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=First(Fields!Inspection_Datasheet_Line_Description_Control1000000043Caption.Value)</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>0.3cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Inspection_Datasheet_Line__Unit_of_Measure_Code__Control1000000038Caption5">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=First(Fields!Inspection_Datasheet_Line__Unit_of_Measure_Code__Control1000000038Caption.Value)</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>0.3cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Inspection_Datasheet_Line__Normal_Value__Text___Control1000000033Caption4">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=First(Fields!Inspection_Datasheet_Line__Normal_Value__Text___Control1000000033Caption.Value)</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Inspection_Datasheet_Line__Min__Value__Text___Control1000000031Caption4">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=First(Fields!Inspection_Datasheet_Line__Min__Value__Text___Control1000000031Caption.Value)</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Inspection_Datasheet_Line__Max__Value__Text___Control1000000029Caption4">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=First(Fields!Inspection_Datasheet_Line__Max__Value__Text___Control1000000029Caption.Value)</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox267">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=First(Fields!Actual__Value__Text__Caption.Value)</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox260</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.25604cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox27">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto" />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox27</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                            </RightBorder>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>0.3cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox28">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto" />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox28</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>0.3cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox29">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto" />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox29</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>0.3cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox30">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto" />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox30</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>0.3cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox31">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto" />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox31</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>0.3cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox32">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto" />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox32</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>0.3cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox33">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto" />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox33</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>0.3cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox34">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto" />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox34</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>0.3cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.846cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="S_NoCaption6">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=First(Fields!S_NoCaption_1.Value)</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                            </RightBorder>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>0.3cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Inspection_Datasheet_Line__Character_Code__Control1000000047Caption6">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=First(Fields!Inspection_Datasheet_Line__Character_Code__Control1000000047Caption_1.Value)</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>0.3cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Inspection_Datasheet_Line_Description_Control1000000043Caption6">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=First(Fields!Inspection_Datasheet_Line_Description_Control1000000043Caption_1.Value)</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>0.3cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Inspection_Datasheet_Line__Unit_of_Measure_Code__Control1000000038Caption7">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=First(Fields!Inspection_Datasheet_Line__Unit_of_Measure_Code__Control1000000038Caption_1.Value)</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>0.3cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Inspection_Datasheet_Line__Normal_Value__Num___Control1000000035Caption4">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=First(Fields!Inspection_Datasheet_Line__Normal_Value__Num___Control1000000035Caption_1.Value)</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>0.3cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Inspection_Datasheet_Line__Min__Value__Num___Control1000000036Caption4">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=First(Fields!Inspection_Datasheet_Line__Min__Value__Num___Control1000000036Caption_1.Value)</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>0.3cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Inspection_Datasheet_Line__Max__Value__Num___Control1000000037Caption4">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=First(Fields!Inspection_Datasheet_Line__Max__Value__Num___Control1000000037Caption_1.Value)</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>0.3cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Actual_Value__Num_Caption4">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=First(Fields!Actual_Value__Num_Caption_1.Value)</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Actual_Value__Num_Caption</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>0.3cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.423cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="SampleNo">
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=Fields!SampleNo1_1.Value</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                            </RightBorder>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>0.3cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Inspection_Datasheet_Line__Character_Code__Control1000000047">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=First(Fields!Inspection_Datasheet_Line__Character_Code_1.Value)</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>0.3cm</PaddingLeft>
+                            <PaddingRight>0.9cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Inspection_Datasheet_Line_Description_Control1000000043">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=First(Fields!Inspection_Datasheet_Line_Description1.Value)</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>0.3cm</PaddingLeft>
+                            <PaddingRight>0.9cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Inspection_Datasheet_Line__Unit_of_Measure_Code__Control1000000038">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=First(Fields!Inspection_Datasheet_Line__Unit_of_Measure_Code_1.Value)</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>0.3cm</PaddingLeft>
+                            <PaddingRight>0.9cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Inspection_Datasheet_Line__Normal_Value__Num___Control1000000035">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=code.BlankNegAndZero(First(Fields!Inspection_Datasheet_Line__Normal_Value__Num__1.Value))</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <Format>=First(Fields!Inspection_Datasheet_Line__Normal_Value__Num___Control1000000035Format.Value)</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>0.9cm</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Inspection_Datasheet_Line__Min__Value__Num___Control1000000036">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=code.BlankNegAndZero(First(Fields!Inspection_Datasheet_Line__Min__Value__Num__1.Value))</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <Format>=First(Fields!Inspection_Datasheet_Line__Min__Value__Num___Control1000000036Format.Value)</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>0.9cm</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Inspection_Datasheet_Line__Max__Value__Num___Control1000000037">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=code.BlankNegAndZero(First(Fields!Inspection_Datasheet_Line__Max__Value__Num__1.Value))</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <Format>=First(Fields!Inspection_Datasheet_Line__Max__Value__Num___Control1000000037Format.Value)</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>0.9cm</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Inspection_Datasheet_Line__Actual_Value__Num__">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=code.BlankNegAndZero(FIRST(Fields!Inspection_Datasheet_Line__Actual_Value__Num___1.Value))</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Inspection_Datasheet_Line__Actual_Value__Num__</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>0.9cm</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.423cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="SampleNo3">
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=Fields!SampleNo1.Value</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                            </RightBorder>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>0.3cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Inspection_Datasheet_Line__Character_Code__Control149">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=First(Fields!Inspection_Datasheet_Line__Character_Code_.Value)</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>0.3cm</PaddingLeft>
+                            <PaddingRight>0.9cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Inspection_Datasheet_Line_Description_Control145">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=First(Fields!Inspection_Datasheet_Line_Description.Value)</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>0.3cm</PaddingLeft>
+                            <PaddingRight>0.9cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Inspection_Datasheet_Line_Description_Control147">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=First(Fields!Inspection_Datasheet_Line_Description.Value)</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>0.3cm</PaddingLeft>
+                            <PaddingRight>0.9cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Inspection_Datasheet_Line__Normal_Value__Text___Control135">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=First(Fields!Inspection_Datasheet_Line__Normal_Value__Text__.Value)</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Inspection_Datasheet_Line__Min__Value__Text___Control133">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=First(Fields!Inspection_Datasheet_Line__Min__Value__Text__.Value)</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Inspection_Datasheet_Line__Max__Value__Text___Control131">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=First(Fields!Inspection_Datasheet_Line__Max__Value__Text__.Value)</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox265">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=Fields!Inspection_Datasheet_Line__Actual__Value__Text__.Value</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox262</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+              </TablixRows>
+            </TablixBody>
+            <TablixColumnHierarchy>
+              <TablixMembers>
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+              </TablixMembers>
+            </TablixColumnHierarchy>
+            <TablixRowHierarchy>
+              <TablixMembers>
+                <TablixMember>
+                  <Group Name="InspectDataHeader__No__">
+                    <GroupExpressions>
+                      <GroupExpression>=Fields!InspectDataHeader__No__.Value</GroupExpression>
+                    </GroupExpressions>
+                    <PageBreak>
+                      <BreakLocation>Between</BreakLocation>
+                    </PageBreak>
+                  </Group>
+                  <SortExpressions>
+                    <SortExpression>
+                      <Value>=Fields!InspectDataHeader__No__.Value</Value>
+                    </SortExpression>
+                  </SortExpressions>
+                  <TablixMembers>
+                    <TablixMember>
+                      <KeepWithGroup>After</KeepWithGroup>
+                    </TablixMember>
+                    <TablixMember>
+                      <Group Name="QualitativeValueTrue">
+                        <GroupExpressions>
+                          <GroupExpression>=Fields!QualitativeValueTrue.Value</GroupExpression>
+                        </GroupExpressions>
+                      </Group>
+                      <TablixMembers>
+                        <TablixMember>
+                          <Visibility>
+                            <Hidden>=IIF(Fields!QualitativeValueTrue.Value = "True",FALSE,TRUE)</Hidden>
+                          </Visibility>
+                        </TablixMember>
+                        <TablixMember>
+                          <Visibility>
+                            <Hidden>=IIF(Fields!QualitativeValueTrue.Value &lt;&gt; "True",FALSE,TRUE)</Hidden>
+                          </Visibility>
+                          <KeepWithGroup>After</KeepWithGroup>
+                        </TablixMember>
+                        <TablixMember>
+                          <Visibility>
+                            <Hidden>=IIF(Fields!QualitativeValueTrue.Value &lt;&gt; "True",FALSE,TRUE)</Hidden>
+                          </Visibility>
+                          <KeepWithGroup>After</KeepWithGroup>
+                        </TablixMember>
+                        <TablixMember>
+                          <Group Name="Table1_Group" />
+                          <TablixMembers>
+                            <TablixMember>
+                              <Visibility>
+                                <Hidden>=IIF((Fields!QualitativeValueTrue.Value &lt;&gt;"True") and(Fields!Inspection_Datasheet_Line__Character_Code_1.Value &lt;&gt; "") ,FALSE,TRUE)</Hidden>
+                              </Visibility>
+                              <KeepTogether>true</KeepTogether>
+                            </TablixMember>
+                            <TablixMember>
+                              <Visibility>
+                                <Hidden>=IIF((Fields!QualitativeValueTrue.Value = "True") And(Fields!Inspection_Datasheet_Line__Character_Code_.Value &lt;&gt; ""),FALSE,TRUE)</Hidden>
+                              </Visibility>
+                            </TablixMember>
+                          </TablixMembers>
+                        </TablixMember>
+                      </TablixMembers>
+                    </TablixMember>
+                  </TablixMembers>
+                </TablixMember>
+              </TablixMembers>
+            </TablixRowHierarchy>
+            <DataSetName>DataSet_Result</DataSetName>
+            <Top>0.17696in</Top>
+            <Left>0.11658in</Left>
+            <Height>2.87342cm</Height>
+            <Width>17.91875cm</Width>
+            <Style />
+          </Tablix>
+        </ReportItems>
+        <Height>3.3229cm</Height>
+        <Style>
+          <Border>
+            <Style>None</Style>
+            <Width>2pt</Width>
+          </Border>
+          <BottomBorder>
+            <Style>Solid</Style>
+          </BottomBorder>
+          <LeftBorder>
+            <Style>Solid</Style>
+          </LeftBorder>
+          <RightBorder>
+            <Style>Solid</Style>
+          </RightBorder>
+        </Style>
+      </Body>
+      <Width>18.3207cm</Width>
+      <Page>
+        <PageHeader>
+          <Height>6.62219cm</Height>
+          <PrintOnFirstPage>true</PrintOnFirstPage>
+          <PrintOnLastPage>true</PrintOnLastPage>
+          <ReportItems>
+            <Textbox Name="Inspection_Data_SheetCaption1">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=First(Fields!Inspection_Data_SheetCaption.Value, "DataSet_Result")</Value>
+                      <Style>
+                        <FontSize>14pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>0.70153in</Top>
+              <Left>2.3114in</Left>
+              <Height>0.63467cm</Height>
+              <Width>7.5cm</Width>
+              <Style>
+                <VerticalAlign>Middle</VerticalAlign>
+              </Style>
+            </Textbox>
+            <Textbox Name="COMPANYNAME1">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=First(Fields!COMPANYNAME.Value, "DataSet_Result")</Value>
+                      <Style>
+                        <FontSize>7pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <Top>1.5cm</Top>
+              <Left>0.08223in</Left>
+              <Height>0.423cm</Height>
+              <Width>7.5cm</Width>
+              <ZIndex>1</ZIndex>
+              <Style>
+                <VerticalAlign>Middle</VerticalAlign>
+              </Style>
+            </Textbox>
+            <Textbox Name="ExecutionTimeTextBox">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Globals!ExecutionTime</Value>
+                      <Style>
+                        <FontSize>7pt</FontSize>
+                        <Format>MMM d, yyyy</Format>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Right</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>0.01763in</Top>
+              <Left>14.05299cm</Left>
+              <Height>0.423cm</Height>
+              <Width>4.04958cm</Width>
+              <ZIndex>2</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <VerticalAlign>Middle</VerticalAlign>
+              </Style>
+            </Textbox>
+            <Textbox Name="UserIdTextBox">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=User!UserID</Value>
+                      <Style>
+                        <FontSize>7pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Right</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>0.46779cm</Top>
+              <Left>13.07601cm</Left>
+              <Height>0.423cm</Height>
+              <Width>5.02656cm</Width>
+              <ZIndex>3</ZIndex>
+              <Style>
+                <VerticalAlign>Middle</VerticalAlign>
+              </Style>
+            </Textbox>
+            <Textbox Name="InspectDataHeader__No__Caption">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(1,1)</Value>
+                      <Style>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <Top>1.22276in</Top>
+              <Left>0.10616in</Left>
+              <Height>0.16654in</Height>
+              <Width>0.8284in</Width>
+              <ZIndex>4</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <LeftBorder>
+                  <Style>Solid</Style>
+                </LeftBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>1pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="InspectDataHeader__No__">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(2,1)</Value>
+                      <Style />
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>1.22276in</Top>
+              <Left>0.93456in</Left>
+              <Height>0.16654in</Height>
+              <Width>1.28627in</Width>
+              <ZIndex>5</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <LeftBorder>
+                  <Width>3pt</Width>
+                </LeftBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>2pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="InspectDataHeader__Inspection_Group_Code_Caption">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(17,1)</Value>
+                      <Style>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <Top>1.22276in</Top>
+              <Left>2.22083in</Left>
+              <Height>0.16654in</Height>
+              <Width>1.24293in</Width>
+              <ZIndex>6</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>1pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="InspectDataHeader__Inspection_Group_Code_">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(18,1)</Value>
+                      <Style />
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <Top>1.22276in</Top>
+              <Left>3.46376in</Left>
+              <Height>0.16654in</Height>
+              <Width>1.17886in</Width>
+              <ZIndex>7</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>2pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="InspectDataHeader_DescriptionCaption">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(3,1)</Value>
+                      <Style>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>1.3893in</Top>
+              <Left>0.10616in</Left>
+              <Height>0.16654in</Height>
+              <Width>0.8284in</Width>
+              <ZIndex>8</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <LeftBorder>
+                  <Style>Solid</Style>
+                </LeftBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>1pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="InspectDataHeader_Description">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(4,1)</Value>
+                      <Style />
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>1.3893in</Top>
+              <Left>0.93456in</Left>
+              <Height>0.16654in</Height>
+              <Width>1.28628in</Width>
+              <ZIndex>9</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <LeftBorder>
+                  <Width>3pt</Width>
+                </LeftBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>2pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="InspectDataHeader__Vendor_No__Caption">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(19,1)</Value>
+                      <Style>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>1.3893in</Top>
+              <Left>2.22083in</Left>
+              <Height>0.16654in</Height>
+              <Width>1.24293in</Width>
+              <ZIndex>10</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>1pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="InspectDataHeader__Vendor_No__">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(20,1)</Value>
+                      <Style />
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>1.3893in</Top>
+              <Left>3.46376in</Left>
+              <Height>0.16654in</Height>
+              <Width>1.17886in</Width>
+              <ZIndex>11</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>2pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="InspectDataHeader__Receipt_No__Caption">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(5,1)</Value>
+                      <Style>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>1.55584in</Top>
+              <Left>0.10616in</Left>
+              <Height>0.16654in</Height>
+              <Width>0.8284in</Width>
+              <ZIndex>12</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <LeftBorder>
+                  <Style>Solid</Style>
+                </LeftBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>1pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="InspectDataHeader__Receipt_No__">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(6,1)</Value>
+                      <Style />
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>1.55584in</Top>
+              <Left>0.93803in</Left>
+              <Height>0.16654in</Height>
+              <Width>1.28281in</Width>
+              <ZIndex>13</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <LeftBorder>
+                  <Width>3pt</Width>
+                </LeftBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>2pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="InspectDataHeader__Vendor_Name_Caption">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(21,1)</Value>
+                      <Style>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>1.55584in</Top>
+              <Left>2.22084in</Left>
+              <Height>0.16654in</Height>
+              <Width>1.24292in</Width>
+              <ZIndex>14</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>1pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="InspectDataHeader__Vendor_Name_">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(22,1)</Value>
+                      <Style />
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>1.55584in</Top>
+              <Left>3.46376in</Left>
+              <Height>0.16654in</Height>
+              <Width>1.17886in</Width>
+              <ZIndex>15</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>2pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="InspectDataHeader__Order_No__Caption">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(7,1)</Value>
+                      <Style>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>1.72238in</Top>
+              <Left>0.10616in</Left>
+              <Height>0.16654in</Height>
+              <Width>0.83187in</Width>
+              <ZIndex>16</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <LeftBorder>
+                  <Style>Solid</Style>
+                </LeftBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>1pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="InspectDataHeader__Order_No__">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(8,1)</Value>
+                      <Style />
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>1.72238in</Top>
+              <Left>0.93803in</Left>
+              <Height>0.16654in</Height>
+              <Width>1.28281in</Width>
+              <ZIndex>17</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <LeftBorder>
+                  <Width>3pt</Width>
+                </LeftBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>2pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="InspectDataHeader_AddressCaption">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(23,1)</Value>
+                      <Style>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>1.72238in</Top>
+              <Left>2.22084in</Left>
+              <Height>0.16654in</Height>
+              <Width>1.24292in</Width>
+              <ZIndex>18</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>1pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="InspectDataHeader_Address">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(24,1)</Value>
+                      <Style />
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>1.72238in</Top>
+              <Left>3.46376in</Left>
+              <Height>0.16654in</Height>
+              <Width>1.17886in</Width>
+              <ZIndex>19</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>2pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="InspectDataHeader__Posting_Date_Caption">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(9,1)</Value>
+                      <Style>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>1.22276in</Top>
+              <Left>4.64262in</Left>
+              <Height>0.16654in</Height>
+              <Width>0.98812in</Width>
+              <ZIndex>20</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <LeftBorder>
+                  <Style>Solid</Style>
+                </LeftBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>1pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="InspectDataHeader__Posting_Date_">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(10,1)</Value>
+                      <Style />
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>1.22276in</Top>
+              <Left>5.63074in</Left>
+              <Height>0.16654in</Height>
+              <Width>1.54047in</Width>
+              <ZIndex>21</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <LeftBorder>
+                  <Width>3pt</Width>
+                </LeftBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>2pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="InspectDataHeader__Item_No__Caption">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(25,1)</Value>
+                      <Style>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <Top>1.3893in</Top>
+              <Left>4.64262in</Left>
+              <Height>0.16654in</Height>
+              <Width>0.98812in</Width>
+              <ZIndex>22</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>1pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="InspectDataHeader__Item_No__">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(26,1)</Value>
+                      <Style />
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <Top>1.3893in</Top>
+              <Left>5.63074in</Left>
+              <Height>0.16654in</Height>
+              <Width>1.54047in</Width>
+              <ZIndex>23</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>2pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="InspectDataHeader__Document_Date_Caption">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(11,1)</Value>
+                      <Style>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>1.88892in</Top>
+              <Left>2.21736in</Left>
+              <Height>0.16654in</Height>
+              <Width>1.2464in</Width>
+              <ZIndex>24</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <LeftBorder>
+                  <Style>Solid</Style>
+                </LeftBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>1pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="InspectDataHeader__Document_Date_">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(12,1)</Value>
+                      <Style />
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>1.88892in</Top>
+              <Left>3.46376in</Left>
+              <Height>0.16654in</Height>
+              <Width>1.17886in</Width>
+              <ZIndex>25</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <LeftBorder>
+                  <Width>3pt</Width>
+                </LeftBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>2pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="InspectDataHeader__Item_Description_Caption">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(27,1)</Value>
+                      <Style>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <Top>1.55584in</Top>
+              <Left>4.64262in</Left>
+              <Height>0.16654in</Height>
+              <Width>0.99159in</Width>
+              <ZIndex>26</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>1pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="InspectDataHeader__Item_Description_">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(28,1)</Value>
+                      <Style />
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <Top>1.55584in</Top>
+              <Left>5.64463in</Left>
+              <Height>0.16654in</Height>
+              <Width>1.52658in</Width>
+              <ZIndex>27</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>2pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="InspectDataHeader__Spec_ID_Caption">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(13,1)</Value>
+                      <Style>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <Top>1.88892in</Top>
+              <Left>0.10616in</Left>
+              <Height>0.16654in</Height>
+              <Width>0.83187in</Width>
+              <ZIndex>28</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <LeftBorder>
+                  <Style>Solid</Style>
+                </LeftBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>1pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="InspectDataHeader__Spec_ID_">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(14,1)</Value>
+                      <Style />
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <Top>1.88892in</Top>
+              <Left>0.93803in</Left>
+              <Height>0.16654in</Height>
+              <Width>1.27933in</Width>
+              <ZIndex>29</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <LeftBorder>
+                  <Width>3pt</Width>
+                </LeftBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>2pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="InspectDataHeader_QuantityCaption">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(29,1)</Value>
+                      <Style>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <Top>1.72238in</Top>
+              <Left>4.64262in</Left>
+              <Height>0.16654in</Height>
+              <Width>0.99159in</Width>
+              <ZIndex>30</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>1pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="InspectDataHeader_Quantity">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(30,1)</Value>
+                      <Style>
+                        <Format>f2</Format>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>1.72238in</Top>
+              <Left>5.64463in</Left>
+              <Height>0.16654in</Height>
+              <Width>1.52658in</Width>
+              <ZIndex>31</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>2pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox46">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(15,1)</Value>
+                      <Style>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox46</rd:DefaultName>
+              <Top>1.88892in</Top>
+              <Left>4.64262in</Left>
+              <Height>0.16654in</Height>
+              <Width>0.98812in</Width>
+              <ZIndex>32</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <LeftBorder>
+                  <Style>Solid</Style>
+                </LeftBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>1pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox47">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(16,1)</Value>
+                      <Style />
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox47</rd:DefaultName>
+              <Top>1.88892in</Top>
+              <Left>5.63074in</Left>
+              <Height>0.16654in</Height>
+              <Width>1.54047in</Width>
+              <ZIndex>33</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <LeftBorder>
+                  <Width>3pt</Width>
+                </LeftBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>2pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="Inspection_Datasheet_Line__Sampling_Plan_Code__Control1000000045Caption">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(31,1)</Value>
+                      <Style>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <Top>2.05546in</Top>
+              <Left>0.10616in</Left>
+              <Height>0.16654in</Height>
+              <Width>0.8284in</Width>
+              <ZIndex>34</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <LeftBorder>
+                  <Style>Solid</Style>
+                </LeftBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>1pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Textbox Name="Inspection_Datasheet_Line__Sampling_Plan_Code__Control1000000045">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=Code.GetData(32,1)</Value>
+                      <Style />
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>2.05546in</Top>
+              <Left>0.93456in</Left>
+              <Height>0.16654in</Height>
+              <Width>1.2828in</Width>
+              <ZIndex>35</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Style>Solid</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                </BottomBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                </RightBorder>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>2pt</PaddingLeft>
+              </Style>
+            </Textbox>
+            <Image Name="Image1">
+              <Source>Database</Source>
+              <Value>=First(Fields!Picture_CompanyInfo.Value, "DataSet_Result")</Value>
+              <MIMEType>image/bmp</MIMEType>
+              <Sizing>FitProportional</Sizing>
+              <Top>0cm</Top>
+              <Left>0.20887cm</Left>
+              <Height>1.5cm</Height>
+              <Width>5.31233cm</Width>
+              <ZIndex>36</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+              </Style>
+            </Image>
+          </ReportItems>
+          <Style>
+            <Border>
+              <Style>None</Style>
+              <Width>2pt</Width>
+            </Border>
+            <TopBorder>
+              <Style>Solid</Style>
+            </TopBorder>
+            <LeftBorder>
+              <Style>Solid</Style>
+            </LeftBorder>
+            <RightBorder>
+              <Style>Solid</Style>
+            </RightBorder>
+          </Style>
+        </PageHeader>
+        <PageHeight>29.7cm</PageHeight>
+        <PageWidth>21cm</PageWidth>
+        <LeftMargin>1cm</LeftMargin>
+        <RightMargin>0.5cm</RightMargin>
+        <TopMargin>1cm</TopMargin>
+        <BottomMargin>2cm</BottomMargin>
+        <Style>
+          <Border>
+            <Style>Solid</Style>
+            <Width>3pt</Width>
+          </Border>
+        </Style>
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Shared Data1 as Object
+
+Public Function GetData(Num as Integer, Group as integer) as Object
+if Group = 1 then
+   Return Cstr(Choose(Num, Split(Cstr(Data1),Chr(177))))
+End If
+
+End Function
+
+Public Function SetData(NewData as Object,Group as integer)
+  If Group = 1 and NewData &lt;&gt; "" Then
+      Data1 = NewData
+  End If
+  Return True
+
+End Function</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>ed669e8b-f717-4651-b9cc-092c3c1da65d</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Picture_CompanyInfo">
+          <DataField>Picture_CompanyInfo</DataField>
+        </Field>
+        <Field Name="USERID">
+          <DataField>USERID</DataField>
+        </Field>
+        <Field Name="COMPANYNAME">
+          <DataField>COMPANYNAME</DataField>
+        </Field>
+        <Field Name="FORMAT_TODAY_0_4_">
+          <DataField>FORMAT_TODAY_0_4_</DataField>
+        </Field>
+        <Field Name="InspectDataHeader_Quantity">
+          <DataField>InspectDataHeader_Quantity</DataField>
+        </Field>
+        <Field Name="InspectDataHeader_QuantityFormat">
+          <DataField>InspectDataHeader_QuantityFormat</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Item_Description_">
+          <DataField>InspectDataHeader__Item_Description_</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Item_No__">
+          <DataField>InspectDataHeader__Item_No__</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Order_No__">
+          <DataField>InspectDataHeader__Order_No__</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Posting_Date_">
+          <DataField>InspectDataHeader__Posting_Date_</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Document_Date_">
+          <DataField>InspectDataHeader__Document_Date_</DataField>
+        </Field>
+        <Field Name="InspectDataHeader_Address">
+          <DataField>InspectDataHeader_Address</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Spec_ID_">
+          <DataField>InspectDataHeader__Spec_ID_</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Receipt_No__">
+          <DataField>InspectDataHeader__Receipt_No__</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Vendor_Name_">
+          <DataField>InspectDataHeader__Vendor_Name_</DataField>
+        </Field>
+        <Field Name="InspectDataHeader_Description">
+          <DataField>InspectDataHeader_Description</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Vendor_No__">
+          <DataField>InspectDataHeader__Vendor_No__</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__No__">
+          <DataField>InspectDataHeader__No__</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Inspection_Group_Code_">
+          <DataField>InspectDataHeader__Inspection_Group_Code_</DataField>
+        </Field>
+        <Field Name="SourceType_InspectDataHeader">
+          <DataField>SourceType_InspectDataHeader</DataField>
+        </Field>
+        <Field Name="Inspection_Data_SheetCaption">
+          <DataField>Inspection_Data_SheetCaption</DataField>
+        </Field>
+        <Field Name="InspectDataHeader_QuantityCaption">
+          <DataField>InspectDataHeader_QuantityCaption</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Item_Description_Caption">
+          <DataField>InspectDataHeader__Item_Description_Caption</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Item_No__Caption">
+          <DataField>InspectDataHeader__Item_No__Caption</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Order_No__Caption">
+          <DataField>InspectDataHeader__Order_No__Caption</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Posting_Date_Caption">
+          <DataField>InspectDataHeader__Posting_Date_Caption</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Document_Date_Caption">
+          <DataField>InspectDataHeader__Document_Date_Caption</DataField>
+        </Field>
+        <Field Name="InspectDataHeader_AddressCaption">
+          <DataField>InspectDataHeader_AddressCaption</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Spec_ID_Caption">
+          <DataField>InspectDataHeader__Spec_ID_Caption</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Receipt_No__Caption">
+          <DataField>InspectDataHeader__Receipt_No__Caption</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Vendor_Name_Caption">
+          <DataField>InspectDataHeader__Vendor_Name_Caption</DataField>
+        </Field>
+        <Field Name="InspectDataHeader_DescriptionCaption">
+          <DataField>InspectDataHeader_DescriptionCaption</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Vendor_No__Caption">
+          <DataField>InspectDataHeader__Vendor_No__Caption</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__No__Caption">
+          <DataField>InspectDataHeader__No__Caption</DataField>
+        </Field>
+        <Field Name="InspectDataHeader__Inspection_Group_Code_Caption">
+          <DataField>InspectDataHeader__Inspection_Group_Code_Caption</DataField>
+        </Field>
+        <Field Name="SourceTypeCaption">
+          <DataField>SourceTypeCaption</DataField>
+        </Field>
+        <Field Name="Qualitative_InspectionDataSheetLine">
+          <DataField>Qualitative_InspectionDataSheetLine</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Text__">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Text__</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Sampling_Plan_Code_">
+          <DataField>Inspection_Datasheet_Line__Sampling_Plan_Code_</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line_Description">
+          <DataField>Inspection_Datasheet_Line_Description</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Num__">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Num__</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Num__Format">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Num__Format</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Unit_of_Measure_Code_">
+          <DataField>Inspection_Datasheet_Line__Unit_of_Measure_Code_</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Character_Code_">
+          <DataField>Inspection_Datasheet_Line__Character_Code_</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Text__">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Text__</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Num__">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Num__</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Num__Format">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Num__Format</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Text__">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Text__</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Num__">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Num__</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Num__Format">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Num__Format</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Text___Control1000000029">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Text___Control1000000029</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Text___Control1000000031">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Text___Control1000000031</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Text___Control1000000033">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Text___Control1000000033</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Num___Control1000000035">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Num___Control1000000035</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Num___Control1000000035Format">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Num___Control1000000035Format</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Num___Control1000000036">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Num___Control1000000036</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Num___Control1000000036Format">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Num___Control1000000036Format</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Num___Control1000000037">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Num___Control1000000037</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Num___Control1000000037Format">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Num___Control1000000037Format</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Unit_of_Measure_Code__Control1000000038">
+          <DataField>Inspection_Datasheet_Line__Unit_of_Measure_Code__Control1000000038</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line_Description_Control1000000043">
+          <DataField>Inspection_Datasheet_Line_Description_Control1000000043</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Sampling_Plan_Code__Control1000000045">
+          <DataField>Inspection_Datasheet_Line__Sampling_Plan_Code__Control1000000045</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Character_Code__Control1000000047">
+          <DataField>Inspection_Datasheet_Line__Character_Code__Control1000000047</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Actual_Value__Num__">
+          <DataField>Inspection_Datasheet_Line__Actual_Value__Num__</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Actual_Value__Num__Format">
+          <DataField>Inspection_Datasheet_Line__Actual_Value__Num__Format</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Actual__Value__Text__">
+          <DataField>Inspection_Datasheet_Line__Actual__Value__Text__</DataField>
+        </Field>
+        <Field Name="SampleNo1">
+          <DataField>SampleNo1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Text__Caption">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Text__Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Sampling_Plan_Code_Caption">
+          <DataField>Inspection_Datasheet_Line__Sampling_Plan_Code_Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Text__Caption">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Text__Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Text__Caption">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Text__Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line_DescriptionCaption">
+          <DataField>Inspection_Datasheet_Line_DescriptionCaption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Num__Caption">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Num__Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Num__Caption">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Num__Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Num__Caption">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Num__Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Unit_of_Measure_Code_Caption">
+          <DataField>Inspection_Datasheet_Line__Unit_of_Measure_Code_Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Character_Code_Caption">
+          <DataField>Inspection_Datasheet_Line__Character_Code_Caption</DataField>
+        </Field>
+        <Field Name="Actual_Value__Num__Caption">
+          <DataField>Actual_Value__Num__Caption</DataField>
+        </Field>
+        <Field Name="Actual__Value__Text__Caption">
+          <DataField>Actual__Value__Text__Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Text___Control1000000029Caption">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Text___Control1000000029Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Text___Control1000000031Caption">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Text___Control1000000031Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Text___Control1000000033Caption">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Text___Control1000000033Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Num___Control1000000036Caption">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Num___Control1000000036Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Num___Control1000000035Caption">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Num___Control1000000035Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Unit_of_Measure_Code__Control1000000038Caption">
+          <DataField>Inspection_Datasheet_Line__Unit_of_Measure_Code__Control1000000038Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Num___Control1000000037Caption">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Num___Control1000000037Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line_Description_Control1000000043Caption">
+          <DataField>Inspection_Datasheet_Line_Description_Control1000000043Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Sampling_Plan_Code__Control1000000045Caption">
+          <DataField>Inspection_Datasheet_Line__Sampling_Plan_Code__Control1000000045Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Character_Code__Control1000000047Caption">
+          <DataField>Inspection_Datasheet_Line__Character_Code__Control1000000047Caption</DataField>
+        </Field>
+        <Field Name="Actual_Value__Num_Caption">
+          <DataField>Actual_Value__Num_Caption</DataField>
+        </Field>
+        <Field Name="Actual__Value__Text_Caption">
+          <DataField>Actual__Value__Text_Caption</DataField>
+        </Field>
+        <Field Name="S_NoCaption">
+          <DataField>S_NoCaption</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line_Document_No_">
+          <DataField>Inspection_Datasheet_Line_Document_No_</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line_Line_No_">
+          <DataField>Inspection_Datasheet_Line_Line_No_</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line_Character_Group_No_">
+          <DataField>Inspection_Datasheet_Line_Character_Group_No_</DataField>
+        </Field>
+        <Field Name="MinValueText_InspectionDataSheetLine">
+          <DataField>MinValueText_InspectionDataSheetLine</DataField>
+        </Field>
+        <Field Name="MaxValueText_InspectionDataSheetLine">
+          <DataField>MaxValueText_InspectionDataSheetLine</DataField>
+        </Field>
+        <Field Name="MinValueTextCaption">
+          <DataField>MinValueTextCaption</DataField>
+        </Field>
+        <Field Name="MaxValueTextCaption">
+          <DataField>MaxValueTextCaption</DataField>
+        </Field>
+        <Field Name="QualitativeValueTrue">
+          <DataField>QualitativeValueTrue</DataField>
+        </Field>
+        <Field Name="Qualitative_InspectionDataSheetLine1">
+          <DataField>Qualitative_InspectionDataSheetLine1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Text__1">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Text__1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Sampling_Plan_Code_1">
+          <DataField>Inspection_Datasheet_Line__Sampling_Plan_Code_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line_Description1">
+          <DataField>Inspection_Datasheet_Line_Description1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Num__1">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Num__1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Num__1Format">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Num__1Format</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Unit_of_Measure_Code_1">
+          <DataField>Inspection_Datasheet_Line__Unit_of_Measure_Code_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Character_Code_1">
+          <DataField>Inspection_Datasheet_Line__Character_Code_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Text__1">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Text__1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Num__1">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Num__1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Num__1Format">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Num__1Format</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Text__1">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Text__1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Num__1">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Num__1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Num__1Format">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Num__1Format</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Text___Control1000000029_1">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Text___Control1000000029_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Text___Control1000000031_1">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Text___Control1000000031_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Text___Control1000000033_1">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Text___Control1000000033_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Num___Control1000000035_1">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Num___Control1000000035_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Num___Control1000000035_1Format">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Num___Control1000000035_1Format</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Num___Control1000000036_1">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Num___Control1000000036_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Num___Control1000000036_1Format">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Num___Control1000000036_1Format</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Num___Control1000000037_1">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Num___Control1000000037_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Num___Control1000000037_1Format">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Num___Control1000000037_1Format</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Unit_of_Measure_Code__Control1000000038_1">
+          <DataField>Inspection_Datasheet_Line__Unit_of_Measure_Code__Control1000000038_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line_Description_Control1000000043_1">
+          <DataField>Inspection_Datasheet_Line_Description_Control1000000043_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Sampling_Plan_Code__Control1000000045_1">
+          <DataField>Inspection_Datasheet_Line__Sampling_Plan_Code__Control1000000045_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Character_Code__Control1000000047_1">
+          <DataField>Inspection_Datasheet_Line__Character_Code__Control1000000047_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Actual_Value__Num___1">
+          <DataField>Inspection_Datasheet_Line__Actual_Value__Num___1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Actual_Value__Num___1Format">
+          <DataField>Inspection_Datasheet_Line__Actual_Value__Num___1Format</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Actual__Value__Text___1">
+          <DataField>Inspection_Datasheet_Line__Actual__Value__Text___1</DataField>
+        </Field>
+        <Field Name="SampleNo1_1">
+          <DataField>SampleNo1_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Text__Caption_1">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Text__Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Sampling_Plan_Code_Caption_1">
+          <DataField>Inspection_Datasheet_Line__Sampling_Plan_Code_Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Text__Caption_1">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Text__Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Text__Caption_1">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Text__Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line_DescriptionCaption_1">
+          <DataField>Inspection_Datasheet_Line_DescriptionCaption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Num__Caption_1">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Num__Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Num__Caption_1">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Num__Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Num__Caption_1">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Num__Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Unit_of_Measure_Code_Caption_1">
+          <DataField>Inspection_Datasheet_Line__Unit_of_Measure_Code_Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Character_Code_Caption_1">
+          <DataField>Inspection_Datasheet_Line__Character_Code_Caption_1</DataField>
+        </Field>
+        <Field Name="Actual_Value__Num__Caption_1">
+          <DataField>Actual_Value__Num__Caption_1</DataField>
+        </Field>
+        <Field Name="Actual__Value__Text__Caption_1">
+          <DataField>Actual__Value__Text__Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Text___Control1000000029Caption_1">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Text___Control1000000029Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Text___Control1000000031Caption_1">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Text___Control1000000031Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Text___Control1000000033Caption_1">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Text___Control1000000033Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Min__Value__Num___Control1000000036Caption_1">
+          <DataField>Inspection_Datasheet_Line__Min__Value__Num___Control1000000036Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Normal_Value__Num___Control1000000035Caption_1">
+          <DataField>Inspection_Datasheet_Line__Normal_Value__Num___Control1000000035Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Unit_of_Measure_Code__Control1000000038Caption_1">
+          <DataField>Inspection_Datasheet_Line__Unit_of_Measure_Code__Control1000000038Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Max__Value__Num___Control1000000037Caption_1">
+          <DataField>Inspection_Datasheet_Line__Max__Value__Num___Control1000000037Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line_Description_Control1000000043Caption_1">
+          <DataField>Inspection_Datasheet_Line_Description_Control1000000043Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Sampling_Plan_Code__Control1000000045Caption_1">
+          <DataField>Inspection_Datasheet_Line__Sampling_Plan_Code__Control1000000045Caption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line__Character_Code__Control1000000047Caption_1">
+          <DataField>Inspection_Datasheet_Line__Character_Code__Control1000000047Caption_1</DataField>
+        </Field>
+        <Field Name="Actual_Value__Num_Caption_1">
+          <DataField>Actual_Value__Num_Caption_1</DataField>
+        </Field>
+        <Field Name="Actual__Value__Text_Caption_1">
+          <DataField>Actual__Value__Text_Caption_1</DataField>
+        </Field>
+        <Field Name="S_NoCaption_1">
+          <DataField>S_NoCaption_1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line_Document_No__1">
+          <DataField>Inspection_Datasheet_Line_Document_No__1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line_Line_No__1">
+          <DataField>Inspection_Datasheet_Line_Line_No__1</DataField>
+        </Field>
+        <Field Name="Inspection_Datasheet_Line_Character_Group_No__1">
+          <DataField>Inspection_Datasheet_Line_Character_Group_No__1</DataField>
+        </Field>
+        <Field Name="MinValueText_InspectionDataSheetLine_1">
+          <DataField>MinValueText_InspectionDataSheetLine_1</DataField>
+        </Field>
+        <Field Name="MaxValueText_InspectionDataSheetLine_1">
+          <DataField>MaxValueText_InspectionDataSheetLine_1</DataField>
+        </Field>
+        <Field Name="MinValueTextCaption_1">
+          <DataField>MinValueTextCaption_1</DataField>
+        </Field>
+        <Field Name="MaxValueTextCaption_1">
+          <DataField>MaxValueTextCaption_1</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

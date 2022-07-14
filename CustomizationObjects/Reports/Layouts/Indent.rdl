@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="CompanyInformationPicture">
+          <DataField>CompanyInformationPicture</DataField>
+        </Field>
+        <Field Name="CompanyInformationName">
+          <DataField>CompanyInformationName</DataField>
+        </Field>
+        <Field Name="IndentNoCaptionLbl">
+          <DataField>IndentNoCaptionLbl</DataField>
+        </Field>
+        <Field Name="IndentDateCaptionLbl">
+          <DataField>IndentDateCaptionLbl</DataField>
+        </Field>
+        <Field Name="DescriptionCaptionLbl">
+          <DataField>DescriptionCaptionLbl</DataField>
+        </Field>
+        <Field Name="DeliveryLocationCaptionLbl">
+          <DataField>DeliveryLocationCaptionLbl</DataField>
+        </Field>
+        <Field Name="SentForAuthorizationCaptionLbl">
+          <DataField>SentForAuthorizationCaptionLbl</DataField>
+        </Field>
+        <Field Name="IndentorCaptionLbl">
+          <DataField>IndentorCaptionLbl</DataField>
+        </Field>
+        <Field Name="TypeCaptionLbl">
+          <DataField>TypeCaptionLbl</DataField>
+        </Field>
+        <Field Name="NoCaptionLbl">
+          <DataField>NoCaptionLbl</DataField>
+        </Field>
+        <Field Name="UOMCaptionLbl">
+          <DataField>UOMCaptionLbl</DataField>
+        </Field>
+        <Field Name="IndentStatusCaptionLbl">
+          <DataField>IndentStatusCaptionLbl</DataField>
+        </Field>
+        <Field Name="DepartmentCaptionLbl">
+          <DataField>DepartmentCaptionLbl</DataField>
+        </Field>
+        <Field Name="QuantityCaptionLbl">
+          <DataField>QuantityCaptionLbl</DataField>
+        </Field>
+        <Field Name="INdentByCaptionLbl">
+          <DataField>INdentByCaptionLbl</DataField>
+        </Field>
+        <Field Name="DateCaptionLbl">
+          <DataField>DateCaptionLbl</DataField>
+        </Field>
+        <Field Name="SignCaptionLbl">
+          <DataField>SignCaptionLbl</DataField>
+        </Field>
+        <Field Name="AuthorizedByCaptionLbl">
+          <DataField>AuthorizedByCaptionLbl</DataField>
+        </Field>
+        <Field Name="PurchaseIndentCaptionLbl">
+          <DataField>PurchaseIndentCaptionLbl</DataField>
+        </Field>
+        <Field Name="No_IndentHeader">
+          <DataField>No_IndentHeader</DataField>
+        </Field>
+        <Field Name="Description_IndentHeader">
+          <DataField>Description_IndentHeader</DataField>
+        </Field>
+        <Field Name="DocumentDate_IndentHeader">
+          <DataField>DocumentDate_IndentHeader</DataField>
+        </Field>
+        <Field Name="DeliveryLocation_IndentHeader">
+          <DataField>DeliveryLocation_IndentHeader</DataField>
+        </Field>
+        <Field Name="Indentor_IndentHeader">
+          <DataField>Indentor_IndentHeader</DataField>
+        </Field>
+        <Field Name="SentforAuthorization_IndentHeader">
+          <DataField>SentforAuthorization_IndentHeader</DataField>
+        </Field>
+        <Field Name="Type_IndentLine">
+          <DataField>Type_IndentLine</DataField>
+        </Field>
+        <Field Name="No_IndentLine">
+          <DataField>No_IndentLine</DataField>
+        </Field>
+        <Field Name="Description_IndentLine">
+          <DataField>Description_IndentLine</DataField>
+        </Field>
+        <Field Name="UnitofMeasure_IndentLine">
+          <DataField>UnitofMeasure_IndentLine</DataField>
+        </Field>
+        <Field Name="IndentStatus_IndentLine">
+          <DataField>IndentStatus_IndentLine</DataField>
+        </Field>
+        <Field Name="Department_IndentLine">
+          <DataField>Department_IndentLine</DataField>
+        </Field>
+        <Field Name="ReqQuantity_IndentLine">
+          <DataField>ReqQuantity_IndentLine</DataField>
+        </Field>
+        <Field Name="ReqQuantity_IndentLineFormat">
+          <DataField>ReqQuantity_IndentLineFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

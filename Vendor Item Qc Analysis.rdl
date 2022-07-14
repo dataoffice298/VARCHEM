@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Picture_CompanyInfo">
+          <DataField>Picture_CompanyInfo</DataField>
+        </Field>
+        <Field Name="Inspection_Receipt_Header__No__">
+          <DataField>Inspection_Receipt_Header__No__</DataField>
+        </Field>
+        <Field Name="CompAddr_1_">
+          <DataField>CompAddr_1_</DataField>
+        </Field>
+        <Field Name="CompAddr_2_">
+          <DataField>CompAddr_2_</DataField>
+        </Field>
+        <Field Name="CompAddr_3_">
+          <DataField>CompAddr_3_</DataField>
+        </Field>
+        <Field Name="CompAddr_4_">
+          <DataField>CompAddr_4_</DataField>
+        </Field>
+        <Field Name="VendorInfo_3_">
+          <DataField>VendorInfo_3_</DataField>
+        </Field>
+        <Field Name="VendorInfo_2_">
+          <DataField>VendorInfo_2_</DataField>
+        </Field>
+        <Field Name="VendorInfo_1_">
+          <DataField>VendorInfo_1_</DataField>
+        </Field>
+        <Field Name="Rej">
+          <DataField>Rej</DataField>
+        </Field>
+        <Field Name="RejFormat">
+          <DataField>RejFormat</DataField>
+        </Field>
+        <Field Name="Accpt">
+          <DataField>Accpt</DataField>
+        </Field>
+        <Field Name="AccptFormat">
+          <DataField>AccptFormat</DataField>
+        </Field>
+        <Field Name="RejQty">
+          <DataField>RejQty</DataField>
+        </Field>
+        <Field Name="AccptQty">
+          <DataField>AccptQty</DataField>
+        </Field>
+        <Field Name="TotalQty">
+          <DataField>TotalQty</DataField>
+        </Field>
+        <Field Name="Inspection_Receipt_Header__Item_Description_">
+          <DataField>Inspection_Receipt_Header__Item_Description_</DataField>
+        </Field>
+        <Field Name="Inspection_Receipt_Header__Item_No__">
+          <DataField>Inspection_Receipt_Header__Item_No__</DataField>
+        </Field>
+        <Field Name="Inspection_Receipt_Header__No__Caption">
+          <DataField>Inspection_Receipt_Header__No__Caption</DataField>
+        </Field>
+        <Field Name="Vendor___Item_Quality_AnalysisCaption">
+          <DataField>Vendor___Item_Quality_AnalysisCaption</DataField>
+        </Field>
+        <Field Name="Company_Name__Caption">
+          <DataField>Company_Name__Caption</DataField>
+        </Field>
+        <Field Name="Compnay_Address__Caption">
+          <DataField>Compnay_Address__Caption</DataField>
+        </Field>
+        <Field Name="Compnay_Address2__Caption">
+          <DataField>Compnay_Address2__Caption</DataField>
+        </Field>
+        <Field Name="City__Caption">
+          <DataField>City__Caption</DataField>
+        </Field>
+        <Field Name="Rej__Caption">
+          <DataField>Rej__Caption</DataField>
+        </Field>
+        <Field Name="Accepted__Caption">
+          <DataField>Accepted__Caption</DataField>
+        </Field>
+        <Field Name="Qty_RejectedCaption">
+          <DataField>Qty_RejectedCaption</DataField>
+        </Field>
+        <Field Name="Qty_AcceptedCaption">
+          <DataField>Qty_AcceptedCaption</DataField>
+        </Field>
+        <Field Name="Total_QtyCaption">
+          <DataField>Total_QtyCaption</DataField>
+        </Field>
+        <Field Name="Inspection_Receipt_Header__Item_Description_Caption">
+          <DataField>Inspection_Receipt_Header__Item_Description_Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Receipt_Header__Item_No__Caption">
+          <DataField>Inspection_Receipt_Header__Item_No__Caption</DataField>
+        </Field>
+        <Field Name="AddressCaption">
+          <DataField>AddressCaption</DataField>
+        </Field>
+        <Field Name="Vendor_NameCaption">
+          <DataField>Vendor_NameCaption</DataField>
+        </Field>
+        <Field Name="Vendor_No_Caption">
+          <DataField>Vendor_No_Caption</DataField>
+        </Field>
+        <Field Name="Inspection_Receipt_Header_Vendor_No_">
+          <DataField>Inspection_Receipt_Header_Vendor_No_</DataField>
+        </Field>
+        <Field Name="Details">
+          <DataField>Details</DataField>
+        </Field>
+        <Field Name="QtyAccepted_InspectionReceiptHdr">
+          <DataField>QtyAccepted_InspectionReceiptHdr</DataField>
+        </Field>
+        <Field Name="QtyAccepted_InspectionReceiptHdrFormat">
+          <DataField>QtyAccepted_InspectionReceiptHdrFormat</DataField>
+        </Field>
+        <Field Name="QtyRejected_InspectionReceiptHdr">
+          <DataField>QtyRejected_InspectionReceiptHdr</DataField>
+        </Field>
+        <Field Name="QtyRejected_InspectionReceiptHdrFormat">
+          <DataField>QtyRejected_InspectionReceiptHdrFormat</DataField>
+        </Field>
+        <Field Name="QtyRework_InspectionReceiptHdr">
+          <DataField>QtyRework_InspectionReceiptHdr</DataField>
+        </Field>
+        <Field Name="QtyRework_InspectionReceiptHdrFormat">
+          <DataField>QtyRework_InspectionReceiptHdrFormat</DataField>
+        </Field>
+        <Field Name="ReworkRefNo_InspectionReceiptHdr">
+          <DataField>ReworkRefNo_InspectionReceiptHdr</DataField>
+        </Field>
+        <Field Name="OrdrNo_InspectionRceiptHdr">
+          <DataField>OrdrNo_InspectionRceiptHdr</DataField>
+        </Field>
+        <Field Name="QtyAcceptedUndrDev_InspectionReceiptHdr">
+          <DataField>QtyAcceptedUndrDev_InspectionReceiptHdr</DataField>
+        </Field>
+        <Field Name="QtyAcceptedUndrDev_InspectionReceiptHdrFormat">
+          <DataField>QtyAcceptedUndrDev_InspectionReceiptHdrFormat</DataField>
+        </Field>
+        <Field Name="DocDate_InspectionReceiptHdr">
+          <DataField>DocDate_InspectionReceiptHdr</DataField>
+        </Field>
+        <Field Name="PurchOrdrNoCaption">
+          <DataField>PurchOrdrNoCaption</DataField>
+        </Field>
+        <Field Name="QtyReworkCaption">
+          <DataField>QtyReworkCaption</DataField>
+        </Field>
+        <Field Name="QtyUnderDevCaption">
+          <DataField>QtyUnderDevCaption</DataField>
+        </Field>
+        <Field Name="PurchOrdrDateCaption">
+          <DataField>PurchOrdrDateCaption</DataField>
+        </Field>
+        <Field Name="IRNoCaption">
+          <DataField>IRNoCaption</DataField>
+        </Field>
+        <Field Name="ReworkRefNoCaption">
+          <DataField>ReworkRefNoCaption</DataField>
+        </Field>
+        <Field Name="ReworkRefNo">
+          <DataField>ReworkRefNo</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

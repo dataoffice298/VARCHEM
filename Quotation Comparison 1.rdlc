@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Number_Integer">
+          <DataField>Number_Integer</DataField>
+        </Field>
+        <Field Name="CompanyInfoName">
+          <DataField>CompanyInfoName</DataField>
+        </Field>
+        <Field Name="QuotationComparisonStatementCaptionLbl">
+          <DataField>QuotationComparisonStatementCaptionLbl</DataField>
+        </Field>
+        <Field Name="REQNoCaptionLbl">
+          <DataField>REQNoCaptionLbl</DataField>
+        </Field>
+        <Field Name="VendorNoCaptionLbl">
+          <DataField>VendorNoCaptionLbl</DataField>
+        </Field>
+        <Field Name="VendorNameCaptionLbl">
+          <DataField>VendorNameCaptionLbl</DataField>
+        </Field>
+        <Field Name="QuoteNoCaptionLbl">
+          <DataField>QuoteNoCaptionLbl</DataField>
+        </Field>
+        <Field Name="ItemNoCaptionLbl">
+          <DataField>ItemNoCaptionLbl</DataField>
+        </Field>
+        <Field Name="DescriptionCaptionLbl">
+          <DataField>DescriptionCaptionLbl</DataField>
+        </Field>
+        <Field Name="UOMCaptionLbl">
+          <DataField>UOMCaptionLbl</DataField>
+        </Field>
+        <Field Name="QuantityCaptionLbl">
+          <DataField>QuantityCaptionLbl</DataField>
+        </Field>
+        <Field Name="RateCaptionLbl">
+          <DataField>RateCaptionLbl</DataField>
+        </Field>
+        <Field Name="AmountCaptionLbl">
+          <DataField>AmountCaptionLbl</DataField>
+        </Field>
+        <Field Name="TotalBasicValueCaptionLbl">
+          <DataField>TotalBasicValueCaptionLbl</DataField>
+        </Field>
+        <Field Name="ExiseDutyCaptionLbl">
+          <DataField>ExiseDutyCaptionLbl</DataField>
+        </Field>
+        <Field Name="SalesTaxCaptionLbl">
+          <DataField>SalesTaxCaptionLbl</DataField>
+        </Field>
+        <Field Name="VATCaptionLbl">
+          <DataField>VATCaptionLbl</DataField>
+        </Field>
+        <Field Name="OtherChargesCaptionLbl">
+          <DataField>OtherChargesCaptionLbl</DataField>
+        </Field>
+        <Field Name="TotalAmountCaptionLbl">
+          <DataField>TotalAmountCaptionLbl</DataField>
+        </Field>
+        <Field Name="PaymentTermCodeCaptionLbl">
+          <DataField>PaymentTermCodeCaptionLbl</DataField>
+        </Field>
+        <Field Name="RFQNo_QuotationComparison">
+          <DataField>RFQNo_QuotationComparison</DataField>
+        </Field>
+        <Field Name="ItemNo_QuotationComparison">
+          <DataField>ItemNo_QuotationComparison</DataField>
+        </Field>
+        <Field Name="VariantCode_QuotationComparison">
+          <DataField>VariantCode_QuotationComparison</DataField>
+        </Field>
+        <Field Name="Description_QuotationComparison">
+          <DataField>Description_QuotationComparison</DataField>
+        </Field>
+        <Field Name="UOM">
+          <DataField>UOM</DataField>
+        </Field>
+        <Field Name="Vendor1">
+          <DataField>Vendor1</DataField>
+        </Field>
+        <Field Name="VendorName1">
+          <DataField>VendorName1</DataField>
+        </Field>
+        <Field Name="QuoteNo1">
+          <DataField>QuoteNo1</DataField>
+        </Field>
+        <Field Name="Qty1">
+          <DataField>Qty1</DataField>
+        </Field>
+        <Field Name="Qty1Format">
+          <DataField>Qty1Format</DataField>
+        </Field>
+        <Field Name="QRate1">
+          <DataField>QRate1</DataField>
+        </Field>
+        <Field Name="QRate1Format">
+          <DataField>QRate1Format</DataField>
+        </Field>
+        <Field Name="QAmount1">
+          <DataField>QAmount1</DataField>
+        </Field>
+        <Field Name="QAmount1Format">
+          <DataField>QAmount1Format</DataField>
+        </Field>
+        <Field Name="VendorAmount1">
+          <DataField>VendorAmount1</DataField>
+        </Field>
+        <Field Name="VendorAmount1Format">
+          <DataField>VendorAmount1Format</DataField>
+        </Field>
+        <Field Name="ExciseDuty1">
+          <DataField>ExciseDuty1</DataField>
+        </Field>
+        <Field Name="ExciseDuty1Format">
+          <DataField>ExciseDuty1Format</DataField>
+        </Field>
+        <Field Name="SalesTax1">
+          <DataField>SalesTax1</DataField>
+        </Field>
+        <Field Name="SalesTax1Format">
+          <DataField>SalesTax1Format</DataField>
+        </Field>
+        <Field Name="VAT11">
+          <DataField>VAT11</DataField>
+        </Field>
+        <Field Name="VAT11Format">
+          <DataField>VAT11Format</DataField>
+        </Field>
+        <Field Name="Pf1">
+          <DataField>Pf1</DataField>
+        </Field>
+        <Field Name="Pf1Format">
+          <DataField>Pf1Format</DataField>
+        </Field>
+        <Field Name="TotalAmount1_1">
+          <DataField>TotalAmount1_1</DataField>
+        </Field>
+        <Field Name="TotalAmount1_1Format">
+          <DataField>TotalAmount1_1Format</DataField>
+        </Field>
+        <Field Name="PaymentTermCode1">
+          <DataField>PaymentTermCode1</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>
