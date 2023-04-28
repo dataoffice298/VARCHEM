@@ -34,6 +34,42 @@ tableextension 50010 tableextension70000016 extends "Purchase Line Archive"
             Description = 'PO1.0';
             Editable = false;
         }
+        field(50020; "Available Inventory"; Decimal)
+        {
+            //DataClassification = ToBeClassified;
+            FieldClass = FlowField;
+            CalcFormula = Sum("Item Ledger Entry".Quantity WHERE("Item No." = FIELD("No."), "Global Dimension 1 Code" = field("Shortcut Dimension 1 Code"), "Global Dimension 2 Code" = field("Shortcut Dimension 2 Code")));
+            Editable = false;
+        }
+        field(50021; "PO Qty"; Decimal)
+        {
+            FieldClass = FlowField;
+            CalcFormula = sum("Purchase Line"."Outstanding Quantity" where("No." = field("No."), Type = const(Item), "Document Type" = const(Order), "Shortcut Dimension 2 Code" = field("Shortcut Dimension 2 Code"), "Shortcut Dimension 1 Code" = field("Shortcut Dimension 1 Code")));
+            Editable = false;
+        }
+        field(50022; Make; Text[50])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Make';
+        }
+        field(50023; Model; Text[100])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Model';
+        }
+        field(50024; "Shortage Qty"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Shortage Qty';
+            Editable = false;
+        }
+        field(50025; "Open Quote Qty"; Decimal)
+        {
+            FieldClass = FlowField;
+            CalcFormula = sum("Purchase Line"."Outstanding Quantity" where("No." = field("No."), Type = const(Item), "Document Type" = const(Quote), "Shortcut Dimension 2 Code" = field("Shortcut Dimension 2 Code"), "Shortcut Dimension 1 Code" = field("Shortcut Dimension 1 Code")));
+            Editable = false;
+        }
+        //B2BJk <<
     }
 
     //Unsupported feature: PropertyChange. Please convert manually.

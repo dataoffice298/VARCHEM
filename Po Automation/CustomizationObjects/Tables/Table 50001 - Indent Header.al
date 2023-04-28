@@ -45,8 +45,11 @@ table 50001 "Indent Header"
         }
         field(8; "Delivery Location"; Code[20])
         {
+            DataClassification = ToBeClassified;
+            Caption = 'Location Code';
+            TableRelation = Location;
 
-            trigger OnLookup();
+            /*trigger OnLookup();
             begin
                 IF PAGE.RUNMODAL(0, Location) = ACTION::LookupOK THEN
                     "Delivery Location" := Location.Code;
@@ -58,11 +61,19 @@ table 50001 "Indent Header"
                         IndentLine.MODIFY;
                     UNTIL IndentLine.NEXT = 0;
                 END;
-            end;
+            end;*/
 
             trigger OnValidate();
             begin
                 TestStatusOpen;
+                IndentLine.SETRANGE("Document No.", "No.");
+                IF IndentLine.FIND('-') THEN BEGIN
+                    //TestStatusOpen;
+                    REPEAT
+                        IndentLine."Delivery Location" := "Delivery Location";
+                        IndentLine.MODIFY;
+                    UNTIL IndentLine.NEXT = 0;
+                END;
             end;
         }
         field(10; Department; Code[20])
@@ -107,7 +118,8 @@ table 50001 "Indent Header"
         field(24; "Released Status"; Option)
         {
             Editable = false;
-            OptionMembers = Open,Released,Cancel,Close;
+            OptionMembers = Open,Released,Cancel,Close,"Pending Approval";
+            OptionCaption = 'Open,Released,Cancel,Close,Pending Approval';
         }
         field(25; "Last Modified Date"; Date)
         {
@@ -124,6 +136,52 @@ table 50001 "Indent Header"
         {
             Caption = 'Declined';
         }
+        //B2BJK >>
+        field(50000; "Transfer Order No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            Editable = false;
+            Caption = 'MRS No.';
+        }
+        field(50001; "Shortcut Dimension 1 Code_B2B"; Code[20])
+        {
+            CaptionClass = '1,2,1';
+            Caption = 'Shortcut Dimension 1 Code';
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1),
+                                                          Blocked = CONST(false));
+        }
+        field(50002; "Shortcut Dimension 2 Code_B2B"; Code[20])
+        {
+            CaptionClass = '1,2,2';
+            Caption = 'Shortcut Dimension 2 Code';
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2),
+            Blocked = CONST(false), "Division Code" = field("Shortcut Dimension 1 Code_B2B"));
+            trigger OnValidate()
+            var
+                IndentLineLrec: Record "Indent Line";
+            begin
+                IndentLineLrec.Reset();
+                IndentLineLrec.SetRange("Document No.", Rec."No.");
+                if IndentLineLrec.FindSet() then begin
+                    IndentLineLrec.ModifyAll("Shortcut Dimension 1 Code_B2B", Rec."Shortcut Dimension 1 Code_B2B");
+                    IndentLineLrec.ModifyAll("Shortcut Dimension 2 Code_B2B", Rec."Shortcut Dimension 2 Code_B2B");
+                end;
+            end;
+        }
+        field(50003; "MRS Requestor"; Code[30])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50004; "MRS Department"; text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50005; "MRS Requested Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+        //B2BJK <<
+
     }
 
     keys
@@ -167,6 +225,7 @@ table 50001 "Indent Header"
     var
         PurchaseSetup: Record 312;
         NoSeriesMgt: Codeunit NoSeriesManagement;
+        NoSeriesGvar: Record "No. Series";
         PIndent: Record 50001;
         IndentLine: Record 50002;
         Item: Record 27;
@@ -183,8 +242,10 @@ table 50001 "Indent Header"
         Employee: Record 5200;
         Job: Record 167;
         CompSetup: Record 79;
+        PIndentNoGvar: Code[20];
 
     procedure AssistEdit(OldIndent: Record 50001): Boolean;
+
     begin
         PIndent := Rec;
         PurchaseSetup.GET;
@@ -192,8 +253,13 @@ table 50001 "Indent Header"
         IF NoSeriesMgt.SelectSeries(PurchaseSetup."Indent Nos.", OldIndent."No.", PIndent."No.") THEN BEGIN
             PurchaseSetup.GET;
             PurchaseSetup.TESTFIELD("Indent Nos.");
+            PIndentNoGvar := PIndent."No.";
             NoSeriesMgt.SetSeries(PIndent."No.");
+
+            //if NoSeriesGvar.Get(PIndent."No.") then
+
             Rec := PIndent;
+            OnAfterAssisitEdit(PIndentNoGvar, Rec);
             EXIT(TRUE);
         END;
     end;
@@ -228,10 +294,14 @@ table 50001 "Indent Header"
             MESSAGE('Status is Already in Cancel');
             EXIT;
         END;
-        IF NOT ("Released Status" = "Released Status"::Open) THEN BEGIN
+        /*IF NOT ("Released Status" = "Released Status"::Open) THEN BEGIN
             MESSAGE('Status Must be Open to Cancel/Close');
             EXIT;
-        END;
+        END;*/
+        if "Released Status" = "Released Status"::"Pending Approval" then
+            Error('Status must not be in pending approval to cancel the indent');
+        if "Released Status" = "Released Status"::Close then
+            Error('Status must not be in close to cancel the indent');
         IF NOT CONFIRM(Text003, FALSE) THEN
             EXIT;
         IndentLine.SETRANGE("Document No.", "No.");
@@ -252,11 +322,14 @@ table 50001 "Indent Header"
             MESSAGE('Status is Already in Closed');
             EXIT;
         END;
-        IF NOT ("Released Status" = "Released Status"::Open) THEN BEGIN
+        /*IF NOT ("Released Status" = "Released Status"::Open) THEN BEGIN
             MESSAGE('Status Must be open to Cancel/Close');
             EXIT;
-        END;
-
+        END;*/
+        if "Released Status" = "Released Status"::"Pending Approval" then
+            Error('Status must not be in pending approval to close the indent');
+        if "Released Status" = "Released Status"::Cancel then
+            Error('Status must not be in cancel to close the indent');
         IF NOT CONFIRM(Text005, FALSE) THEN
             EXIT;
         LOCKTABLE;
@@ -330,6 +403,11 @@ table 50001 "Indent Header"
                     ToIndentLine.INSERT;
                 UNTIL FromIndentLine.NEXT = 0;
         END;
+    end;
+
+    [IntegrationEvent(false, false)]
+    procedure OnAfterAssisitEdit(Var IndentNoPar: Code[20]; Var IndentHeaderRec: Record "Indent Header")
+    begin
     end;
 }
 

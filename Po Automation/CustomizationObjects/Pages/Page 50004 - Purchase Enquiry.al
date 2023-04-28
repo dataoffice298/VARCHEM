@@ -62,10 +62,10 @@ page 50004 "Purchase Enquiry"
                 {
                     ApplicationArea = All;
                 }
-                field("Purchaser Code"; Rec."Purchaser Code")
-                {
-                    ApplicationArea = All;
-                }
+                /*  field("Purchaser Code"; Rec."Purchaser Code")
+                  {
+                      ApplicationArea = All;
+                  }*/
                 field("Due Date"; Rec."Due Date")
                 {
                     ApplicationArea = All;
@@ -73,6 +73,25 @@ page 50004 "Purchase Enquiry"
                 field("No. of Archived Versions"; Rec."No. of Archived Versions")
                 {
                     ApplicationArea = All;
+                }
+                field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
+                {
+                    ApplicationArea = all;
+                }
+                field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
+                {
+                    ApplicationArea = all;
+                }
+                field(NoSeriesGvar; NoSeriesGvar)
+                {
+                    ApplicationArea = all;
+                    Caption = 'No Series';
+                    //TableRelation = "No. Series";
+                    trigger OnLookup(var Text: Text): Boolean
+                    begin
+                        OnLookUpNoSeries(Rec, NoSeriesGvar);
+
+                    end;
                 }
             }
             part(PurchLines; 50005)
@@ -276,6 +295,8 @@ page 50004 "Purchase Enquiry"
                     var
                         ReleasePurchDoc: Codeunit 415;
                     begin
+                        Rec.TestField("Shortcut Dimension 1 Code");
+                        Rec.TestField("Shortcut Dimension 2 Code");
                         ReleasePurchDoc.Reopen(Rec);
                     end;
                 }
@@ -303,10 +324,14 @@ page 50004 "Purchase Enquiry"
                 begin
                     Rec.TESTFIELD("Buy-from Vendor No.");
                     Rec.TESTFIELD(Status, Rec.Status::Released);
+                    Rec.TestField("Shortcut Dimension 1 Code");
+                    Rec.TestField("Shortcut Dimension 2 Code");
+                    if NoSeriesGvar = '' then
+                        Error('Select the no series');
                     IF NOT CONFIRM(Text000, FALSE) THEN
                         EXIT;
                     ArchiveManagement.ArchivePurchDocument(Rec);
-                    POAutomation.ConvertEnquirytoQuote(Rec);
+                    POAutomation.ConvertEnquirytoQuote(Rec, NoSeriesGvar);
                 end;
             }
             action("&Print")
@@ -330,6 +355,10 @@ page 50004 "Purchase Enquiry"
 
     var
         PurchSetup: Record 312;
+        PurchaseSetup: Record "Purchases & Payables Setup";
+        //Noseries: Record "No. Series";
+        NoSeries: Record "No. Series";
+        NoSeriesRelationship: Record "No. Series Relationship";
         ChangeExchangeRate: Page 511;
         CopyPurchDoc: Report 492;
         DocPrint: Codeunit 229;
@@ -344,10 +373,16 @@ page 50004 "Purchase Enquiry"
         MLTransactionType: Option Purchase,Sale;
         PurchHeader: Record 38;
         POAutomation: Codeunit 50000;
+        NoSeriesGvar: code[20];
 
     local procedure PaytoVendorNoOnAfterValidate();
     begin
         CurrPage.UPDATE;
+    end;
+
+    [IntegrationEvent(false, false)]
+    procedure OnLookUpNoSeries(Var PurchaseEnquiry: Record "Purchase Header"; var NoSeriesPar: Code[20])
+    begin
     end;
 }
 

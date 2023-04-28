@@ -11,7 +11,7 @@ page 33000274 "Qty Item Ledger Entries B2B"
     // 1.00.00       B2BQC      06-05-15     New Page.
 
     Caption = 'Quality Item Ledger Entries';
-    Editable = false;
+    //Editable = false;
     PageType = List;
     SourceTable = "Quality Item Ledger Entry B2B";
     UsageCategory = Lists;
@@ -207,6 +207,11 @@ page 33000274 "Qty Item Ledger Entries B2B"
                 {
                     ApplicationArea = all;
                     tooltip = 'This Field Allows to Enter Accept Under Deviation Quantities';
+                }
+                field(Hold; Rec.Hold)
+                {
+                    ApplicationArea = all;
+                    tooltip = 'This Field Allows to Enter Hold Quantities';
                 }
             }
         }

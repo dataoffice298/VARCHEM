@@ -77,6 +77,11 @@ page 33000276 "Ins Item Tracking Lines B2B"
                     ApplicationArea = all;
                     tooltip = ' any items is taken a approval the testing process is the reject';
                 }
+                field(Hold; Rec.Hold)
+                {
+                    ApplicationArea = all;
+                    tooltip = ' any items is taken a approval the testing process is the Hold';
+                }
                 field("Expiration Date"; Rec."Expiration Date")
                 {
                     Editable = false;

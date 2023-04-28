@@ -4,7 +4,7 @@ page 50064 "Quotation Comparisions"
     ApplicationArea = All;
     UsageCategory = Administration;
     SourceTable = QuotCompHdr;
-    Caption = 'Quotation Comparison';
+    Caption = 'Quotation Comparison List';
     CardPageId = "Quotation Comparision Doc";
     Editable = false;
     layout
@@ -96,5 +96,7 @@ page 50064 "Quotation Comparisions"
             }
         }
     }
+    var
+        cu: Codeunit "Sales-Post (Yes/No)";
 
 }

@@ -5,11 +5,16 @@ tableextension 50015 ProdComp extends "Prod. Order Component"
         // Add changes to table fields here
         field(500001; Inventory; Decimal)
         {
+            /* CalcFormula = Sum("Item Ledger Entry".Quantity WHERE("Item No." = FIELD("Item No."),
+                                                                   "Global Dimension 2 Code" = FIELD("Shortcut Dimension 2 Code"),
+                                                                   "Location Code" = FIELD("Location Code"),
+                                                                   "Variant Code" = FIELD("Variant Code"),
+                                                                   "Unit of Measure Code" = FIELD("Unit of Measure Code")));*/ //Commented By B2BJK
             CalcFormula = Sum("Item Ledger Entry".Quantity WHERE("Item No." = FIELD("Item No."),
                                                                   "Global Dimension 2 Code" = FIELD("Shortcut Dimension 2 Code"),
                                                                   "Location Code" = FIELD("Location Code"),
-                                                                  "Variant Code" = FIELD("Variant Code"),
-                                                                  "Unit of Measure Code" = FIELD("Unit of Measure Code")));
+                                                                  "Variant Code" = FIELD("Variant Code")
+                                                                  ));
             Caption = 'Inventory';
             DecimalPlaces = 0 : 5;
             Editable = false;

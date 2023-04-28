@@ -25,6 +25,18 @@ tableextension 50006 tableextension70000002 extends "Purch. Rcpt. Header"
             Editable = false;
             TableRelation = "Quotation Comparison";
         }
+        field(50018; "Vendor Quote No."; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50019; "Vendor Quote Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50020; "Indent No."; Code[20])
+        {
+          DataClassification = ToBeClassified;
+        }
     }
 
     //Unsupported feature: PropertyChange. Please convert manually.

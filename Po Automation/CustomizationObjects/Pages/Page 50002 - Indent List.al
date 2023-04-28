@@ -6,6 +6,7 @@ page 50002 "Indent List"
     Editable = false;
     PageType = List;
     SourceTable = "Indent Header";
+    SourceTableView = where("Indent Status" = filter(<> 'Close'));
     UsageCategory = Lists;
     ApplicationArea = all;
 

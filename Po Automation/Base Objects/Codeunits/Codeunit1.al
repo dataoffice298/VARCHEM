@@ -8,7 +8,7 @@ codeunit 50002 "MyBaseSubscr"
     var
         myInt: Integer;
 
-    [EventSubscriber(ObjectType::table, 83, 'OnBeforePostingItemJnlFromProduction', '', False, False)] //PKON22M17
+    /*[EventSubscriber(ObjectType::table, 83, 'OnBeforePostingItemJnlFromProduction', '', False, False)] //PKON22M17
     local procedure OnBeforePostingItemJnlFromProduction(var ItemJournalLine: Record "Item Journal Line"; Print: Boolean; var IsHandled: Boolean)
     var
         ProOrdCom: Record "Prod. Order Component";
@@ -29,6 +29,6 @@ codeunit 50002 "MyBaseSubscr"
                             Error('Inventory availability is less than expected qunatity for some items. Please check "Shortage Report_50011"');
                     Until ProOrdCom.Next = 0;
             until ItemJourLinesGrec.Next = 0;
-    end;
+    end;*/
 }
 

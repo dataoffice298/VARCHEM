@@ -94,13 +94,13 @@ table 33000289 "Trailing IR Setup B2B"
     begin
         case "Chart Type" of
             "Chart Type"::"Stacked Area":
-                exit(BusinessChartBuf."Chart Type"::StackedArea);
+                exit(BusinessChartBuf."Chart Type"::StackedArea.AsInteger());
             "Chart Type"::"Stacked Area (%)":
-                exit(BusinessChartBuf."Chart Type"::StackedArea100);
+                exit(BusinessChartBuf."Chart Type"::StackedArea100.AsInteger());
             "Chart Type"::"Stacked Column":
-                exit(BusinessChartBuf."Chart Type"::StackedColumn);
+                exit(BusinessChartBuf."Chart Type"::StackedColumn.AsInteger());
             "Chart Type"::"Stacked Column (%)":
-                exit(BusinessChartBuf."Chart Type"::StackedColumn100);
+                exit(BusinessChartBuf."Chart Type"::StackedColumn100.AsInteger());
         end;
     end;
 

@@ -27,7 +27,7 @@ table 33000272 "IR Acceptance Levels B2B"
         field(3; "Quality Type"; Option)
         {
             Caption = 'Quality Type';
-            OptionMembers = Accepted,"Accepted Under Deviation",Rework,Rejected;
+            OptionMembers = Accepted,"Accepted Under Deviation",Rework,Rejected,Hold;
             DataClassification = CustomerContent;
         }
         field(4; "Acceptance Code"; Code[20])
@@ -51,6 +51,7 @@ table 33000272 "IR Acceptance Levels B2B"
         field(6; Quantity; Decimal)
         {
             Caption = 'Quantity';
+            DecimalPlaces = 0 : 5;
             DataClassification = CustomerContent;
         }
         field(7; Type; Option)

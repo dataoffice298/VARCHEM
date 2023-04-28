@@ -7,7 +7,8 @@ table 50002 "Indent Line"
     // SM  PO1.0  05/06/08  "Indent Req No" and "Indent Req Line No" fields added and Changed option values of Type field
     //                      and code in "No." field OnValidate
 
-    LookupPageID = 50005;
+    LookupPageID = 50090;
+    DrillDownPageId = 50090;
 
     fields
     {
@@ -57,9 +58,9 @@ table 50002 "Indent Line"
                         END;
                 //PO1.0>>
                 END;
-                IF IndentHeader.GET("Document No.") THEN;
-                "Delivery Location" := IndentHeader."Delivery Location";
-                IndentHeader.MODIFY;//PO1.0
+                //IF IndentHeader.GET("Document No.") THEN;
+                //"Delivery Location" := IndentHeader."Delivery Location";
+                //IndentHeader.MODIFY;//PO1.0
                 ItemLedgerEntry.RESET;
                 ItemLedgerEntry.SETRANGE("Item No.", "No.");
                 ItemLedgerEntry.SETRANGE("Variant Code", "Variant Code");
@@ -89,6 +90,13 @@ table 50002 "Indent Line"
                 TestStatusOpen;
                 Amount := "Req.Quantity" * "Unit Cost";
                 UpdateIndentQtyBase; // Nov042016
+                //B2BJK >>
+                CalcFields("Available Inventory", "PO Qty", "Open Quote Qty");
+                if "Req.Quantity" - "PO Qty" - "Open Quote Qty" - "Available Inventory" > 0 then
+                    "Shortage Qty" := "Req.Quantity" - "PO Qty" - "Open Quote Qty" - "Available Inventory"
+                else
+                    "Shortage Qty" := 0;
+                //B2BJK <<
             end;
         }
         field(6; "Available Stock"; Decimal)
@@ -217,7 +225,68 @@ table 50002 "Indent Line"
         }
         field(50000; "Quantity (Base)"; Decimal)
         {
+            DataClassification = ToBeClassified;
         }
+        //B2BJk >>
+        field(50020; "Available Inventory"; Decimal)
+        {
+            //DataClassification = ToBeClassified;
+            FieldClass = FlowField;
+            CalcFormula = Sum("Item Ledger Entry".Quantity WHERE("Item No." = FIELD("No."), "Global Dimension 1 Code" = field("Shortcut Dimension 1 Code_B2B"), "Global Dimension 2 Code" = field("Shortcut Dimension 2 Code_B2B")));
+            Editable = false;
+        }
+        field(50021; "PO Qty"; Decimal)
+        {
+            FieldClass = FlowField;
+            CalcFormula = sum("Purchase Line"."Outstanding Quantity" where("No." = field("No."), Type = const(Item), "Document Type" = const(Order),
+            "Shortcut Dimension 1 Code" = field("Shortcut Dimension 1 Code_B2B"), "Shortcut Dimension 2 Code" = field("Shortcut Dimension 2 Code_B2B")));
+            Editable = false;
+        }
+        field(50022; Make; Text[50])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Make';
+        }
+        field(50023; Model; Text[100])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Model';
+        }
+        field(50024; "Shortage Qty"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Shortage Qty';
+            Editable = false;
+        }
+        field(50025; "Open Quote Qty"; Decimal)
+        {
+            FieldClass = FlowField;
+            CalcFormula = sum("Purchase Line"."Outstanding Quantity" where("No." = field("No."), Type = const(Item), "Document Type" = const(Quote), "Shortcut Dimension 1 Code" = field("Shortcut Dimension 1 Code_B2B"), "Shortcut Dimension 2 Code" = field("Shortcut Dimension 2 Code_B2B")));
+            Editable = false;
+        }
+        field(50041; "Enquiry Qty"; Decimal)
+        {
+            FieldClass = FlowField;
+            Editable = false;
+            CalcFormula = sum("Purchase Line".Quantity where(Type = const(Item), "Document Type" = const(Enquiry), "No." = field("No.")));
+        }
+        field(50026; "Shortcut Dimension 1 Code_B2B"; Code[20])
+        {
+            CaptionClass = '1,2,1';
+            Caption = 'Shortcut Dimension 1 Code';
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1),
+                                                          Blocked = CONST(false));
+        }
+        field(50027; "Shortcut Dimension 2 Code_B2B"; Code[20])
+        {
+            CaptionClass = '1,2,2';
+            Caption = 'Shortcut Dimension 2 Code';
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2),
+                                                          Blocked = CONST(false), "Division Code" = field("Shortcut Dimension 1 Code_B2B"));
+        }
+        //B2BJK <<
+
+        //B2BJk <<
     }
 
     keys
@@ -238,9 +307,16 @@ table 50002 "Indent Line"
     end;
 
     trigger OnInsert();
+    var
+        IndentHederLrec: Record "Indent Header";
     begin
-        Compsetup.GET;
-        "Delivery Location" := Compsetup."Location Code";
+        // Compsetup.GET;
+        // "Delivery Location" := Compsetup."Location Code";
+        if IndentHederLrec.Get("Document No.") then begin
+            "Shortcut Dimension 1 Code_B2B" := IndentHederLrec."Shortcut Dimension 1 Code_B2B";
+            "Shortcut Dimension 2 Code_B2B" := IndentHederLrec."Shortcut Dimension 2 Code_B2B";
+            "Delivery Location" := IndentHederLrec."Delivery Location";
+        end;
     end;
 
     trigger OnModify();

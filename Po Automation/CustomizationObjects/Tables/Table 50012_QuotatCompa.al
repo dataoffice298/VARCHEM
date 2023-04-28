@@ -362,6 +362,73 @@ table 50012 "Quotation Comparison Test"
             TableRelation = Currency;
         }
         //B2BMSOn06Oct21<<
+        //B2BJK on 10-oct-2022 >>
+        field(50000; "Unit of Measure Code"; Code[10])
+        {
+            Caption = 'Unit of Measure Code';
+            TableRelation = "Item Unit of Measure".Code WHERE("Item No." = field("Item No."));
+        }
+        //B2BJk >>
+        field(50018; "Vendor Quote No."; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50019; "Vendor Quote Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50020; "Available Inventory"; Decimal)
+        {
+            //DataClassification = ToBeClassified;
+            FieldClass = FlowField;
+            CalcFormula = Sum("Item Ledger Entry".Quantity WHERE("Item No." = FIELD("Item No."), "Global Dimension 1 Code" = field("Shortcut Dimension 1 Code_B2B"), "Global Dimension 2 Code" = field("Shortcut Dimension 2 Code_B2B")));
+            Editable = false;
+        }
+        field(50021; "PO Qty"; Decimal)
+        {
+            FieldClass = FlowField;
+            CalcFormula = sum("Purchase Line"."Outstanding Quantity" where("No." = field("Item No."), Type = const(Item), "Document Type" = const(Order), "Shortcut Dimension 1 Code" = field("Shortcut Dimension 1 Code_B2B"), "Shortcut Dimension 2 Code" = field("Shortcut Dimension 2 Code_B2B")));
+            Editable = false;
+        }
+        field(50022; Make; Text[50])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Make';
+        }
+        field(50023; Model; Text[100])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Model';
+        }
+        field(50024; "Shortage Qty"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Shortage Qty';
+            Editable = false;
+        }
+        field(50025; "Open Quote Qty"; Decimal)
+        {
+            FieldClass = FlowField;
+            CalcFormula = sum("Purchase Line"."Outstanding Quantity" where("No." = field("Item No."), Type = const(Item), "Document Type" = const(Quote), "Shortcut Dimension 1 Code" = field("Shortcut Dimension 1 Code_B2B"), "Shortcut Dimension 2 Code" = field("Shortcut Dimension 2 Code_B2B")));
+            Editable = false;
+        }
+        field(50027; "Shortcut Dimension 1 Code_B2B"; Code[20])
+        {
+            CaptionClass = '1,2,1';
+            Caption = 'Shortcut Dimension 1 Code';
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1),
+                                                          Blocked = CONST(false));
+        }
+        field(50028; "Shortcut Dimension 2 Code_B2B"; Code[20])
+        {
+            CaptionClass = '1,2,2';
+            Caption = 'Shortcut Dimension 2 Code';
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2),
+                                                          Blocked = CONST(false), "Division Code" = field("Shortcut Dimension 1 Code_B2B"));
+        }
+        //B2BJk <<
+        //B2BJK on 10-oct-2022 <<
+
 
     }
 

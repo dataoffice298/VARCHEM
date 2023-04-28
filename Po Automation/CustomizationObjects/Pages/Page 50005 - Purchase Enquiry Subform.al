@@ -54,6 +54,36 @@ page 50005 "Purchase Enquiry Subform"
                 {
                     ApplicationArea = All;
                 }
+                field("PO Qty"; Rec."PO Qty")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the PO Qty field.';
+                }
+                field("Available Inventory"; Rec."Available Inventory")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Available Inventory field.';
+                }
+                field("Shortage Qty"; Rec."Shortage Qty")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Shortage Qty field.';
+                }
+                field(Make; Rec.Make)
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Make field.';
+                }
+                field(Model; Rec.Model)
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Model field.';
+                }
+                field("Open Quote Qty"; Rec."Open Quote Qty")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Open Quote Qty field.';
+                }
             }
         }
     }

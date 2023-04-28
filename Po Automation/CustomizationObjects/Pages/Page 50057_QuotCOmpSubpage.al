@@ -5,7 +5,7 @@ page 50057 QuotationComparSubForm
     SourceTable = "Quotation Comparison Test";
     Caption = 'Quotation Comparison Subform';
     UsageCategory = Tasks;
-    ApplicationArea = all;
+    // ApplicationArea = all;
     //SourceTableView = WHERE("Quote No." = FILTER(''));
     layout
     {
@@ -54,6 +54,12 @@ page 50057 QuotationComparSubForm
                         CheckQtyBeforePO();
                     end;
                 }
+                field("Unit of Measure Code"; Rec."Unit of Measure Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Unit of Measure Code field.';
+                }
+
                 field(Rate; Rec.Rate)
                 {
                     Editable = false;
@@ -284,7 +290,7 @@ page 50057 QuotationComparSubForm
                 {
                     ToolTip = 'Specifies the value of the Remarks field.';
                     ApplicationArea = All;
-                    Visible = false;
+                   // Visible = false;
                 }
                 field("Requested Receipt Date"; Rec."Requested Receipt Date")
                 {
@@ -452,6 +458,36 @@ page 50057 QuotationComparSubForm
                     ApplicationArea = ALL;
                     Visible = false;
                 }
+                field(Make; Rec.Make)
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Make field.';
+                }
+                field("Available Inventory"; Rec."Available Inventory")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Available Inventory field.';
+                }
+                field(Model; Rec.Model)
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Model field.';
+                }
+                field("PO Qty"; Rec."PO Qty")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the PO Qty field.';
+                }
+                field("Shortage Qty"; Rec."Shortage Qty")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Shortage Qty field.';
+                }
+                field("Open Quote Qty"; Rec."Open Quote Qty")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Open Quote Qty field.';
+                }
             }
         }
     }
@@ -525,8 +561,8 @@ page 50057 QuotationComparSubForm
 
     trigger OnModifyRecord(): Boolean;
     begin
-        IF Rec.Status <> Rec.Status::Open then
-            error('You can only Modify the lines when approval status is in open.');
+        //IF Rec.Status <> Rec.Status::Open then
+         //   error('You can only Modify the lines when approval status is in open.');
 
     end;
 

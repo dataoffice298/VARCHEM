@@ -1,4 +1,4 @@
-report 50100 "Quant Explo of BOM In Indent"
+/*report 50084 "Quant Explo of BOM In Indent"
 {
     //ApplicationArea = Manufacturing;
     //UsageCategory = ReportsAndAnalysis;
@@ -296,5 +296,5 @@ report 50100 "Quant Explo of BOM In Indent"
     Begin
         IndentNo := Ind;
     End;
-}
+}*/
 

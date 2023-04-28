@@ -43,6 +43,12 @@ page 33000256 "Quality Control Setup B2B"
                     ApplicationArea = all;
                     ToolTip = 'posted IDS no used for no.series';
                 }
+                field("Hold Location"; Rec."Hold Location")
+                {
+                    Importance = Promoted;
+                    ApplicationArea = all;
+                    ToolTip = 'Used inspection to send quantity to hold location';
+                }
             }
             group(Numbering)
             {
@@ -75,8 +81,18 @@ page 33000256 "Quality Control Setup B2B"
                     ApplicationArea = all;
                     tooltip = 'IDS  Selected from the No.series defined in quality setup numbering tab';
                 }
-
-
+                field("Inspection Datasheet Nos.(Eou)"; Rec."Inspection Datasheet Nos.(Eou)")
+                {
+                    ToolTip = 'Specifies the value of the Inspection Datasheet Nos.(EOU) field.';
+                }
+                field("Posted InspectDatas Nos.(Eou)"; Rec."Posted InspectDatas Nos.(Eou)")
+                {
+                    ToolTip = 'Specifies the value of the Posted Inspect. Datasheet Nos.(EOU) field.';
+                }
+                field("Inspection Receipt Nos.(Eou)"; Rec."Inspection Receipt Nos.(Eou)")
+                {
+                    ToolTip = 'Specifies the value of the Inspection Receipt Nos.(EOU) field.';
+                }
                 field("Production Batch No."; Rec."Production Batch No.")
                 {
                     ApplicationArea = all;

@@ -509,7 +509,7 @@ tableextension 50011 tableextension70000011 extends "Purchase Line"
         {
             Caption = 'QC Enabled';
             DataClassification = CustomerContent;
-
+            Editable = false;
             trigger OnValidate();
             begin
                 // Start  B2BQC1.00.00 - 01
@@ -583,6 +583,59 @@ tableextension 50011 tableextension70000011 extends "Purchase Line"
             TableRelation = "Specification Version B2B"."Version Code" WHERE("Specification No." = FIELD("Spec ID B2B"));
             DataClassification = CustomerContent;
         }
+
+        //B2BJK >>
+        field(50018; "Open Indent Qty"; Decimal)
+        {
+            //DataClassification = ToBeClassified;
+            //
+            FieldClass = FlowField;
+            CalcFormula = sum("Indent Line"."Req.Quantity" where("Indent Status" = const(Indent), "Shortcut Dimension 1 Code_B2B" = field("Shortcut Dimension 1 Code"), "Shortcut Dimension 2 Code_B2B" = field("Shortcut Dimension 2 Code"), Type = const(Item), "No." = field("No.")));
+            // Editable = false;
+        }
+        field(50020; "Available Inventory"; Decimal)
+        {
+            //DataClassification = ToBeClassified;
+            FieldClass = FlowField;
+            CalcFormula = Sum("Item Ledger Entry".Quantity WHERE("Item No." = FIELD("No."), "Global Dimension 2 Code" = field("Shortcut Dimension 2 Code"), "Global Dimension 1 Code" = field("Shortcut Dimension 1 Code")));
+        }
+        field(50021; "PO Qty"; Decimal)
+        {
+            FieldClass = FlowField;
+            CalcFormula = sum("Purchase Line"."Outstanding Quantity" where("No." = field("No."), Type = const(Item), "Document Type" = const(Order), "Shortcut Dimension 2 Code" = field("Shortcut Dimension 2 Code"), "Shortcut Dimension 1 Code" = field("Shortcut Dimension 1 Code")));
+        }
+
+        field(50022; Make; Text[50])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Make';
+        }
+        field(50023; Model; Text[100])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Model';
+        }
+        field(50024; "Shortage Qty"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Shortage Qty';
+            Editable = false;
+        }
+        field(50025; "Open Quote Qty"; Decimal)
+        {
+            FieldClass = FlowField;
+            CalcFormula = sum("Purchase Line"."Outstanding Quantity" where("No." = field("No."), Type = const(Item), "Document Type" = const(Quote), "Shortcut Dimension 2 Code" = field("Shortcut Dimension 2 Code"), "Shortcut Dimension 1 Code" = field("Shortcut Dimension 1 Code")));
+        }
+        field(50040; "Indent No New"; Code[20])
+        {
+            DataClassification = CustomerContent;
+            Caption = 'Indent No.';
+        }
+
+
+        //B2BJk <<
+        //B2BJK >>
+
     }
     keys
     {

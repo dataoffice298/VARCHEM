@@ -1,9 +1,9 @@
 page 50056 "Quotation Comparision Doc"
 {
     PageType = Document;
-    ApplicationArea = All;
-    Caption = 'Quotation Comparison Doc';
-    UsageCategory = Administration;
+   // ApplicationArea = All;
+    //Caption = 'Quotation Comparison Doc';
+    //UsageCategory = Administration;
     SourceTable = QuotCompHdr;
     DelayedInsert = true;
 
@@ -109,6 +109,43 @@ page 50056 "Quotation Comparision Doc"
                     Visible = false;
 
                 }
+                field("Shortcut Dimension 1 Code_B2B"; Rec."Shortcut Dimension 1 Code_B2B")
+                {
+                    ToolTip = 'Specifies the value of the Shortcut Dimension 1 Code field.';
+                    Editable = false;
+                }
+                field("Shortcut Dimension 2 Code_B2B"; Rec."Shortcut Dimension 2 Code_B2B")
+                {
+                    ToolTip = 'Specifies the value of the Shortcut Dimension 2 Code field.';
+                    Editable = false;
+                }
+
+                field(NoSeriesGvar; NoSeriesGvar)
+                {
+                    ApplicationArea = all;
+                    Caption = 'No Series';
+                    TableRelation = "No. Series";
+                    trigger OnLookup(var Text: Text): Boolean
+                    begin
+                        PurchaseSetup.GET;
+                        PurchaseSetup.TestField(PurchaseSetup."Order Nos.");
+                        NoSeries.Reset();
+                        NoSeriesRelationship.SetRange(Code, PurchaseSetup."Order Nos.");
+                        if NoSeriesRelationship.FindSet() then
+                            repeat
+                                NoSeries.Code := NoSeriesRelationship."Series Code";
+                                NoSeries.Mark := true;
+                            until NoSeriesRelationship.Next() = 0;
+                        if NoSeries.Get(PurchaseSetup."Order Nos.") then
+                            NoSeries.Mark := true;
+                        NoSeries.MarkedOnly := true;
+                        if PAGE.RunModal(0, NoSeries) = ACTION::LookupOK then begin
+                            //Noseries.SETRANGE(Code, PurchaseSetup."Quote Nos.");
+                            //IF PAGE.RUNMODAL(458, Noseries) = ACTION::LookupOK THEN
+                            NoSeriesGvar := Noseries.Code;
+                        end;
+                    end;
+                }
             }
 
 
@@ -166,7 +203,9 @@ page 50056 "Quotation Comparision Doc"
                     POCreation: Report "Purchase Order Creation New";
                 begin
                     Rec.TestField("Orders Created", false);
-                    Rec.TestField(Status, Rec.Status::Released);
+                    Rec.TestField(Status, Rec.Status::Released); 
+                    if NoSeriesGvar = '' then
+                        Error('Please select the no series');
                     IF Rec.RFQNumber = '' THEN
                         ERROR('Please select the RFQ Number');
                     QuoteCompLine.Reset();
@@ -176,7 +215,7 @@ page 50056 "Quotation Comparision Doc"
                         Error('Please select atleast one quotation');
                     //POCreationReport.GetValues(Rec.RFQNumber);
                     //POCreationReport.RUN();
-                    POCreation.GetValues(Rec.RFQNumber);
+                    POCreation.GetValues(Rec.RFQNumber, NoSeriesGvar);
                     POCreation.RUN();
                     Rec."Orders Created" := true;
                     CurrPage.UPDATE();
@@ -192,6 +231,7 @@ page 50056 "Quotation Comparision Doc"
                 ApplicationArea = All;
                 Image = Action;
                 //Visible = openapp;
+                Visible = false;
                 Promoted = true;
                 PromotedIsBig = true;
                 PromotedCategory = Process;
@@ -205,7 +245,8 @@ page 50056 "Quotation Comparision Doc"
             {
                 ApplicationArea = All;
                 Image = SendApprovalRequest;
-                Visible = Not OpenApprEntrEsists and CanrequestApprovForFlow;
+                //Visible = Not OpenApprEntrEsists and CanrequestApprovForFlow;
+                Visible = false;
                 Promoted = true;
                 PromotedIsBig = true;
                 PromotedCategory = Process;
@@ -229,7 +270,8 @@ page 50056 "Quotation Comparision Doc"
             {
                 ApplicationArea = All;
                 Image = CancelApprovalRequest;
-                Visible = CanCancelapprovalforrecord or CanCancelapprovalforflow;
+                //Visible = CanCancelapprovalforrecord or CanCancelapprovalforflow;
+                Visible = false;
                 Promoted = true;
                 PromotedIsBig = true;
                 PromotedCategory = Process;
@@ -242,6 +284,7 @@ page 50056 "Quotation Comparision Doc"
             action(ApprovalEntries)
             {
                 ApplicationArea = all;
+                Visible = false;
                 Image = Approvals;
                 Promoted = true;
                 PromotedIsBig = true;
@@ -345,5 +388,10 @@ page 50056 "Quotation Comparision Doc"
         CanCancelapprovalforrecord: Boolean;
         CanCancelapprovalforflow: Boolean;
         CanrequestApprovForFlow: Boolean;
+        NoSeriesGvar: code[20];
+        PurchSetup: Record 312;
+        PurchaseSetup: Record "Purchases & Payables Setup";
+        Noseries: Record "No. Series";
+        NoSeriesRelationship: Record "No. Series Relationship";
 
 }

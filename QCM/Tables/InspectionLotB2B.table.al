@@ -77,6 +77,11 @@ table 33000259 "Inspection Lot B2B"
             Caption = 'Item Ledger Entry No.';
             DataClassification = CustomerContent;
         }
+        field(50000; "Vendor Lot No_B2B"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Vendor Lot No.';
+        }
     }
 
     keys
@@ -144,6 +149,7 @@ table 33000259 "Inspection Lot B2B"
                 InspectLot."Document No." := "Document No.";
                 InspectLot."Purch. Line No." := "Purch. Line No.";
                 InspectLot."Lot No." := TempItemLedgEntry."Lot No.";
+                InspectLot."Vendor Lot No_B2B" := TempItemLedgEntry."Vendor Lot No_B2B";
                 InspectLot."Line No." := LineNo;
                 InspectLot.Quantity := TempItemLedgEntry.Quantity;
                 InspectLot.INSERT(true);

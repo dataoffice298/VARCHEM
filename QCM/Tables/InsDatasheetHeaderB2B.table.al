@@ -93,6 +93,7 @@ table 33000255 "Ins Datasheet Header B2B"
         {
             Caption = 'Quantity';
             DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 5;
         }
         field(16; "Spec ID"; Code[20])
         {
@@ -267,6 +268,7 @@ table 33000255 "Ins Datasheet Header B2B"
         {
             Caption = 'Qty. per Unit of Measure';
             DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 5;
         }
         field(50; "Prod. Order No."; Code[20])
         {
@@ -378,12 +380,21 @@ table 33000255 "Ins Datasheet Header B2B"
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1));
             DataClassification = CustomerContent;
         }
-        field(105; "Shortcut Dimension 2 Code"; Code[20])
+        field(104; "Shortcut Dimension 2 Code"; Code[20])
         {
             CaptionClass = '1,2,2';
             Caption = 'Shortcut Dimension 2 Code';
 
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2));
+            DataClassification = CustomerContent;
+        }
+        field(50018; "Vendor Lot No_B2B"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Vendor Lot No.';
+        }
+        field(60001; "From Hold"; Boolean)
+        {
             DataClassification = CustomerContent;
         }
     }

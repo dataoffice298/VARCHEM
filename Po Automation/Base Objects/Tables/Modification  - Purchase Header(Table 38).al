@@ -4,13 +4,13 @@ tableextension 50009 tableextension70000010 extends "Purchase Header"
 
     fields
     {
-        modify("Document Type")
+        /*modify("Document Type")
         {
             OptionCaptionML = ENU = 'Quote,Order,Invoice,Credit Memo,Blanket Order,Return Order,Enquiry', ENN = 'Quote,Order,Invoice,Credit Memo,Blanket Order,Return Order,Enquiry';
 
             //Unsupported feature: Change OptionString on ""Document Type"(Field 1)". Please convert manually.
 
-        }
+        }*/
         field(51000; Subject; Text[200])
         {
             Caption = 'Subject';
@@ -54,6 +54,19 @@ tableextension 50009 tableextension70000010 extends "Purchase Header"
             OptionMembers = ,Open,"Pending Approval",Released;
             OptionCaption = ' ,Open,Pending Approval,Released';
         }
+        field(50018; "Vendor Quote No."; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50019; "Vendor Quote Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50020; "Indent No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
 

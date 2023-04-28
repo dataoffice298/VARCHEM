@@ -1,7 +1,6 @@
 table 33000269 "Inspection Receipt Header B2B"
 {
     // version B2BQC1.00.00
-
     // *******************************************************************************
     // B2B     : B2B Software Technologies
     // Project : Quality Control Addon
@@ -9,11 +8,9 @@ table 33000269 "Inspection Receipt Header B2B"
     // VER           SIGN       DATE         DESCRIPTION
     // *******************************************************************************
     // 1.00.00       B2BQC      06-05-15     New Table
-
     Caption = 'Inspection Receipt Header';
-    DrillDownPageID = "Inspection Receipt List B2B";
-    LookupPageID = "Inspection Receipt List B2B";
-
+    DrillDownPageID = "Posted Ins Receipt List B2B";
+    LookupPageID = "Posted Ins Receipt List B2B";
     fields
     {
         field(1; "Receipt No."; Code[20])
@@ -60,7 +57,7 @@ table 33000269 "Inspection Receipt Header B2B"
             Caption = 'Vendor Name 2';
             DataClassification = CustomerContent;
         }
-        field(10; Address; Text[50])
+        field(10; Address; Text[100])
         {
             Caption = 'Address';
             DataClassification = CustomerContent;
@@ -82,7 +79,7 @@ table 33000269 "Inspection Receipt Header B2B"
             TableRelation = Item;
             DataClassification = CustomerContent;
         }
-        field(14; "Item Description"; Text[50])
+        field(14; "Item Description"; Text[100])
         {
             Caption = 'Item Description';
             DataClassification = CustomerContent;
@@ -91,6 +88,7 @@ table 33000269 "Inspection Receipt Header B2B"
         {
             Caption = 'Quantity';
             DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 5;
         }
         field(16; "Spec ID"; Code[20])
         {
@@ -124,14 +122,15 @@ table 33000269 "Inspection Receipt Header B2B"
             Caption = 'Qty. Accepted';
             Editable = false;
             DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 5;
 
             trigger OnValidate();
             begin
                 TESTFIELD(Status, false);
                 if Quantity < "Qty. Accepted" + "Qty. Rejected" + "Qty. Rework" + "Qty. Accepted Under Deviation" then
                     ERROR(Text000Err);
-                if ("Item Tracking Exists") and ("Source Type" = "Source Type"::"In Bound") then
-                    ERROR(Text001Err);
+                //if ("Item Tracking Exists") and ("Source Type" = "Source Type"::"In Bound") then
+                //ERROR(Text001Err);
             end;
         }
         field(25; "Qty. Rejected"; Decimal)
@@ -139,6 +138,7 @@ table 33000269 "Inspection Receipt Header B2B"
             Caption = 'Qty. Rejected';
             Editable = false;
             DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 5;
 
             trigger OnValidate();
             begin
@@ -188,7 +188,7 @@ table 33000269 "Inspection Receipt Header B2B"
             Caption = 'Qty. Rework';
             Editable = false;
             DataClassification = CustomerContent;
-
+            DecimalPlaces = 0 : 5;
             trigger OnValidate();
             begin
                 VALIDATE("Qty. Accepted");
@@ -199,7 +199,7 @@ table 33000269 "Inspection Receipt Header B2B"
             Caption = 'Qty. Accepted Under Deviation';
             Editable = false;
             DataClassification = CustomerContent;
-
+            DecimalPlaces = 0 : 5;
             trigger OnValidate();
             begin
                 VALIDATE("Qty. Accepted");
@@ -302,6 +302,7 @@ table 33000269 "Inspection Receipt Header B2B"
         {
             Caption = 'Qty. per Unit of Measure';
             DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 5;
         }
         field(50; "Prod. Order No."; Code[20])
         {
@@ -376,7 +377,7 @@ table 33000269 "Inspection Receipt Header B2B"
         {
             Caption = 'Qty. to Vendor(Rejected)';
             DataClassification = CustomerContent;
-
+            DecimalPlaces = 0 : 5;
             trigger OnValidate();
             begin
                 if ("Source Type" = "Source Type"::"In Bound") and (not "Quality Before Receipt") then
@@ -391,6 +392,7 @@ table 33000269 "Inspection Receipt Header B2B"
             Caption = 'Qty. sent to Vendor(Rejected)';
             Editable = false;
             DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 5;
         }
         field(73; "Qty. to Vendor(Rework)"; Decimal)
         {
@@ -408,15 +410,16 @@ table 33000269 "Inspection Receipt Header B2B"
         field(74; "Qty. sent to Vendor(Rework)"; Decimal)
         {
             Caption = 'Qty. sent to Vendor(Rework)';
-            Editable = true;
+            Editable = false;
             MinValue = 0;
             DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 5;
         }
         field(75; "Qty. to Receive(Rework)"; Decimal)
         {
             Caption = 'Qty. to Receive(Rework)';
             DataClassification = CustomerContent;
-
+            DecimalPlaces = 0 : 5;
             trigger OnValidate();
             begin
                 if ("Qty. to Receive(Rework)" + "Qty. Received(Rework)") > "Qty. sent to Vendor(Rework)" then
@@ -428,6 +431,7 @@ table 33000269 "Inspection Receipt Header B2B"
             Caption = 'Qty. Received(Rework)';
             Editable = false;
             DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 5;
         }
         field(77; "Base Unit of Measure"; Code[10])
         {
@@ -440,6 +444,7 @@ table 33000269 "Inspection Receipt Header B2B"
             Caption = 'Quantity(Base)';
             DecimalPlaces = 0 : 9;
             DataClassification = CustomerContent;
+            //DecimalPlaces = 0 : 5;
         }
         field(90; "Created Date"; Date)
         {
@@ -494,6 +499,75 @@ table 33000269 "Inspection Receipt Header B2B"
             Caption = 'Shortcut Dimension 2 Code';
 
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2));
+            DataClassification = CustomerContent;
+        }
+        //4.14 >>
+        field(50018; "Vendor Lot No_B2B"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Vendor Lot No.';
+        }
+        field(50001; "QC Certificate(s) Status"; Enum "QC Certificate Status")
+        {
+            DataClassification = CustomerContent;
+        }
+        field(50002; "Certificate Remarks"; Text[1024])
+        {
+            DataClassification = CustomerContent;
+        }
+        //4.14 <<
+        //CHB2B27SEP2022>>
+        field(50015; "Quality Remarks"; Text[500])
+        {
+            DataClassification = CustomerContent;
+        }
+        //CHB2B27SEP2022<<
+        field(50003; "Qty. Hold"; Decimal)
+        {
+            Caption = 'Qty. Hold';
+            Editable = false;
+            DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 5;
+            trigger OnValidate();
+            begin
+                VALIDATE("Qty. Accepted");
+            end;
+        }
+
+        field(50012; "Qty. sent to Hold"; Decimal)
+        {
+            Caption = 'Qty. sent to Hold';
+            Editable = false;
+            MinValue = 0;
+            DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 5;
+        }
+        field(50013; "Qty. to Receive(Hold)"; Decimal)
+        {
+            Caption = 'Qty. to Receive(Hold)';
+            DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 5;
+            trigger OnValidate();
+            begin
+                if ("Qty. to Receive(Hold)" + "Qty. Received(Hold)") > "Qty. sent to Hold" then
+                    ERROR(Text004Err);
+            end;
+        }
+        field(50014; "Qty. Received(Hold)"; Decimal)
+        {
+            Caption = 'Qty. Received(Rework)';
+            Editable = false;
+            DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 5;
+        }
+        field(60001; "From Hold"; Boolean)
+        {
+            DataClassification = CustomerContent;
+        }
+        field(60002; "Quality Status"; Option)
+        {
+            Caption = 'Quality Status';
+            OptionMembers = Open,Cancel;
             DataClassification = CustomerContent;
         }
     }
@@ -574,7 +648,7 @@ table 33000269 "Inspection Receipt Header B2B"
         end;
     end;
 
-    procedure QualityAcceptanceLevels(QualityType: Option Accepted,"Accepted Under Deviation",Rework,Rejected);
+    procedure QualityAcceptanceLevels(QualityType: Option Accepted,"Accepted Under Deviation",Rework,Rejected,Hold);
     var
 
     begin
@@ -584,41 +658,49 @@ table 33000269 "Inspection Receipt Header B2B"
         InspectRcptAcptLevels.reset();
         InspectRcptAcptLevels.SETRANGE("Inspection Receipt No.", "No.");
         InspectRcptAcptLevels.SETRANGE("Quality Type", QualityType);
-        if not "Item Tracking Exists" then
-            case QualityType of
-                QualityType::Accepted:
-                    begin
-                        "Qty. Accepted" := 0;
-                        if InspectRcptAcptLevels.FIND('-') then
-                            repeat
-                                "Qty. Accepted" := "Qty. Accepted" + InspectRcptAcptLevels.Quantity;
-                            until InspectRcptAcptLevels.NEXT() = 0;
-                    end;
-                QualityType::"Accepted Under Deviation":
-                    begin
-                        "Qty. Accepted Under Deviation" := 0;
-                        if InspectRcptAcptLevels.FIND('-') then
-                            repeat
-                                "Qty. Accepted Under Deviation" := "Qty. Accepted Under Deviation" + InspectRcptAcptLevels.Quantity;
-                            until InspectRcptAcptLevels.NEXT() = 0;
-                    end;
-                QualityType::Rework:
-                    begin
-                        "Qty. Rework" := 0;
-                        if InspectRcptAcptLevels.FIND('-') then
-                            repeat
-                                "Qty. Rework" := "Qty. Rework" + InspectRcptAcptLevels.Quantity;
-                            until InspectRcptAcptLevels.NEXT() = 0;
-                    end;
-                QualityType::Rejected:
-                    begin
-                        "Qty. Rejected" := 0;
-                        if InspectRcptAcptLevels.FIND('-') then
-                            repeat
-                                "Qty. Rejected" := "Qty. Rejected" + InspectRcptAcptLevels.Quantity;
-                            until InspectRcptAcptLevels.NEXT() = 0;
-                    end;
-            end;
+        //if not "Item Tracking Exists" then
+        case QualityType of
+            QualityType::Accepted:
+                begin
+                    "Qty. Accepted" := 0;
+                    if InspectRcptAcptLevels.FIND('-') then
+                        repeat
+                            "Qty. Accepted" := "Qty. Accepted" + InspectRcptAcptLevels.Quantity;
+                        until InspectRcptAcptLevels.NEXT() = 0;
+                end;
+            QualityType::"Accepted Under Deviation":
+                begin
+                    "Qty. Accepted Under Deviation" := 0;
+                    if InspectRcptAcptLevels.FIND('-') then
+                        repeat
+                            "Qty. Accepted Under Deviation" := "Qty. Accepted Under Deviation" + InspectRcptAcptLevels.Quantity;
+                        until InspectRcptAcptLevels.NEXT() = 0;
+                end;
+            QualityType::Rework:
+                begin
+                    "Qty. Rework" := 0;
+                    if InspectRcptAcptLevels.FIND('-') then
+                        repeat
+                            "Qty. Rework" := "Qty. Rework" + InspectRcptAcptLevels.Quantity;
+                        until InspectRcptAcptLevels.NEXT() = 0;
+                end;
+            QualityType::Rejected:
+                begin
+                    "Qty. Rejected" := 0;
+                    if InspectRcptAcptLevels.FIND('-') then
+                        repeat
+                            "Qty. Rejected" := "Qty. Rejected" + InspectRcptAcptLevels.Quantity;
+                        until InspectRcptAcptLevels.NEXT() = 0;
+                end;
+            QualityType::Hold:
+                begin
+                    "Qty. Hold" := 0;
+                    if InspectRcptAcptLevels.FIND('-') then
+                        repeat
+                            "Qty. Hold" := "Qty. Hold" + InspectRcptAcptLevels.Quantity;
+                        until InspectRcptAcptLevels.NEXT() = 0;
+                end;
+        end;
     end;
 
     procedure ShowDocDim();

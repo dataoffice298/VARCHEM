@@ -1,7 +1,6 @@
 page 33000269 "Inspection Receipt B2B"
 {
     // version B2BQC1.00.00
-
     // *******************************************************************************
     // B2B     : B2B Software Technologies
     // Project : Quality Control Addon
@@ -9,7 +8,6 @@ page 33000269 "Inspection Receipt B2B"
     // VER           SIGN       DATE         DESCRIPTION
     // *******************************************************************************
     // 1.00.00       B2BQC      06-05-15     New Page.
-
     Caption = 'Inspection Receipt';
     DeleteAllowed = false;
     InsertAllowed = false;
@@ -19,7 +17,6 @@ page 33000269 "Inspection Receipt B2B"
                       WHERE(Status = FILTER(false));
     UsageCategory = Documents;
     ApplicationArea = all;
-
     layout
     {
         area(content)
@@ -119,6 +116,25 @@ page 33000269 "Inspection Receipt B2B"
                     ApplicationArea = all;
                     tooltip = 'lot numbers but it is required by the item tracking code applied to this item';
                 }
+                //4.14 >>
+                field("QC Certificate(s) Status"; "QC Certificate(s) Status")
+                {
+                    ApplicationArea = all;
+                    ToolTip = 'QC Certificate Status';
+                }
+                field("Certificate Remarks"; "Certificate Remarks")
+                {
+                    ApplicationArea = all;
+                    ToolTip = 'Certificate Remarks';
+                }
+                //4.14 <<
+                //CHB2B27SEP2022>>
+                field("Quality Remarks"; "Quality Remarks")
+                {
+                    ApplicationArea = all;
+                    ToolTip = 'Quality Remarks';
+                }
+                //CHB2B27SEP2022<<
             }
             part(Control1000000032; "Inspection Receipt Subform B2B")
             {
@@ -297,6 +313,7 @@ page 33000269 "Inspection Receipt B2B"
                 {
                     Caption = 'Undefined Quantity';
                     Editable = false;
+                    DecimalPlaces = 0 : 5;
                     Importance = Promoted;
                     ApplicationArea = all;
                     ToolTip = 'This Field Defines Undefine Quantities';
@@ -309,6 +326,7 @@ page 33000269 "Inspection Receipt B2B"
                     trigger OnAssistEdit();
                     begin
                         Rec.QualityAcceptanceLevels(QualityType::Accepted);
+
                         CalculateUndefinedQty();
                     end;
                 }
@@ -339,6 +357,17 @@ page 33000269 "Inspection Receipt B2B"
                     trigger OnAssistEdit();
                     begin
                         Rec.QualityAcceptanceLevels(QualityType::Rejected);
+                        
+                        CalculateUndefinedQty();
+                    end;
+                }
+                field("Qty. Hold"; Rec."Qty. Hold")
+                {
+                    ApplicationArea = all;
+                    tooltip = 'If items are sent to be sent for re-work, in the Vendor card';
+                    trigger OnAssistEdit();
+                    begin
+                        Rec.QualityAcceptanceLevels(QualityType::Hold);
                         CalculateUndefinedQty();
                     end;
                 }
@@ -448,9 +477,78 @@ page 33000269 "Inspection Receipt B2B"
                     ApplicationArea = all;
                     ToolTip = 'Navigate to Item Tracking lines';
                     trigger OnAction();
+                    var
+                        IRAcceptanceLevelsB2B: Record "IR Acceptance Levels B2B";//B2B22DEC22
+                        LineNum: Integer;//B2B22DEC22
+                        QualityItemLedgEntry1: Record "Quality Item Ledger Entry B2B";//B2B22DEC22
+
+
+
                     begin
+
                         if not Rec."Quality Before Receipt" then
                             Rec.ShowItemTrackingLines();
+                        //B2B22DEC22>>
+                        IRAcceptanceLevelsB2B.REset;
+                        IRAcceptanceLevelsB2B.Setrange("Inspection Receipt No.", Rec."No.");
+                        if IRAcceptanceLevelsB2B.FindSet() then
+                            IRAcceptanceLevelsB2B.DeleteAll();
+                        LineNum := 1000;
+
+                        QualityItemLedgEntry1.Reset;
+
+                        if (Rec."Rework Level" = 0) and not Rec."From Hold" then
+                            QualityItemLedgEntry1.SETRANGE("Document No.", Rec."Receipt No.")
+                        else
+                            if Rec."From Hold" then begin
+                                QualityItemLedgEntry1.SETRANGE("Document No.", Rec."No.");
+                                //QualityItemLedgEntry1.SETRANGE(Hold, false);
+                            end else
+                                QualityItemLedgEntry1.SETRANGE("Document No.", Rec."Rework Reference No.");
+
+                        QualityItemLedgEntry1.setrange("Inspection Status", QualityItemLedgEntry1."Inspection Status"::"Under Inspection");
+                        if QualityItemLedgEntry1.Findset then begin
+
+                            repeat
+
+                                IRAcceptanceLevelsB2B.init;
+
+                                IRAcceptanceLevelsB2B."Inspection Receipt No." := Rec."No.";
+                                IRAcceptanceLevelsB2B."Line No." := LineNum;
+                                IRAcceptanceLevelsB2B."Serial No." := QualityItemLedgEntry1."Serial No.";
+                                IRAcceptanceLevelsB2B.Quantity := QualityItemLedgEntry1.Quantity;
+                                if QualityItemLedgEntry1.Accept then
+                                    IRAcceptanceLevelsB2B."Quality Type" := IRAcceptanceLevelsB2B."Quality Type"::Accepted
+
+
+                                else
+                                    if QualityItemLedgEntry1.Reject then
+                                        IRAcceptanceLevelsB2B."Quality Type" := IRAcceptanceLevelsB2B."Quality Type"::Rejected
+
+                                    else
+                                        if QualityItemLedgEntry1.Rework then
+                                            IRAcceptanceLevelsB2B."Quality Type" := IRAcceptanceLevelsB2B."Quality Type"::Rework
+
+                                        else
+                                            if QualityItemLedgEntry1."Accept Under Deviation" then
+                                                IRAcceptanceLevelsB2B."Quality Type" := IRAcceptanceLevelsB2B."Quality Type"::"Accepted Under Deviation"
+                                            else
+                                                if QualityItemLedgEntry1.Hold then
+                                                    IRAcceptanceLevelsB2B."Quality Type" := IRAcceptanceLevelsB2B."Quality Type"::Hold;
+
+                                IRAcceptanceLevelsB2B."Item No." := "Item No.";
+                                IRAcceptanceLevelsB2B."Vendor No." := "Vendor No.";
+                                IRAcceptanceLevelsB2B."Source Type" := "Source Type";
+                                IRAcceptanceLevelsB2B."Production Order No." := "Prod. Order No.";
+                                IRAcceptanceLevelsB2B."Rework Level" := "Rework Level";
+                                IRAcceptanceLevelsB2B."ILE No." := QualityItemLedgEntry1."Entry No.";
+                                IRAcceptanceLevelsB2B."Acceptance Code" := GetAccepanceCode(IRAcceptanceLevelsB2B."Quality Type");
+
+                                IRAcceptanceLevelsB2B.insert;
+                                LineNum += 1000;
+                            until QualityItemLedgEntry1.next = 0;
+                        end;
+                        CurrPage.Update();
                     end;
                 }
             }
@@ -473,9 +571,12 @@ page 33000269 "Inspection Receipt B2B"
                     tooltip = 'post the material dispatch and receive used ';
                     trigger OnAction();
                     begin
+                        //Rec.TestField("QC Certificate(s) Status", Rec."QC Certificate(s) Status"::Available);//4.14
+                        Rec.TestField("Quality Remarks");
                         if not CONFIRM(Text003Qst) then
                             exit;
-                        CancelReservation(Rec);
+                        IF ("Lot No." <> '') or ("Serial No." <> '') THEN//B2BESGOn12Dec2022
+                            CancelReservation(Rec);
                         InspectJnlLine.RUN(Rec);
                         Rec.Status := true;
                         CurrPage.SAVERECORD();
@@ -492,16 +593,17 @@ page 33000269 "Inspection Receipt B2B"
         CalculateUndefinedQty();
     end;
 
+
     var
         InspectJnlLine: Codeunit "Inspection Jnl. Post Line B2B";
         Text001Msg: Label 'Inspection receipt %1 posted successfully.', Comment = '%1 = No';
-        QualityType: Option Accepted,"Accepted Under Deviation",Rework,Rejected;
+        QualityType: Option Accepted,"Accepted Under Deviation",Rework,Rejected,Hold;
         UndefinedQty: Decimal;
         Text003Qst: Label 'Do you want to Post the Inspection Receipt?';
 
     procedure CalculateUndefinedQty();
     begin
-        UndefinedQty := Rec.Quantity - Rec."Qty. Accepted" - Rec."Qty. Rejected" - Rec."Qty. Rework" - Rec."Qty. Accepted Under Deviation";
+        UndefinedQty := Rec.Quantity - Rec."Qty. Accepted" - Rec."Qty. Rejected" - Rec."Qty. Rework" - Rec."Qty. Accepted Under Deviation" - Rec."Qty. Hold";
     end;
 
     procedure CancelReservation(var InspectionReceipt: Record "Inspection Receipt Header B2B");
@@ -522,6 +624,20 @@ page 33000269 "Inspection Receipt B2B"
                 until ReservationEntry2.NEXT() = 0;
 
         end;
+    end;
+
+    procedure GetAccepanceCode(QualityType: Option Accepted,"Accepted Under Deviation",Rework,Rejected,Hold): code[20];
+    var
+        AcceptanceCode: Code[20];
+        AcceptanceLevelB2B: Record "Acceptance Level B2B";
+    begin
+        clear(AcceptanceCode);
+        AcceptanceLevelB2B.Reset;
+        AcceptanceLevelB2B.setrange(type, QualityType);
+        if AcceptanceLevelB2B.FindFirst() then
+            AcceptanceCode := AcceptanceLevelB2B.Code;
+        exit(AcceptanceCode);
+
     end;
 
     var

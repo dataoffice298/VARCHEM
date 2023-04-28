@@ -36,8 +36,8 @@ table 33000261 "Quality Ledger Entry B2B"
         field(4; "Entry Type"; Option)
         {
             Caption = 'Entry Type';
-            OptionCaption = 'Accepted,Rework,Reject';
-            OptionMembers = Accepted,Rework,Reject,Reworked;
+            OptionCaption = 'Accepted,Rework,Reject,Hold';
+            OptionMembers = Accepted,Rework,Reject,Reworked,Hold;
             DataClassification = CustomerContent;
         }
         field(5; "Source No."; Code[20])
@@ -217,6 +217,11 @@ table 33000261 "Quality Ledger Entry B2B"
             Caption = 'Sub Assembly';
             TableRelation = "Sub Assembly B2B";
             DataClassification = CustomerContent;
+        }
+        field(50000; "Vendor Lot No_B2B"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Vendor Lot No.';
         }
     }
 

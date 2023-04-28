@@ -84,6 +84,17 @@ page 50011 "Indent SubForm List"
                 {
                     ApplicationArea = All;
                 }
+                //B2BJK >>
+
+                field("Available Inventory"; Rec."Available Inventory")
+                {
+                    ApplicationArea = all;
+                }
+                field("PO Qty"; Rec."PO Qty")
+                {
+                    ApplicationArea = all;
+                }
+                //B2BJK <<
             }
         }
     }

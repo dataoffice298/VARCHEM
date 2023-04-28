@@ -56,7 +56,7 @@ table 33000262 "Quality Item Ledger Entry B2B"
             Caption = 'Document No.';
             DataClassification = CustomerContent;
         }
-        field(7; Description; Text[50])
+        field(7; Description; Text[100])
         {
             Caption = 'Description';
             DataClassification = CustomerContent;
@@ -358,6 +358,22 @@ table 33000262 "Quality Item Ledger Entry B2B"
             Caption = 'Declared Goods';
             DataClassification = CustomerContent;
         }
+        field(70050; Hold; Boolean)
+        {
+            Caption = 'Hold';
+            DataClassification = CustomerContent;
+
+            trigger OnValidate();
+            begin
+                if Hold then begin
+                    Reject := false;
+                    Accept := false;
+                    Rework := false;
+                    "Accept Under Deviation" := false;
+                end;
+            end;
+        }
+
         field(33000250; "Inspection Status"; Option)
         {
             Caption = 'Inspection Status';
@@ -383,6 +399,7 @@ table 33000262 "Quality Item Ledger Entry B2B"
                     Rework := false;
                     Reject := false;
                     "Accept Under Deviation" := false;
+                    Hold := false;
                 end;
             end;
         }
@@ -397,6 +414,7 @@ table 33000262 "Quality Item Ledger Entry B2B"
                     Accept := false;
                     Reject := false;
                     "Accept Under Deviation" := false;
+                    Hold := false;
                 end;
             end;
         }
@@ -411,6 +429,7 @@ table 33000262 "Quality Item Ledger Entry B2B"
                     Accept := false;
                     Rework := false;
                     "Accept Under Deviation" := false;
+                    Hold := false;
                 end;
             end;
         }
@@ -425,6 +444,7 @@ table 33000262 "Quality Item Ledger Entry B2B"
                     Accept := false;
                     Rework := false;
                     Reject := false;
+                    Hold := false;
                 end;
             end;
         }
@@ -437,6 +457,11 @@ table 33000262 "Quality Item Ledger Entry B2B"
         {
             Caption = 'Sending to Rework';
             DataClassification = CustomerContent;
+        }
+        field(50000; "Vendor Lot No_B2B"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Vendor Lot No.';
         }
     }
 

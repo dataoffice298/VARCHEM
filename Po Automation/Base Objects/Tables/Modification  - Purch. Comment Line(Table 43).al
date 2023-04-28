@@ -4,13 +4,13 @@ tableextension 50003 tableextension70000013 extends "Purch. Comment Line"
 
     fields
     {
-        modify("Document Type")
+        /*modify("Document Type")
         {
             OptionCaptionML = ENU = 'Quote,Order,Invoice,Credit Memo,Blanket Order,Return Order,Receipt,Posted Invoice,Posted Credit Memo,Posted Return Shipment,Indent,Enquiry', ENN = 'Quote,Order,Invoice,Credit Memo,Blanket Order,Return Order,Receipt,Posted Invoice,Posted Credit Memo,Posted Return Shipment,Indent,Enquiry';
 
             //Unsupported feature: Change OptionString on ""Document Type"(Field 1)". Please convert manually.
 
-        }
+        }*/
         field(50000; "General Condition"; Option)
         {
             OptionMembers = " ","Term of Payment",Freight,"Mode of Shipment","Delivery Time",packing,"Invoice Narration";

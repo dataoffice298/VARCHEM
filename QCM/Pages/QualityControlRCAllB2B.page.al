@@ -7,7 +7,7 @@ page 33000305 "Quality Control RC All B2B"
     {
         area(rolecenter)
         {
-            group(LayoutGroup)
+            /*group(LayoutGroup)
             {
                 part(Part1; 33000296)
                 {
@@ -21,8 +21,8 @@ page 33000305 "Quality Control RC All B2B"
                 {
                     ApplicationArea = all;
                 }
-            }
-            group(Grouop2)
+            }*/
+            /*group(Grouop2)
             {
                 part(part2; 9151)
                 {
@@ -36,7 +36,7 @@ page 33000305 "Quality Control RC All B2B"
                 {
                     ApplicationArea = all;
                 }
-            }
+            }*/
         }
     }
 

@@ -2,7 +2,7 @@ page 50027 "Quotation Comparison List"
 {
     PageType = Card;
     //ApplicationArea = All;
-    UsageCategory = Administration;
+    //UsageCategory = Administration;
     SourceTable = 50005;
 
 

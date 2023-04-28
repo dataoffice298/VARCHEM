@@ -114,6 +114,8 @@ page 33000254 "Specification Subform B2B"
         DescriptionIndent := 0;
         CharacterCodeOnFormat();
         DescriptionOnFormat();
+
+
     end;
 
     var
@@ -123,6 +125,8 @@ page 33000254 "Specification Subform B2B"
         DescriptionEmphasize: Boolean;
         [InDataSet]
         DescriptionIndent: Integer;
+
+
 
     local procedure CharacterCodeOnFormat();
     begin

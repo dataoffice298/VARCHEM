@@ -64,6 +64,10 @@ pageextension 50001 MyExtension extends "Purchases & Payables Setup"
             {
                 ApplicationArea = all;
             }
+            field("Enquiry Nos."; Rec."Enquiry Nos.")
+            {
+                ApplicationArea = all;
+            }
 
 
         }
@@ -77,4 +81,5 @@ pageextension 50001 MyExtension extends "Purchases & Payables Setup"
 
     var
         myInt: Integer;
+        
 }

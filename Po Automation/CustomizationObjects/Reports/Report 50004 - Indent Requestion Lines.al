@@ -2,15 +2,7 @@ report 50004 "Indent Requestion Lines"
 {
     // version PO
 
-    // PROJECT : WindlassHealthCare
-    // *********************************************************************************************************************************************************
-    // SIGN
-    // *********************************************************************************************************************************************************
-    // B2B : B2B Software Technologies
-    // *********************************************************************************************************************************************************
-    // VER       SIGN       USERID          DATE         DESCRIPTION
-    // *********************************************************************************************************************************************************
-    // 1.1       B2B        Srikar        12-May-15 -->  Added Code In Indent Line OnAfterGetRecord.
+
 
     ProcessingOnly = true;
 
@@ -21,7 +13,7 @@ report 50004 "Indent Requestion Lines"
             DataItemTableView = SORTING("No.")
                                 ORDER(Ascending)
                                 WHERE("Released Status" = FILTER(Released));
-            RequestFilterFields = "No.", "Delivery Location";
+            //RequestFilterFields = "No.", "Delivery Location";
             dataitem(DataItem1102152000; "Indent Line")
             {
                 DataItemLink = "Document No." = FIELD("No.");
@@ -32,7 +24,6 @@ report 50004 "Indent Requestion Lines"
 
                 trigger OnAfterGetRecord();
                 begin
-
                     IndentRequisitions.RESET;
                     IndentRequisitions.SETRANGE("Item No.", "No.");
                     IndentRequisitions.SETRANGE("Variant Code", "Variant Code");
@@ -47,9 +38,15 @@ report 50004 "Indent Requestion Lines"
                         ItemVendorGvar.RESET;
                         ItemVendorGvar.SETRANGE("Item No.", IndentRequisitions."Item No.");
                         ItemVendorGvar.SETRANGE("Vendor No.", IndentRequisitions."Manufacturer Code");
-                        IF ItemVendorGvar.FINDFIRST THEN
-                            //IndentRequisitions."Vendor Min.Ord.Qty" := ItemVendorGvar."Vendor Min.Ord.Qty"; B2B1.1
-                            IndentRequisitions.MODIFY;
+                        IF ItemVendorGvar.FINDFIRST THEN;
+                        //IndentRequisitions."Vendor Min.Ord.Qty" := ItemVendorGvar."Vendor Min.Ord.Qty"; B2B1.1
+                        IndentRequisitions.MODIFY;
+                        /*if IndentReqHeader2.Get(IndentRequisitions."Document No.") then begin
+                            IndentReqHeader2."Shortcut Dimension 1 Code_B2B" := DataItem1102152001."Shortcut Dimension 1 Code_B2B";
+                            IndentReqHeader2."Shortcut Dimension 2 Code_B2B" := DataItem1102152001."Shortcut Dimension 2 Code_B2B";
+                            IndentReqHeader2.Modify();
+                            //IndentReqHeader
+                        end;*/
                         //B2B.1.3 E
                     END ELSE BEGIN
                         IndentRequisitions.INIT;
@@ -57,24 +54,26 @@ report 50004 "Indent Requestion Lines"
                         IndentRequisitions."Line No." := TempLineNo;
                         IndentRequisitions."Item No." := "No.";
                         IndentRequisitions.Description := Description;
-                        IF RecItem.GET(IndentRequisitions."Item No.") THEN
-                            IndentRequisitions."Unit of Measure" := RecItem."Base Unit of Measure";
+                        //IF RecItem.GET(IndentRequisitions."Item No.") THEN
+                        IndentRequisitions."Unit of Measure" := "Unit of Measure";
                         //  IndentRequisitions."Manufacturer Code" := "Manufacturer Code";//Divya
                         //      IndentRequisitions."Vendor Name" :=  "Indent Line"."Manufacture Name";//Divya
                         IndentRequisitions."Vendor No." := "Vendor No.";
+                        IndentRequisitions."Shortcut Dimension 1 Code_B2B" := "Shortcut Dimension 1 Code_B2B";
+                        IndentRequisitions."Shortcut Dimension 2 Code_B2B" := "Shortcut Dimension 2 Code_B2B";
                         //B2B.1.3 s
                         ItemVendorGvar.RESET;
                         ItemVendorGvar.SETRANGE("Item No.", IndentRequisitions."Item No.");
                         ItemVendorGvar.SETRANGE("Vendor No.", IndentRequisitions."Manufacturer Code");
-                        IF ItemVendorGvar.FINDFIRST THEN
-                            //IndentRequisitions."Vendor Min.Ord.Qty" := ItemVendorGvar."Vendor Min.Ord.Qty" ;B2B1.1
-                            //B2B.1.3 E
-                            IndentRequisitions.Department := Department;
+                        IF ItemVendorGvar.FINDFIRST THEN;
+                        //IndentRequisitions."Vendor Min.Ord.Qty" := ItemVendorGvar."Vendor Min.Ord.Qty" ;B2B1.1
+                        //B2B.1.3 E
+                        IndentRequisitions.Department := Department;
                         IndentRequisitions."Variant Code" := "Variant Code";
                         IndentRequisitions."Indent No." := "Document No.";
                         IndentRequisitions."Indent Line No." := "Line No.";
                         IndentRequisitions."Indent Status" := "Indent Status";
-                        IndentRequisitions.Quantity += "Quantity (Base)";
+                        IndentRequisitions.Quantity := "Req.Quantity";
                         IndentRequisitions.VALIDATE(IndentRequisitions.Quantity);//test001
                         IndentRequisitions.VALIDATE(IndentRequisitions.Quantity);
                         IndentRequisitions."Unit Cost" := "Unit Cost";  //Divya
@@ -85,9 +84,20 @@ report 50004 "Indent Requestion Lines"
                         IndentRequisitions."Due Date" := "Due Date";
                         //    IndentRequisitions."Payment Method Code" := "Indent Line"."Payment Meathod Code";//Divya
                         IndentRequisitions."Carry out Action" := TRUE;
+                        //B2BJK >>
+                        IndentRequisitions.Make := Make;
+                        IndentRequisitions.Model := Model;
+                        IndentRequisitions."Shortage Qty" := "Shortage Qty";
+                        //B2BJK <<
                         IndentRequisitions.INSERT;
                         TempLineNo += 10000;
                     END;
+                    /*if IndentReqHeader2.Get(IndentRequisitions."Document No.") then begin
+                        IndentReqHeader2."Shortcut Dimension 1 Code_B2B" := DataItem1102152001."Shortcut Dimension 1 Code_B2B";
+                        IndentReqHeader2."Shortcut Dimension 2 Code_B2B" := DataItem1102152001."Shortcut Dimension 2 Code_B2B";
+                        IndentReqHeader2.Modify();
+                        //IndentReqHeader
+                    end;*/
                     "Indent Req No" := IndentRequisitions."Document No.";
                     "Indent Req Line No" := IndentRequisitions."Line No.";
                     MODIFY;
@@ -106,6 +116,12 @@ report 50004 "Indent Requestion Lines"
                         TempLineNo := 10000;
                 end;
             }
+            trigger OnPreDataItem()
+            begin
+                //SetRange("Shortcut Dimension 1 Code_B2B", DimCodeGvar);
+                SetRange("No.", IndentHdrNo);
+            end;
+
         }
     }
 
@@ -114,6 +130,27 @@ report 50004 "Indent Requestion Lines"
 
         layout
         {
+            area(Content)
+            {
+                group(general)
+                {
+                    field(IndentHdrNo; IndentHdrNo)
+                    {
+                        Caption = 'Indent No.';
+                        ApplicationArea = all;
+                        trigger OnLookup(var Text: Text): Boolean
+                        begin
+                            IndentHeaderGrec.Reset();
+                            IndentHeaderGrec.SetRange("Shortcut Dimension 1 Code_B2B", DimCodeGvar);
+                            IndentHeaderGrec.SetRange("Shortcut Dimension 2 Code_B2B", ProjectCodegvar);
+                            IndentHeaderGrec.SetRange("Released Status", IndentHeaderGrec."Released Status"::Released);
+                            if IndentHeaderGrec.FindSet() then
+                                if Page.RunModal(Page::"Indent List", IndentHeaderGrec) = Action::LookupOK then
+                                    IndentHdrNo := IndentHeaderGrec."No.";
+                        end;
+                    }
+                }
+            }
         }
 
         actions
@@ -127,21 +164,28 @@ report 50004 "Indent Requestion Lines"
 
     var
         IndentRequisitions: Record 50003;
+        IndentHdrNo: Code[30];
+        IndentHeaderGrec: Record "Indent Header";
         RecItem: Record 27;
         RecVendor: Record 23;
         RecLocation: Record 14;
         TempLineNo: Integer;
         QtyNotAvailable: Boolean;
         IndentReqHeader: Record 50009;
+        IndentReqHeader2: Record 50009;
         RequestNo: Code[20];
         ResponsibilityCenter: Code[20];
         Count1: Integer;
         ItemVendorGvar: Record 99;
+        DimCodeGvar: Code[20];
+        ProjectCodegvar: Code[20];
 
-    procedure GetValue(var HeaderNo: Code[20]; var RespCenter: Code[20]);
+    procedure GetValue(var HeaderNo: Code[20]; var RespCenter: Code[20]; Var DimesionCodePar: Code[20]; Var ProjectCodePar: Code[20]);
     begin
         RequestNo := HeaderNo;
         ResponsibilityCenter := RespCenter;
+        DimCodeGvar := DimesionCodePar;
+        ProjectCodegvar := ProjectCodePar;
     end;
 }
 

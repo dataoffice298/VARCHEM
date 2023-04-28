@@ -226,6 +226,12 @@ table 33000270 "Inspection Receipt Line B2B"
             Caption = 'Qualitative';
             DataClassification = CustomerContent;
         }
+        //4.06 >>
+        field(50000; "Style Expression"; Text[50])
+        {
+            DataClassification = CustomerContent;
+        }
+        //4.06 <<
     }
 
     keys

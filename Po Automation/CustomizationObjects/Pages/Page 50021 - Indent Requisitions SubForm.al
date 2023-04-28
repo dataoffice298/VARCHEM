@@ -42,7 +42,7 @@ page 50021 "Indent Requisitions SubForm"
                 }
                 field("Carry out Action"; Rec."Carry out Action")
                 {
-                    Visible = false;
+                    // Visible = false;
                     ApplicationArea = All;
                 }
                 field("Unit of Measure"; Rec."Unit of Measure")
@@ -116,7 +116,7 @@ page 50021 "Indent Requisitions SubForm"
                 {
                     ApplicationArea = All;
                 }
-                field("Vendor Min.Ord.Qty"; Rec."Vendor Min.Ord.Qty")
+                /*field("Vendor Min.Ord.Qty"; Rec."Vendor Min.Ord.Qty")
                 {
                     ApplicationArea = All;
 
@@ -124,7 +124,7 @@ page 50021 "Indent Requisitions SubForm"
                     begin
                         CurrPage.UPDATE(TRUE);
                     end;
-                }
+                }*/
                 field("Payment Method Code"; Rec."Payment Method Code")
                 {
                     Caption = '<Payment Method Code>';
@@ -134,6 +134,36 @@ page 50021 "Indent Requisitions SubForm"
                     begin
                         CurrPage.UPDATE(TRUE);
                     end;
+                }
+                field(Make; Rec.Make)
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Make field.';
+                }
+                field("PO Qty"; Rec."PO Qty")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the PO Qty field.';
+                }
+                field("Available Inventory"; Rec."Available Inventory")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Available Inventory field.';
+                }
+                field(Model; Rec.Model)
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Model field.';
+                }
+                field("Shortage Qty"; Rec."Shortage Qty")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Shortage Qty field.';
+                }
+                field("Open Quote Qty"; Rec."Open Quote Qty")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Open Quote Qty field.';
                 }
             }
         }

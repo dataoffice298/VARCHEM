@@ -58,8 +58,10 @@ table 33000253 "Specification Header B2B"
 
             trigger OnValidate();
             begin
-                if Status = Status::Certified then
+                if Status = Status::Certified then begin
+                    Rec.TestField("ISO Format Number");//4.05
                     TestStatus();
+                end;
             end;
         }
         field(8; "Sampling Plan"; Code[20])
@@ -74,6 +76,27 @@ table 33000253 "Specification Header B2B"
             TableRelation = "No. Series";
             DataClassification = CustomerContent;
         }
+
+        //4.05 >>
+        field(50000; "ISO Format Number"; Code[100])
+        {
+            DataClassification = CustomerContent;
+        }
+        field(50001; "Shortcut Dimension 1 Code_B2B"; Code[20])
+        {
+            CaptionClass = '1,2,1';
+            Caption = 'Shortcut Dimension 1 Code';
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1),
+                                                          Blocked = CONST(false));
+        }
+        field(50002; "Shortcut Dimension 2 Code_B2B"; Code[20])
+        {
+            CaptionClass = '1,2,2';
+            Caption = 'Shortcut Dimension 2 Code';
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2),
+                                                          Blocked = CONST(false));
+        }
+        //4.05 <<
     }
 
     keys

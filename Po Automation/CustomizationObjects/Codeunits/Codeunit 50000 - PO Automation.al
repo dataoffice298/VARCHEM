@@ -138,6 +138,7 @@ codeunit 50000 "PO Automation"
     var
         IndentVendorItems: Record 50007;
         ItemVendor: Record 99;
+        IndentReqHdr: Record "Indent Req Header";
         CreateIndents: Record 50003;
         Text000: Label 'Default Vendor is not Mentioned In the Vendor Item Catalog For  Item No ''%1''';
         Text001: Label 'First Select Vendor';
@@ -157,15 +158,27 @@ codeunit 50000 "PO Automation"
                 IndentVendorItems."Location Code" := CreateIndents."Location Code";
                 IndentVendorItems."Unit Of Measure" := CreateIndents."Unit of Measure";
                 IndentVendorItems.Department := CreateIndents.Department;
+                //B2BJK >>
+                IndentVendorItems.Make := CreateIndents.Make;
+                IndentVendorItems.Model := CreateIndents.Model;
+                IndentVendorItems."Shortage Qty" := CreateIndents."Shortage Qty";
+                //B2BJK <<
+                if IndentReqHdr.Get(CreateIndents."Document No.") then begin
+                    IndentVendorItems."Shortcut Dimension 1 Code_B2B" := IndentReqHdr."Shortcut Dimension 1 Code_B2B";
+                    IndentVendorItems."Shortcut Dimension 2 Code_B2B" := IndentReqHdr."Shortcut Dimension 2 Code_B2B";
+                end;
+
                 IndentVendorItems."Indent Req No" := CreateIndents."Document No.";
                 IndentVendorItems."Indent Req Line No" := CreateIndents."Line No.";
                 IF NOT (Vendor.FIND('-')) THEN
                     ERROR(Text001, IndentVendorItems."Item No.")
-                ELSE
+                ELSE begin
                     REPEAT
                         IndentVendorItems."Vendor No." := Vendor."No.";
                         IndentVendorItems.INSERT;
+
                     UNTIL Vendor.NEXT = 0;
+                end;
             UNTIL CreateIndents.NEXT = 0;
     end;
 
@@ -225,6 +238,7 @@ codeunit 50000 "PO Automation"
                     PurchaseHeader."Document Type" := PurchaseHeader."Document Type"::Enquiry;
                     PPSetup.GET;
                     PurchaseHeader."No." := NoSeriesMgt.GetNextNo(Noseries, WORKDATE, TRUE);
+                    PurchaseHeader."No. Series" := Noseries;
                     MESSAGE('Purchaser Enquiry No %1 ', PurchaseHeader."No.");
                     PurchaseHeader.Insert(true);
                     PurchaseHeader."Buy-from Vendor No." := IndentVendorEnquiry."Vendor No.";
@@ -236,6 +250,9 @@ codeunit 50000 "PO Automation"
                     PurchaseHeader."Order Date" := WORKDATE;
                     PurchaseHeader."Document Date" := WORKDATE;
                     PurchaseHeader."Indent Requisition No" := IndentVendorEnquiry."Indent Req No";
+                    PurchaseHeader."Indent No." := IndentVendorEnquiry."Indent No.";//B2BJK On 06-dec-2022
+                    PurchaseHeader.Validate("Shortcut Dimension 1 Code", IndentVendorEnquiry."Shortcut Dimension 1 Code_B2B");
+                    PurchaseHeader.Validate("Shortcut Dimension 2 Code", IndentVendorEnquiry."Shortcut Dimension 2 Code_B2B");
                     //PurchaseHeader.VALIDATE("Location Code", IndentVendorEnquiry."Location Code");//B2BESGOn19May2022
                     PurchaseHeader."Location Code" := IndentVendorEnquiry."Location Code";
                     PurchaseHeader.Modify(true);
@@ -267,15 +284,23 @@ codeunit 50000 "PO Automation"
                         PurchaseLine."Indent No." := IndentVendorEnquiry."Indent Req No";
                         PurchaseLine."Indent Line No." := IndentVendorEnquiry."Indent Req Line No";
                         PurchaseLine."Location Code" := IndentVendorEnquiry."Location Code";
+                        PurchaseLine."Indent No New" := IndentVendorEnquiry."Indent No.";
                         //PurchaseLine.VALIDATE("Location Code");//B2BESGOn19May2022
                         PurchaseLine."Shortcut Dimension 1 Code" := IndentVendorEnquiry."Project No.";
                         PurchaseLine."Shortcut Dimension 2 Code" := IndentVendorEnquiry.Department;
+                        //B2BJK >>
+                        PurchaseLine.Make := IndentVendorEnquiry.Make;
+                        PurchaseLine.Model := IndentVendorEnquiry.Model;
+                        PurchaseLine."Shortage Qty" := IndentVendorEnquiry."Shortage Qty";
+                        //B2BJK <<
                         CreateIndents4.RESET;
                         CreateIndents4.COPYFILTERS(CreateIndentsEnquiry);
                         IF CreateIndents4.FINDFIRST THEN
                             REPEAT
                                 CreateIndents4."Document Type" := PurchaseLine."Document Type"::Enquiry;
                                 CreateIndents4."Order No" := PurchaseLine."Document No.";
+                                CreateIndents4.Created := true; //B2BJK on nov11
+                                CreateIndents4."Carry out Action" := false; //B2BJK on nov11
                                 CreateIndents4.MODIFY;
                             UNTIL CreateIndents4.NEXT = 0;
                         PurchaseLine.INSERT;
@@ -314,6 +339,8 @@ codeunit 50000 "PO Automation"
                     PurchaseHeader."Document Type" := PurchaseHeader."Document Type"::Quote;
                     PPSetup.GET;
                     PurchaseHeader."No." := NoSeriesMgt.GetNextNo(Noseries, WORKDATE, TRUE);
+                    PurchaseHeader."No. Series" := Noseries;
+                    PurchaseHeader.INSERT(true);
                     MESSAGE('Purchaser Quote No %1 ', PurchaseHeader."No.");
                     PurchaseHeader."Buy-from Vendor No." := IndentVendorEnquiry."Vendor No.";
                     PurchaseHeader.VALIDATE(PurchaseHeader."Buy-from Vendor No.");
@@ -325,12 +352,16 @@ codeunit 50000 "PO Automation"
                     PurchaseHeader."Indent Requisition No" := IndentVendorEnquiry."Indent Req No";
                     PurchaseHeader.VALIDATE("Expected Receipt Date");
                     PurchaseHeader.VALIDATE("Due Date");
-                    PurchaseHeader.INSERT;
+                    PurchaseHeader."Indent No." := IndentVendorEnquiry."Indent No.";//B2BJK
+                    PurchaseHeader.Validate("Shortcut Dimension 1 Code", IndentVendorEnquiry."Shortcut Dimension 1 Code_B2B");
+                    PurchaseHeader.Validate("Shortcut Dimension 2 Code", IndentVendorEnquiry."Shortcut Dimension 2 Code_B2B");
+                    PurchaseHeader.Modify(true);
                     REPEAT
                         PurchaseLine.INIT;
                         PurchaseLine."Document Type" := PurchaseLine."Document Type"::Quote;
                         PurchaseLine."Document No." := PurchaseHeader."No.";
                         PurchaseLine."Line No." := PurchaseLine."Line No." + 10000;
+                        PurchaseLine.INSERT(true);
                         PurchaseLine."Buy-from Vendor No." := PurchaseHeader."Buy-from Vendor No.";
                         PurchaseLine.VALIDATE("Buy-from Vendor No.");
                         PurchaseLine.Type := PurchaseLine.Type::Item;
@@ -352,19 +383,27 @@ codeunit 50000 "PO Automation"
                         //PurchaseLine."Indent Line No." := IndentVendorEnquiry."Indent Line No.";
                         PurchaseLine."Indent No." := IndentVendorEnquiry."Indent Req No";
                         PurchaseLine."Indent Line No." := IndentVendorEnquiry."Indent Req Line No";
+                        PurchaseLine."Indent No New" := IndentVendorEnquiry."Indent No.";
                         PurchaseLine.VALIDATE("Location Code");
                         PurchaseLine."Shortcut Dimension 1 Code" := IndentVendorEnquiry."Project No.";
                         PurchaseLine."Shortcut Dimension 2 Code" := IndentVendorEnquiry.Department;
                         PurchaseLine."Location Code" := IndentVendorEnquiry."Location Code";
+                        //B2BJK >>
+                        PurchaseLine.Make := IndentVendorEnquiry.Make;
+                        PurchaseLine.Model := IndentVendorEnquiry.Model;
+                        PurchaseLine."Shortage Qty" := IndentVendorEnquiry."Shortage Qty";
+                        //B2BJK <<
                         CreateIndents4.RESET;
                         CreateIndents4.COPYFILTERS(CreateIndentsQuotes);
                         IF CreateIndents4.FIND('-') THEN
                             REPEAT
                                 CreateIndents4."Document Type" := PurchaseLine."Document Type"::Quote;
                                 CreateIndents4."Order No" := PurchaseLine."Document No.";
+                                CreateIndents4.Created := true; //B2BJK on nov11
+                                CreateIndents4."Carry out Action" := false; //B2BJK on nov11
                                 CreateIndents4.MODIFY;
                             UNTIL CreateIndents4.NEXT = 0;
-                        PurchaseLine.INSERT;
+                        PurchaseLine.Modify(true);
                         IndentVendorEnquiry.Check := TRUE;
                         IndentVendorEnquiry.MODIFY;
                     UNTIL IndentVendorEnquiry.NEXT = 0;
@@ -388,11 +427,12 @@ codeunit 50000 "PO Automation"
         PurchUOMQtyMeasure: Decimal;
     begin
         CreateIndents4.COPYFILTERS(CreateIndentsQuotes);
-        InsertIndentItemvendor(CreateIndents4, Vendor);
+        InsertIndentItemvendorNeww(CreateIndents4, Vendor);
         IndentVendorItems.RESET;
         IndentVendorItems.SETRANGE(Check, FALSE);
         IF IndentVendorItems.FIND('-') THEN
             REPEAT
+                IndentVendorEnquiry.Reset();
                 IndentVendorEnquiry.SETRANGE("Vendor No.", IndentVendorItems."Vendor No.");
                 IndentVendorEnquiry.SETRANGE("Location Code", IndentVendorItems."Location Code");
                 IF IndentVendorEnquiry.FIND('-') THEN BEGIN
@@ -400,7 +440,9 @@ codeunit 50000 "PO Automation"
                     PurchaseHeader."Document Type" := PurchaseHeader."Document Type"::Order;
                     PPSetup.GET;
                     PurchaseHeader."No." := NoSeriesMgt.GetNextNo(Noseries, WORKDATE, TRUE);
+                    PurchaseHeader."No. Series" := Noseries;
                     MESSAGE('Purchaser Order No %1 ', PurchaseHeader."No.");
+                    PurchaseHeader.INSERT(true);
                     PurchaseHeader."Buy-from Vendor No." := IndentVendorEnquiry."Vendor No.";
                     PurchaseHeader.VALIDATE(PurchaseHeader."Buy-from Vendor No.");
                     PurchaseHeader."Order Date" := WORKDATE;
@@ -411,7 +453,7 @@ codeunit 50000 "PO Automation"
                     PurchaseHeader.VALIDATE("Expected Receipt Date");
                     PurchaseHeader.VALIDATE("Due Date");
                     PurchaseHeader."Indent Requisition No" := IndentVendorEnquiry."Indent Req No";
-                    PurchaseHeader.INSERT;
+                    PurchaseHeader.Modify(true);
                     REPEAT
                         PurchaseLine.INIT;
                         PurchaseLine."Document Type" := PurchaseLine."Document Type"::Order;
@@ -441,6 +483,7 @@ codeunit 50000 "PO Automation"
                         //PurchaseLine."Indent Line No." := IndentVendorEnquiry."Indent Line No.";
                         PurchaseLine."Indent No." := IndentVendorEnquiry."Indent Req No";
                         PurchaseLine."Indent Line No." := IndentVendorEnquiry."Indent Req Line No";
+                        PurchaseLine."Indent No New" := IndentVendorEnquiry."Indent No.";
                         PurchaseLine.VALIDATE("Location Code");
                         PurchaseLine."Shortcut Dimension 1 Code" := IndentVendorEnquiry."Project No.";
                         PurchaseLine."Shortcut Dimension 2 Code" := IndentVendorEnquiry.Department;
@@ -729,6 +772,7 @@ codeunit 50000 "PO Automation"
         Lnum: integer;
         Linum: integer;
         Quocom: Record "Quotation Comparison Test";
+        QuoteCompHdr: Record 50013;
         Vend: Record Vendor;
         PurchaseHeader: Record "Purchase Header";
     begin
@@ -754,6 +798,9 @@ codeunit 50000 "PO Automation"
                     QuoteCompare."Vendor Name" := PurchaseHeader."Buy-from Vendor Name";
                     QuoteCompare."Item No." := '';
                     QuoteCompare.Description := PurchaseHeader."Buy-from Vendor Name";
+                    QuoteCompare."Vendor Quote No." := PurchaseHeader."Vendor Quote No.";
+                    QuoteCompare."Vendor Quote Date" := PurchaseHeader."Vendor Quote Date";
+                    //QuoteCompare.sh
                     QuoteCompare.Quantity := 0;
                     QuoteCompare.Rate := 0;
                     QuoteCompare.Amount := 0;
@@ -767,6 +814,11 @@ codeunit 50000 "PO Automation"
                     QuoteCompare."Location Code" := PurchaseHeader."Location Code";
                     QuoteCompare."Parent Quote No." := PurchaseHeader."No.";
                     QuoteCompare.INSERT();
+                    if QuoteCompHdr.Get(QuoteCompare."Quot Comp No.") then begin
+                        QuoteCompHdr."Shortcut Dimension 1 Code_B2B" := PurchaseHeader."Shortcut Dimension 1 Code";
+                        QuoteCompHdr."Shortcut Dimension 2 Code_B2B" := PurchaseHeader."Shortcut Dimension 2 Code";
+                        QuoteCompHdr.Modify();
+                    end;
                     Amount := 0;
                     PurchaseLine.SETRANGE(PurchaseLine."Document Type", PurchaseHeader."Document Type");
                     PurchaseLine.SETRANGE(PurchaseLine."Document No.", PurchaseHeader."No.");
@@ -781,6 +833,13 @@ codeunit 50000 "PO Automation"
                             QuoteCompare."Item No." := PurchaseLine."No.";
                             QuoteCompare.Description := PurchaseLine.Description;
                             QuoteCompare.Description2 := PurchaseLine."Description 2";
+                            QuoteCompare."Unit of Measure Code" := PurchaseLine."Unit of Measure Code"; // B2BJK on Oct-10-2022
+                            QuoteCompare."Location Code" := PurchaseLine."Location Code";
+                            //B2BJK >>
+                            QuoteCompare.Make := PurchaseLine.Make;
+                            QuoteCompare.Model := PurchaseLine.Model;
+                            QuoteCompare."Shortage Qty" := PurchaseLine."Shortage Qty";
+                            //B2BJK <<
                             IF PurchaseLine.Quantity = 0 THEN
                                 ERROR(Text0011Lbl, PurchaseLine."Document No.");
                             QuoteCompare.Quantity := PurchaseLine.Quantity;
@@ -792,8 +851,8 @@ codeunit 50000 "PO Automation"
                             //QuoteCompare."Purch. Req Line No" := PurchaseLine."Sub Document Line No.";
                             QuoteCompare."Location Code" := PurchaseHeader."Location Code";
                             //QuoteCompare."Material req No.s" := PurchaseLine."Material req No.s";//PK on 24.10.2020
-                            QuoteCompare."Shortcut Dimension 1 Code" := PurchaseLine."Shortcut Dimension 1 Code";
-                            QuoteCompare."Shortcut Dimension 2 Code" := PurchaseLine."Shortcut Dimension 2 Code";
+                            QuoteCompare."Shortcut Dimension 1 Code" := PurchaseHeader."Shortcut Dimension 1 Code";
+                            QuoteCompare."Shortcut Dimension 2 Code" := PurchaseHeader."Shortcut Dimension 2 Code";
                             QuoteCompare."Dimension Set ID" := PurchaseLine."Dimension Set ID";
                             QuoteCompare."Line No." := QuoteCompare."Line No." + 10000;
                             QuoteCompare."Document Date" := PurchaseHeader."Document Date";
@@ -846,7 +905,8 @@ codeunit 50000 "PO Automation"
                                 QuoteCompareAmount.MODIFY();
                             END;
                             QuoteCompare.Department := PurchaseLine."Shortcut Dimension 2 Code";
-
+                            QuoteCompare."Shortcut Dimension 1 Code_B2B" := PurchaseLine."Shortcut Dimension 1 Code";
+                            QuoteCompare."Shortcut Dimension 2 Code_B2B" := PurchaseLine."Shortcut Dimension 2 Code";
                             QuoteCompare.INSERT();
                         UNTIL PurchaseLine.NEXT() = 0;
                 END;
@@ -1123,7 +1183,7 @@ codeunit 50000 "PO Automation"
 
     end;
 
-    procedure ConvertEnquirytoQuote(var Rec: Record 38);
+    procedure ConvertEnquirytoQuote(var Rec: Record 38; NoSeriesPar: code[20]);
     var
         PurchaseHeader: Record 38;
         PurchaseLine: Record 39;
@@ -1136,7 +1196,9 @@ codeunit 50000 "PO Automation"
         PurchaseHeader.INIT;
         PurchaseHeader."Document Type" := PurchaseHeader."Document Type"::Quote;
         PurchaseSetup.GET;
-        PurchaseHeader."No." := NoSeriesMgt.GetNextNo(PurchaseSetup."Quote Nos.", WORKDATE, TRUE);
+        PurchaseHeader."No." := NoSeriesMgt.GetNextNo(NoSeriesPar, WORKDATE, TRUE);
+        PurchaseHeader."No. Series" := NoSeriesPar;
+        PurchaseHeader.INSERT(true);
         PurchaseHeader."Buy-from Vendor No." := Rec."Buy-from Vendor No.";
         PurchaseHeader."Requested Receipt Date" := Rec."Requested Receipt Date";
         PurchaseHeader.VALIDATE("Buy-from Vendor No.");
@@ -1147,7 +1209,10 @@ codeunit 50000 "PO Automation"
         PurchaseHeader."Location Code" := Rec."Location Code";
         PurchaseHeader.VALIDATE("Location Code");
         PurchaseHeader."Indent Requisition No" := Rec."Indent Requisition No";
-        PurchaseHeader.INSERT;
+        PurchaseHeader."Indent No." := Rec."Indent No.";//B2BJK
+        PurchaseHeader.Validate("Shortcut Dimension 1 Code", Rec."Shortcut Dimension 1 Code");
+        PurchaseHeader.Validate("Shortcut Dimension 2 Code", Rec."Shortcut Dimension 2 Code");
+        PurchaseHeader.Modify(true);
         PurchaseLine.SETRANGE("Document Type", PurchaseLine."Document Type"::Enquiry);
         PurchaseLine.SETRANGE("Document No.", Rec."No.");
         IF PurchaseLine.FIND('-') THEN
@@ -1170,6 +1235,7 @@ codeunit 50000 "PO Automation"
                     PurchaseLineQuote."Shortcut Dimension 2 Code" := PurchaseLine."Shortcut Dimension 2 Code";
                     PurchaseLineQuote."Indent No." := PurchaseLine."Indent No.";
                     PurchaseLineQuote."Indent Line No." := PurchaseLine."Indent Line No.";
+                    PurchaseLine."Indent No New" := Rec."Indent No.";
                     PurchaseLineQuote.VALIDATE("Variant Code", PurchaseLine."Variant Code");
                     PurchaseLineQuote.VALIDATE("Unit of Measure Code", PurchaseLine."Unit of Measure Code");
                 END ELSE BEGIN
@@ -1179,7 +1245,11 @@ codeunit 50000 "PO Automation"
                 PurchaseLineQuote."Location Code" := PurchaseLine."Location Code";
                 PurchaseLineQuote.VALIDATE("Location Code");
                 PurchaseLineQuote."Variant Code" := PurchaseLine."Variant Code";
-
+                //B2BJK >>
+                PurchaseLineQuote.Make := PurchaseLine.Make;
+                PurchaseLineQuote.Model := PurchaseLine.Model;
+                PurchaseLineQuote."Shortage Qty" := PurchaseLine."Shortage Qty";
+                //B2BJK <<
                 PurchaseLineQuote.INSERT;
                 IndentLine.RESET;
                 IndentLine.SETRANGE("No.", PurchaseLine."No.");
@@ -1295,12 +1365,12 @@ codeunit 50000 "PO Automation"
     begin
         //B2B.1.3 S
         CreateIndents4.COPYFILTERS(CreateIndentsQuotes);
-        InsertIndentItemvendor2(CreateIndents4, Vendor);
+        InsertIndentItemvendor(CreateIndents4, Vendor);
         IndentVendorItems.RESET;
         IndentVendorItems.SETRANGE(Check, FALSE);
         IF IndentVendorItems.FIND('-') THEN
             REPEAT
-                MESSAGE('1st FIND');
+                //MESSAGE('1st FIND');
                 //IndentVendorEnquiry.SETRANGE("Vendor No.",IndentVendorItems."Vendor No.");
                 IndentVendorEnquiry.SETRANGE("Location Code", IndentVendorItems."Location Code");
                 IF IndentVendorEnquiry.FIND('-') THEN BEGIN
@@ -1308,6 +1378,8 @@ codeunit 50000 "PO Automation"
                     PurchaseHeader."Document Type" := PurchaseHeader."Document Type"::Order;
                     PPSetup.GET;
                     PurchaseHeader."No." := NoSeriesMgt.GetNextNo(Noseries, WORKDATE, TRUE);
+                    PurchaseHeader."No. Series" := Noseries;
+                    PurchaseHeader.INSERT(true);
                     MESSAGE('Purchaser Order No %1 ', PurchaseHeader."No.");
                     PurchaseHeader."Buy-from Vendor No." := IndentVendorEnquiry."Vendor No.";
                     PurchaseHeader.VALIDATE(PurchaseHeader."Buy-from Vendor No.");
@@ -1320,12 +1392,16 @@ codeunit 50000 "PO Automation"
                     PurchaseHeader.VALIDATE("Due Date");
                     PurchaseHeader."Indent Requisition No" := IndentVendorEnquiry."Indent Req No";
                     PurchaseHeader.VALIDATE("Location Code", IndentVendorItems."Location Code");
-                    PurchaseHeader.INSERT;
+                    PurchaseHeader."Indent No." := IndentVendorEnquiry."Indent No.";//B2BJK
+                    PurchaseHeader.validate("Shortcut Dimension 1 Code", IndentVendorEnquiry."Shortcut Dimension 1 Code_B2B");
+                    PurchaseHeader.Validate("Shortcut Dimension 2 Code", IndentVendorEnquiry."Shortcut Dimension 2 Code_B2B");
+                    PurchaseHeader.Modify(true);
                     REPEAT
                         PurchaseLine.INIT;
                         PurchaseLine."Document Type" := PurchaseLine."Document Type"::Order;
                         PurchaseLine."Document No." := PurchaseHeader."No.";
                         PurchaseLine."Line No." := PurchaseLine."Line No." + 10000;
+                        PurchaseLine.INSERT(true);
                         PurchaseLine."Buy-from Vendor No." := PurchaseHeader."Buy-from Vendor No.";
                         PurchaseLine.VALIDATE("Buy-from Vendor No.");
                         PurchaseLine.Type := PurchaseLine.Type::Item;
@@ -1353,11 +1429,16 @@ codeunit 50000 "PO Automation"
                         PurchaseLine."Outstanding Qty. (Base)" := PurchaseLine.Quantity;
                         PurchaseLine."Indent No." := IndentVendorEnquiry."Indent Req No";
                         PurchaseLine."Indent Line No." := IndentVendorEnquiry."Indent Req Line No";
+                        PurchaseLine."Indent No New" := IndentVendorEnquiry."Indent No.";
                         PurchaseLine."Location Code" := IndentVendorEnquiry."Location Code";
                         PurchaseLine."Shortcut Dimension 1 Code" := IndentVendorEnquiry."Project No.";
                         PurchaseLine."Shortcut Dimension 2 Code" := IndentVendorEnquiry.Department;
                         PurchaseLine."Location Code" := IndentVendorEnquiry."Location Code";
-
+                        //B2BJK >>
+                        PurchaseLine.Make := IndentVendorEnquiry.Make;
+                        PurchaseLine.Model := IndentVendorEnquiry.Model;
+                        PurchaseLine."Shortage Qty" := IndentVendorEnquiry."Shortage Qty";
+                        //B2BJK <<
                         CreateIndents5.RESET;
                         CreateIndents5.SETRANGE(CreateIndents5."Document No.", IndentVendorEnquiry."Indent Req No");
                         CreateIndents5.SETRANGE(CreateIndents5."Line No.", IndentVendorEnquiry."Indent Req Line No");
@@ -1367,7 +1448,7 @@ codeunit 50000 "PO Automation"
                             PurchaseLine.VALIDATE("Direct Unit Cost", CreateIndents5."Unit Cost");//B2B.1.4
                             CreateIndents5.MODIFY;
                         END;
-                        PurchaseLine.INSERT;
+                        PurchaseLine.Modify(true);
                         IndentVendorEnquiry.Check := TRUE;
                         IndentVendorEnquiry.MODIFY;
                     UNTIL IndentVendorEnquiry.NEXT = 0;
@@ -1434,6 +1515,54 @@ codeunit 50000 "PO Automation"
                 END;
             UNTIL CreateIndents.NEXT = 0;
         //B2B.1.3 E
+    end;
+
+    procedure InsertIndentItemvendorNeww(var CreateIndentsLocal: Record 50003; var Vendor: Record 23);
+    var
+        IndentVendorItems: Record 50007;
+        ItemVendor: Record 99;
+        IndentReqHdr: Record "Indent Req Header";
+        CreateIndents: Record 50003;
+        Text000: Label 'Default Vendor is not Mentioned In the Vendor Item Catalog For  Item No ''%1''';
+        Text001: Label 'First Select Vendor';
+    begin
+        IndentVendorItems.DELETEALL;
+        CreateIndents.COPYFILTERS(CreateIndentsLocal);
+        IF CreateIndents.FIND('-') THEN
+            REPEAT
+                IndentVendorItems.INIT;
+                IndentVendorItems."Item No." := CreateIndents."Item No.";
+                IndentVendorItems.Quantity := CreateIndents.Quantity;
+                IndentVendorItems."Variant Code" := CreateIndents."Variant Code";
+                IndentVendorItems."Indent No." := CreateIndents."Indent No.";
+                IndentVendorItems."Indent Line No." := CreateIndents."Indent Line No.";
+                IndentVendorItems."Due Date" := CreateIndents."Due Date";
+                IndentVendorItems.Check := FALSE;
+                IndentVendorItems."Location Code" := CreateIndents."Location Code";
+                IndentVendorItems."Unit Of Measure" := CreateIndents."Unit of Measure";
+                IndentVendorItems.Department := CreateIndents.Department;
+                //B2BJK >>
+                IndentVendorItems.Make := CreateIndents.Make;
+                IndentVendorItems.Model := CreateIndents.Model;
+                IndentVendorItems."Shortage Qty" := CreateIndents."Shortage Qty";
+                //B2BJK <<
+                if IndentReqHdr.Get(CreateIndents."Document No.") then begin
+                    IndentVendorItems."Shortcut Dimension 1 Code_B2B" := IndentReqHdr."Shortcut Dimension 1 Code_B2B";
+                    IndentVendorItems."Shortcut Dimension 2 Code_B2B" := IndentReqHdr."Shortcut Dimension 2 Code_B2B";
+                end;
+
+                IndentVendorItems."Indent Req No" := CreateIndents."Document No.";
+                IndentVendorItems."Indent Req Line No" := CreateIndents."Line No.";
+                //IF NOT (Vendor.FIND('-')) THEN
+                //  ERROR(Text001, IndentVendorItems."Item No.")
+                //ELSE begin
+                // REPEAT
+                IndentVendorItems."Vendor No." := Vendor."No.";
+                IndentVendorItems.INSERT;
+
+            // UNTIL Vendor.NEXT = 0;
+            // end;
+            UNTIL CreateIndents.NEXT = 0;
     end;
 
     [EventSubscriber(ObjectType::Table, 38, 'OnBeforeUpdateLocationCode', '', false, false)]

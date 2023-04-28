@@ -346,6 +346,7 @@ page 33000257 "Inspection Data Sheet B2B"
                     var
                         InspectHeader: Record "Ins Datasheet Header B2B";
                         "Count": Integer;
+                        InspectDataSheetLineLrec: Record "Inspection Datasheet Line B2B";
                     begin
                         Count := 0;
                         DataSheetLine.SETRANGE("Document No.", Rec."No.");
@@ -365,7 +366,16 @@ page 33000257 "Inspection Data Sheet B2B"
                                     if DataSheetLine."Actual Value (Num)" = 0 then
                                         Count := Count + 1;
                             until DataSheetLine.NEXT() = 0;
-
+                        InspectDataSheetLineLrec.Reset();
+                        InspectDataSheetLineLrec.SetRange("Document No.", Rec."No.");
+                        InspectDataSheetLineLrec.SetFilter("Character Code", '<>%1', '');
+                        if InspectDataSheetLineLrec.FindSet() then
+                            repeat
+                                if InspectDataSheetLineLrec.Qualitative then
+                                    InspectDataSheetLineLrec.TestField("Actual  Value (Text)")
+                                else
+                                    InspectDataSheetLineLrec.TestField("Actual Value (Num)");
+                            until InspectDataSheetLineLrec.Next() = 0;
                         InspectHeader.GET(Rec."No.");
                         if Count = 0 then begin
                             if CONFIRM(Text001Qst, false, Count) then

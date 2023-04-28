@@ -40,8 +40,8 @@ table 33000271 "Acceptance Level B2B"
         field(5; Type; Option)
         {
             Caption = 'Type';
-            OptionCaption = 'Accepted,Accepted Under Deviation,Rework,Rejected';
-            OptionMembers = Accepted,"Accepted Under Deviation",Rework,Rejected;
+            OptionCaption = 'Accepted,Accepted Under Deviation,Rework,Rejected,Hold';
+            OptionMembers = Accepted,"Accepted Under Deviation",Rework,Rejected,Hold;
             DataClassification = CustomerContent;
         }
     }

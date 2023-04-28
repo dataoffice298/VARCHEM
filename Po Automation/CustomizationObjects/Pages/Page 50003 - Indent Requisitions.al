@@ -68,6 +68,19 @@ page 50003 "Indent Requisitions"
                 {
                     ApplicationArea = All;
                 }
+                field("PO Qty"; Rec."PO Qty")
+                {
+                    ApplicationArea = all;
+                }
+                field("Available Inventory"; Rec."Available Inventory")
+                {
+                    ApplicationArea = all;
+                }
+                field("Open Quote Qty"; Rec."Open Quote Qty")
+                {
+                    ApplicationArea = all;
+                    ToolTip = 'Specifies the value of the Open Quote Qty field.';
+                }
             }
         }
     }

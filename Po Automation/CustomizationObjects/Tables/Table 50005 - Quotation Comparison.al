@@ -197,6 +197,55 @@ table 50005 "Quotation Comparison"
             OptionMembers = " ",Open,"Pending Approval",Released;
             OptionCaption = ' ,Open,Pending Approval,Released';
         }
+        //B2BJK >>
+        field(50020; "Available Inventory"; Decimal)
+        {
+            //DataClassification = ToBeClassified;
+            FieldClass = FlowField;
+            CalcFormula = Sum("Item Ledger Entry".Quantity WHERE("Item No." = FIELD("Item No.")));
+        }
+        field(50021; "PO Qty"; Decimal)
+        {
+            FieldClass = FlowField;
+            CalcFormula = sum("Purchase Line"."Outstanding Quantity" where("No." = field("Item No."),Type=const(Item),"Document Type"=const(Order)));
+        }
+        field(50022; Make; Text[50])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Make';
+        }
+        field(50023; Model; Text[100])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Model';
+        }
+        field(50024; "Shortage Qty"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Shortage Qty';
+            Editable = false;
+        }
+        field(50025; "Open Quote Qty"; Decimal)
+        {
+            FieldClass = FlowField;
+            CalcFormula = sum("Purchase Line"."Outstanding Quantity" where("No." = field("Item No."),Type=const(Item),"Document Type"=const(Quote)));
+            Editable = false;
+        }
+        field(50027; "Shortcut Dimension 1 Code_B2B"; Code[20])
+        {
+            CaptionClass = '1,2,1';
+            Caption = 'Shortcut Dimension 1 Code';
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1),
+                                                          Blocked = CONST(false));
+        }
+        field(50028; "Shortcut Dimension 2 Code_B2B"; Code[20])
+        {
+            CaptionClass = '1,2,2';
+            Caption = 'Shortcut Dimension 2 Code';
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2),
+                                                          Blocked = CONST(false), "Division Code" = field("Shortcut Dimension 1 Code_B2B"));
+        }
+        //B2BJK >>
     }
 
     keys

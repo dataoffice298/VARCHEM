@@ -46,16 +46,7 @@ table 50009 "Indent Req Header"
 
             trigger OnLookup();
             begin
-                PurchaseSetup.GET;
-                IF Type = Type::Enquiry THEN
-                    Noseries.SETRANGE(Code, PurchaseSetup."Enquiry Nos.")
-                ELSE
-                    IF Type = Type::Quote THEN
-                        Noseries.SETRANGE(Code, PurchaseSetup."Quote Nos.")
-                    ELSE
-                        Noseries.SETRANGE(Code, PurchaseSetup."Order Nos.");
-                IF PAGE.RUNMODAL(458, Noseries) = ACTION::LookupOK THEN
-                    "No.Series" := Noseries."Series Code";
+                OnAfterLookUp(Rec);
             end;
         }
         field(14; Type; Option)
@@ -80,6 +71,20 @@ table 50009 "Indent Req Header"
         {
             Caption = 'RFQ No.';
             Description = 'B2BESGOn02Jun2022';
+        }
+        field(50000; "Shortcut Dimension 1 Code_B2B"; Code[20])
+        {
+            CaptionClass = '1,2,1';
+            Caption = 'Shortcut Dimension 1 Code';
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1),
+                                                          Blocked = CONST(false));
+        }
+        field(50001; "Shortcut Dimension 2 Code_B2B"; Code[20])
+        {
+            CaptionClass = '1,2,2';
+            Caption = 'Shortcut Dimension 2 Code';
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2),
+                                                          Blocked = CONST(false), "Division Code" = field("Shortcut Dimension 1 Code_B2B"));
         }
     }
 
@@ -115,7 +120,9 @@ table 50009 "Indent Req Header"
         NoSeriesMgt: Codeunit NoSeriesManagement;
         IndentReq: Record 50009;
         OldIndentReq: Record 50009;
-        Noseries: Record 310;
+        Noseries: Record "No. Series";
+        NoSeriesRelationship: Record "No. Series Relationship";
+        IndentReqNoGvar: Code[20];
 
     procedure AssistEdit(OldIndentReq: Record 50009): Boolean;
     begin
@@ -125,8 +132,10 @@ table 50009 "Indent Req Header"
         IF NoSeriesMgt.SelectSeries(PurchaseSetup."Indent Req No.", OldIndentReq."No.", IndentReq."No.") THEN BEGIN
             PurchaseSetup.GET;
             PurchaseSetup.TESTFIELD("Indent Req No.");
+            IndentReqNoGvar := IndentReq."No.";
             NoSeriesMgt.SetSeries(IndentReq."No.");
             Rec := IndentReq;
+            OnAfterAssisitEditIndReq(IndentReqNoGvar, Rec);
             EXIT(TRUE);
         END;
     end;
@@ -134,6 +143,15 @@ table 50009 "Indent Req Header"
     procedure TestStatusOpen();
     begin
         TESTFIELD(Status, Status::Open);
+    end;
+
+    [IntegrationEvent(false, false)]
+    procedure OnAfterAssisitEditIndReq(Var IndentNoPar: Code[20]; Var IndentReqHeaderRec: Record "Indent Req Header")
+    begin
+    end;
+    [IntegrationEvent(false, false)]
+    procedure OnAfterLookUp(Var IndentReqHeaderRec: Record "Indent Req Header")
+    begin
     end;
 }
 

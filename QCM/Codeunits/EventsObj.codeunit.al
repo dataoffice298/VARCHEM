@@ -50,7 +50,27 @@ codeunit 33000264 "Events Obj B2B"
             until ProdOrdLine.Next = 0;
     end;
 
+    [EventSubscriber(ObjectType::Page, page::"Document Attachment Details", 'OnAfterOpenForRecRef', '', false, false)]
+
+    local procedure OnAfterOpenForRecRef(var DocumentAttachment: Record "Document Attachment"; var RecRef: RecordRef; var FlowFieldsEditable: Boolean)
+    var
+        FieldReference: FieldRef;
+        RecNo: Code[20];
+    begin
+        case RecRef.Number of
+            database::"Inspection Receipt Header B2B":
+                begin
+                    FieldReference := RecRef.Field(2);
+                    RecNo := FieldReference.Value;
+                    DocumentAttachment.SetRange("No.", RecNo);
+                    FlowFieldsEditable := false;
+                end;
+        end;
+    end;
+
+
     var
         RoutingLine: Record "Routing Line";
+        Re: Record "Purch. Rcpt. Header";
 
 }

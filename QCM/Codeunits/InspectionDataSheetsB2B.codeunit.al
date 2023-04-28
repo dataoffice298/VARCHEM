@@ -23,7 +23,7 @@ codeunit 33000251 "Inspection Data Sheets B2B"
         PurchRcptHeader.FIND('-');
         InspLot.COPY(Rec);
         InitInspectionHeader(InspectionType::"Purchase Lot");
-        InsertInspectionDataHeader();
+        InsertInspectionDataHeader(PurchRcptHeader."Shortcut Dimension 1 Code");
 
         if not CheckVendorQualityApproval(PurchRcptLine, true) then
             exit;
@@ -55,7 +55,7 @@ codeunit 33000251 "Inspection Data Sheets B2B"
         InspectLineNo: Integer;
         Text000Msg: Label 'Inspection Data Sheets created successfully.';
 
-        InspectionType: Option Purchase,"Purchase Lot",Rework,"Production Order","Purchase Before Inspection";
+        InspectionType: Option Purchase,"Purchase Lot",Rework,"Production Order","Purchase Before Inspection",Hold;
         QCSetupRead: Boolean;
         Flag: Boolean;
         LotMin: Decimal;
@@ -81,7 +81,7 @@ codeunit 33000251 "Inspection Data Sheets B2B"
             CreateLotTrackInspectDataSheet(PurchRcptLine2)
         else begin
             InitInspectionHeader(InspectionType::Purchase);
-            InsertInspectionDataHeader();
+            InsertInspectionDataHeader(PurchRcptHeader."Shortcut Dimension 1 Code");
             ItemLedgEntry.GET(PurchRcptLine."Item Rcpt. Entry No.");
             ItemLedgEntry1.INIT();
             ItemLedgEntry1.TRANSFERFIELDS(ItemLedgEntry);
@@ -95,7 +95,7 @@ codeunit 33000251 "Inspection Data Sheets B2B"
         PurchHeader.COPY(PurchHeader2);
         PurchLine.COPY(PurchLine2);
         InitInspectionHeader(InspectionType::"Purchase Before Inspection");
-        InsertInspectionDataHeader();
+        InsertInspectionDataHeader(PurchHeader."Shortcut Dimension 1 Code");
         PurchLine2."Qty. Sent to Quality B2B" := PurchLine2."Qty. Sent to Quality B2B" + PurchLine2."Qty. Sending to Quality B2B";
         PurchLine2."Qty. Sending to Quality B2B" := 0;
         PurchLine2.MODIFY();
@@ -118,7 +118,7 @@ codeunit 33000251 "Inspection Data Sheets B2B"
             repeat
                 InspLot.COPY(InspectLot);
                 InitInspectionHeader(InspectionType::"Purchase Lot");
-                InsertInspectionDataHeader();
+                InsertInspectionDataHeader(PurchRcptHeader."Shortcut Dimension 1 Code");
                 InspectLot."Inspect. Data Sheet Created" := true;
                 InspectLot.MODIFY();
 
@@ -152,7 +152,34 @@ codeunit 33000251 "Inspection Data Sheets B2B"
         InspectionReceipt := InspectReceipt;
         InitInspectionHeader(InspectionType::Rework);
         InspectDataHeader."Rework Level" := InspectReceipt."Rework Level" + 1;
-        InsertInspectionDataHeader();
+        InsertInspectionDataHeader(InspectionReceipt."Shortcut Dimension 1 Code");
+        MESSAGE(Text000Msg);
+    end;
+
+    procedure CreateHoldInspectDataSheets(var InspectReceipt: Record "Inspection Receipt Header B2B");
+    begin
+        InspectReceipt.TESTFIELD("Qty. to Receive(Hold)");
+        InspectReceipt."Rework Inspect DS Created" := true;
+        InspectReceipt.MODIFY();
+        if InspectReceipt."Source Type" = InspectReceipt."Source Type"::"In Bound" then begin
+            if InspectReceipt."Quality Before Receipt" then begin
+                if not PurchLine.GET(PurchLine."Document Type"::Order, InspectReceipt."Order No.", InspectReceipt."Purch Line No") then
+                    ERROR(Text005Err);
+                PurchHeader.GET(PurchHeader."Document Type"::Order, InspectReceipt."Order No.");
+            end else begin
+                PurchRcptLine.GET(InspectReceipt."Receipt No.", InspectReceipt."Purch Line No");
+                PurchRcptHeader.SETRANGE("No.", InspectReceipt."Receipt No.");
+                PurchRcptHeader.FIND('-')
+            end;
+        end else
+            if InspectReceipt."In Process" then
+                ProdOrderRoutingLine.GET(ProdOrderRoutingLine.Status::Released, InspectReceipt."Prod. Order No.", InspectReceipt."Routing Reference No.", InspectReceipt."Routing No.", InspectReceipt."Operation No.")
+            else
+                ProdOrderLine.GET(ProdOrderLine.Status::Released, InspectReceipt."Prod. Order No.", InspectReceipt."Prod. Order Line");
+
+        InspectionReceipt := InspectReceipt;
+        InitInspectionHeader(InspectionType::Hold);
+        InsertInspectionDataHeader(InspectionReceipt."Shortcut Dimension 1 Code");
         MESSAGE(Text000Msg);
     end;
 
@@ -162,7 +189,7 @@ codeunit 33000251 "Inspection Data Sheets B2B"
         ProdOrderLine2.TESTFIELD("Qty Sending to Quality B2B");
         ProdOrderLine := ProdOrderLine2;
         InitInspectionHeader(InspectionType::"Production Order");
-        InsertInspectionDataHeader();
+        InsertInspectionDataHeader(ProdOrderLine."Shortcut Dimension 1 Code");
         ProdOrderLine2."Quantity Sent to Quality B2B" := ProdOrderLine2."Quantity Sent to Quality B2B" +
                                                        ProdOrderLine2."Qty Sending to Quality B2B";
         ProdOrderLine2."Qty Sending to Quality B2B" := 0;
@@ -179,7 +206,7 @@ codeunit 33000251 "Inspection Data Sheets B2B"
         ProdOrderRoutingLine2.TESTFIELD("Qty. to Produce B2B");
         ProdOrderRoutingLine := ProdOrderRoutingLine2;
         InitInspectionHeader(InspectionType::"Production Order");
-        InsertInspectionDataHeader();
+        InsertInspectionDataHeader(ProdOrderLine."Shortcut Dimension 1 Code");
         ProdOrderRoutingLine2."Quantity Produced B2B" := ProdOrderRoutingLine2."Quantity Produced B2B" + ProdOrderRoutingLine2."Qty. to Produce B2B";
         ProdOrderRoutingLine2."Quantity Sent to Quality B2B" := ProdOrderRoutingLine2."Quantity Produced B2B";
         if ProdOrderRoutingLine2."Quantity B2B" - ProdOrderRoutingLine2."Quantity Produced B2B" > 0 then
@@ -190,7 +217,7 @@ codeunit 33000251 "Inspection Data Sheets B2B"
         MESSAGE(Text000Msg);
     end;
 
-    procedure InitInspectionHeader(InspectionType: Option Purchase,"Purchase Lot",Rework,"Production Order","Purchase Before Inspection");
+    procedure InitInspectionHeader(InspectionType: Option Purchase,"Purchase Lot",Rework,"Production Order","Purchase Before Inspection",Hold);
     var
         DeliveryReceipt: Record "Delivery/Receipt Entry B2B";
     begin
@@ -234,6 +261,8 @@ codeunit 33000251 "Inspection Data Sheets B2B"
                     CheckSpecCertified(PurchRcptLine."Spec ID B2B");
                     InspectDataHeader."Spec ID" := PurchRcptLine."Spec ID B2B";
                     InspectDataHeader."Purch. Line No" := PurchRcptLine."Line No.";
+                    InspectDataHeader."Shortcut Dimension 1 Code" := PurchRcptHeader."Shortcut Dimension 1 Code";
+                    InspectDataHeader."Shortcut Dimension 2 Code" := PurchRcptHeader."Shortcut Dimension 2 Code";
                     OnAfterInitInspectionHeaderInsTypePurchase(InspectDataHeader, PurchRcptHeader, PurchRcptLine);
                 end;
             InspectionType::"Purchase Before Inspection":
@@ -264,6 +293,8 @@ codeunit 33000251 "Inspection Data Sheets B2B"
                     InspectDataHeader."Qty. per Unit of Measure" := PurchRcptLine."Qty. per Unit of Measure";
                     InspectDataHeader."Base Unit of Measure" := Item."Base Unit of Measure";
                     InspectDataHeader."Quantity (Base)" := PurchLine."Quantity (Base)";
+                    InspectDataHeader."Shortcut Dimension 1 Code" := PurchHeader."Shortcut Dimension 1 Code";
+                    InspectDataHeader."Shortcut Dimension 2 Code" := PurchHeader."Shortcut Dimension 2 Code";
                     QualitySetup.TESTFIELD("Purchase Consignment No.");
                     InspectDataHeader."Purchase Consignment No." := NoSeriesMgt.GetNextNo(QualitySetup."Purchase Consignment No.", 0D, true);
                     OnAfterInitInspectioHeaderInsTypePurchaseBeforeInspection(InspectDataHeader, PurchHeader, PurchLine);
@@ -290,7 +321,10 @@ codeunit 33000251 "Inspection Data Sheets B2B"
                         InspectDataHeader."Qty. per Unit of Measure" := PurchRcptLine."Qty. per Unit of Measure";
                         InspectDataHeader."Base Unit of Measure" := Item."Base Unit of Measure";
                         InspectDataHeader."Quantity (Base)" := PurchRcptLine."Quantity (Base)";
+                        InspectDataHeader."Shortcut Dimension 1 Code" := ProdOrderLine."Shortcut Dimension 1 Code";
+                        InspectDataHeader."Shortcut Dimension 2 Code" := ProdOrderLine."Shortcut Dimension 2 Code";
                     end else begin
+
                         InspectDataHeader."Sub Assembly Code" := ProdOrderRoutingLine."Sub Assembly B2B";
                         InspectDataHeader."Sub Assembly Description" := ProdOrderRoutingLine."Sub Assembly Description B2B";
                         InspectDataHeader."Unit of Measure Code" := ProdOrderRoutingLine."Sub Assembly UOM Code B2B";
@@ -313,6 +347,7 @@ codeunit 33000251 "Inspection Data Sheets B2B"
                         InspectDataHeader."Operation Description" := ProdOrderRoutingLine.Description;
                         InspectDataHeader."In Process" := true;
                     end;
+
                     QualitySetup.TESTFIELD("Production Batch No.");
                     InspectDataHeader."Production Batch No." := NoSeriesMgt.GetNextNo(QualitySetup."Production Batch No.", 0D, true);
                     OnAfterInitInspectionHeaderInsTypeProductionOrder(InspectDataHeader, ProdOrderLine, PurchRcptLine, ProdOrderRoutingLine, ProdOrderLine1);
@@ -345,9 +380,12 @@ codeunit 33000251 "Inspection Data Sheets B2B"
                     InspectDataHeader."Spec ID" := InspLot."Spec ID";
                     InspectDataHeader."Purch. Line No" := InspLot."Purch. Line No.";
                     InspectDataHeader.validate("Lot No.", InspLot."Lot No.");
+                    InspectDataHeader."Vendor Lot No_B2B" := InspLot."Vendor Lot No_B2B";
                     InspectDataHeader."Qty. per Unit of Measure" := PurchRcptLine."Qty. per Unit of Measure";
                     InspectDataHeader."Base Unit of Measure" := Item."Base Unit of Measure";
                     InspectDataHeader."Quantity (Base)" := PurchRcptLine."Quantity (Base)";
+                    InspectDataHeader."Shortcut Dimension 1 Code" := PurchRcptHeader."Shortcut Dimension 1 Code";
+                    InspectDataHeader."Shortcut Dimension 2 Code" := PurchRcptHeader."Shortcut Dimension 2 Code";
                     OnAfterInitInspectionHeaderInsTypePurchaseLot(InspectDataHeader, PurchRcptHeader, PurchRcptLine, InspLot);
                 end;
             InspectionType::Rework:
@@ -357,6 +395,7 @@ codeunit 33000251 "Inspection Data Sheets B2B"
                     InspectDataHeader."Order No." := InspectionReceipt."Order No.";
                     InspectDataHeader."Purch. Line No" := InspectionReceipt."Purch Line No";
                     InspectDataHeader."Lot No." := InspectionReceipt."Lot No.";
+                    InspectDataHeader."Vendor Lot No_B2B" := InspectionReceipt."Vendor Lot No_B2B";
                     InspectDataHeader."Posting Date" := InspectionReceipt."Posting Date";
                     InspectDataHeader."Document Date" := InspectionReceipt."Document Date";
                     InspectDataHeader."Vendor No." := InspectionReceipt."Vendor No.";
@@ -382,11 +421,14 @@ codeunit 33000251 "Inspection Data Sheets B2B"
                     InspectDataHeader."Rework Reference No." := InspectionReceipt."No.";
                     InspectDataHeader.Location := InspectionReceipt."Location Code";
                     InspectDataHeader."Item Ledger Entry No." := PurchRcptLine."Item Rcpt. Entry No.";
+                    if (InspectDataHeader."Item Ledger Entry No." = 0) and (not InspectionReceipt."From Hold") then
+                        InspectDataHeader."Item Ledger Entry No." := InspectDataHeader."DC Inbound Ledger Entry";
                     InspectDataHeader."Quality Before Receipt" := InspectionReceipt."Quality Before Receipt";
                     InspectDataHeader."Source Type" := InspectionReceipt."Source Type";
-                    if InspectionReceipt."Source Type" = InspectionReceipt."Source Type"::"In Bound" then
+                    if InspectionReceipt."Source Type" = InspectionReceipt."Source Type"::"In Bound" then begin
+                        QualitySetup.TestField("Purchase Consignment No.");
                         InspectDataHeader."Purchase Consignment No." := NoSeriesMgt.GetNextNo(QualitySetup."Purchase Consignment No.", 0D, true)
-                    else begin
+                    end else begin
                         QualitySetup.TESTFIELD("Production Batch No.");
                         InspectDataHeader."Production Batch No." := NoSeriesMgt.GetNextNo(QualitySetup."Production Batch No.", 0D, true);
                     end;
@@ -400,7 +442,67 @@ codeunit 33000251 "Inspection Data Sheets B2B"
                     InspectDataHeader."Sub Assembly Description" := InspectionReceipt."Sub Assembly Description";
                     InspectDataHeader."In Process" := InspectionReceipt."In Process";
                     InspectDataHeader."Production Batch No." := InspectionReceipt."Production Batch No.";
+                    InspectDataHeader."Shortcut Dimension 1 Code" := InspectionReceipt."Shortcut Dimension 1 Code";
+                    InspectDataHeader."Shortcut Dimension 2 Code" := InspectionReceipt."Shortcut Dimension 2 Code";
+                    InspectDataHeader."From Hold" := InspectionReceipt."From Hold"; //QC1.2
                     OnAfterInitInspectionHeaderInsTypeRework(InspectDataHeader, InspectionReceipt, PurchRcptLine);
+                end;
+            InspectionType::Hold:
+                begin
+                    InspectDataHeader.Description := InspectionReceipt."Vendor No.";
+                    InspectDataHeader."Receipt No." := InspectionReceipt."Receipt No.";
+                    InspectDataHeader."Order No." := InspectionReceipt."Order No.";
+                    InspectDataHeader."Purch. Line No" := InspectionReceipt."Purch Line No";
+                    InspectDataHeader."Lot No." := InspectionReceipt."Lot No.";
+                    InspectDataHeader."Vendor Lot No_B2B" := InspectionReceipt."Vendor Lot No_B2B";
+                    InspectDataHeader."Posting Date" := InspectionReceipt."Posting Date";
+                    InspectDataHeader."Document Date" := InspectionReceipt."Document Date";
+                    InspectDataHeader."Vendor No." := InspectionReceipt."Vendor No.";
+                    InspectDataHeader."Vendor Name" := InspectionReceipt."Vendor Name";
+                    InspectDataHeader."Vendor Name 2" := InspectionReceipt."Vendor Name 2";
+                    InspectDataHeader.Address := InspectionReceipt.Address;
+                    InspectDataHeader."Address 2" := InspectionReceipt."Address 2";
+                    InspectDataHeader."Contact Person" := InspectionReceipt."Contact Person";
+                    if InspectionReceipt."Item Tracking Exists" then
+                        if DeliveryReceipt.GET(InspectionReceipt."Rework Reference Document No.") then
+                            InspectDataHeader."Serial No." := DeliveryReceipt."Serial No.";
+                    InspectDataHeader."Item Tracking Exists" := InspectionReceipt."Item Tracking Exists";
+                    InspectDataHeader."DC Inbound Ledger Entry" := InspectionReceipt."DC Inbound Ledger Entry.";
+                    InspectDataHeader."Item No." := InspectionReceipt."Item No.";
+                    InspectDataHeader."Item Description" := InspectionReceipt."Item Description";
+                    InspectDataHeader."External Document No." := InspectionReceipt."External Document No.";
+                    InspectDataHeader."Unit of Measure Code" := InspectionReceipt."Unit of Measure Code";
+                    InspectDataHeader."Spec Version" := InspectionReceipt."Spec Version";
+                    InspectDataHeader.Quantity := InspectionReceipt."Qty. to Receive(Hold)";
+                    CheckSpecCertified(InspectionReceipt."Spec ID");
+                    InspectDataHeader."Spec ID" := InspectionReceipt."Spec ID";
+                    //InspectDataHeader."Rework Level" := InspectionReceipt."Rework Level" + 1;
+                    InspectDataHeader."From Hold" := true;
+                    InspectDataHeader."Rework Reference No." := InspectionReceipt."No.";
+                    InspectDataHeader.Location := InspectionReceipt."Location Code";
+                    InspectDataHeader."Item Ledger Entry No." := PurchRcptLine."Item Rcpt. Entry No.";
+                    InspectDataHeader."Quality Before Receipt" := InspectionReceipt."Quality Before Receipt";
+                    InspectDataHeader."Source Type" := InspectionReceipt."Source Type";
+                    if InspectionReceipt."Source Type" = InspectionReceipt."Source Type"::"In Bound" then begin
+                        QualitySetup.TestField("Purchase Consignment No.");
+                        InspectDataHeader."Purchase Consignment No." := NoSeriesMgt.GetNextNo(QualitySetup."Purchase Consignment No.", 0D, true)
+                    end else begin
+                        QualitySetup.TESTFIELD("Production Batch No.");
+                        InspectDataHeader."Production Batch No." := NoSeriesMgt.GetNextNo(QualitySetup."Production Batch No.", 0D, true);
+                    end;
+                    InspectDataHeader."Prod. Order No." := InspectionReceipt."Prod. Order No.";
+                    InspectDataHeader."Prod. Order Line" := InspectionReceipt."Prod. Order Line";
+                    InspectDataHeader."Routing Reference No." := InspectionReceipt."Routing Reference No.";
+                    InspectDataHeader."Routing No." := InspectionReceipt."Routing No.";
+                    InspectDataHeader."Operation No." := InspectionReceipt."Operation No.";
+                    InspectDataHeader."Operation Description" := InspectionReceipt."Operation Description";
+                    InspectDataHeader."Sub Assembly Code" := InspectionReceipt."Sub Assembly Code";
+                    InspectDataHeader."Sub Assembly Description" := InspectionReceipt."Sub Assembly Description";
+                    InspectDataHeader."In Process" := InspectionReceipt."In Process";
+                    InspectDataHeader."Production Batch No." := InspectionReceipt."Production Batch No.";
+                    InspectDataHeader."Shortcut Dimension 1 Code" := InspectionReceipt."Shortcut Dimension 1 Code";
+                    InspectDataHeader."Shortcut Dimension 2 Code" := InspectionReceipt."Shortcut Dimension 2 Code";
+                    OnAfterInitInspectionHeaderInsTypeHold(InspectDataHeader, InspectionReceipt, PurchRcptLine);
                 end;
         end;
 
@@ -408,7 +510,7 @@ codeunit 33000251 "Inspection Data Sheets B2B"
             InspectDataHeader."New Location" := Itemrec."Rejection Location B2B";
     end;
 
-    procedure InsertInspectionDataHeader();
+    procedure InsertInspectionDataHeader(ShortCutDimension1Code: Code[20]);
     var
         InspectGroup: Code[20];
     begin
@@ -430,7 +532,11 @@ codeunit 33000251 "Inspection Data Sheets B2B"
 
         if SpecLine.FIND('-') then
             repeat
-                InspectDataHeader."No." := NoSeriesMgt.GetNextNo(QualitySetup."Inspection Datasheet Nos.", 0D, true);
+                if ShortCutDimension1Code = 'DOM' then
+                    InspectDataHeader."No." := NoSeriesMgt.GetNextNo(QualitySetup."Inspection Datasheet Nos.", 0D, true)
+                else
+                    if ShortCutDimension1Code = 'EOU' then
+                        InspectDataHeader."No." := NoSeriesMgt.GetNextNo(QualitySetup."Inspection Datasheet Nos.(Eou)", 0D, true);
                 InspectDataHeader."Inspection Group Code" := SpecLine."Inspection Group Code";
                 InsertInspectionDataLine(SpecLine."Inspection Group Code");
                 if Flag then begin
@@ -613,6 +719,7 @@ codeunit 33000251 "Inspection Data Sheets B2B"
                 InspectLot."Document No." := PurchRcptLine."Document No.";
                 InspectLot."Purch. Line No." := PurchRcptLine."Line No.";
                 InspectLot."Lot No." := TempItemLedgEntry."Lot No.";
+                InspectLot."Vendor Lot No_B2B" := TempItemLedgEntry."Vendor Lot No_B2B";
                 InspectLot."Line No." := LineNo;
                 InspectLot.Quantity := TempItemLedgEntry.Quantity;
                 InspectLot."Item Ledger Entry No." := TempItemLedgEntry."Entry No.";
@@ -669,7 +776,7 @@ codeunit 33000251 "Inspection Data Sheets B2B"
                 if PurchLine."Qty. Sending to Quality B2B" <> 0 then begin
                     NoOfInspectDS := NoOfInspectDS + 1;
                     InitInspectionHeader(InspectionType::"Purchase Before Inspection");
-                    InsertInspectionDataHeader();
+                    InsertInspectionDataHeader(PurchHeader."Shortcut Dimension 1 Code");
                     PurchLine."Qty. Sent to Quality B2B" := PurchLine."Qty. Sent to Quality B2B" + PurchLine."Qty. Sending to Quality B2B";
                     PurchLine."Qty. Sending to Quality B2B" := 0;
                     PurchLine.MODIFY();
@@ -725,6 +832,11 @@ codeunit 33000251 "Inspection Data Sheets B2B"
 
     [IntegrationEvent(false, false)]
     procedure OnBeforeInsertInspectionDataHeader(var InspectDataHeader: Record "Ins Datasheet Header B2B"; SpecLine: Record "Specification Line B2B")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    procedure OnAfterInitInspectionHeaderInsTypeHold(var InspectDataHeader: Record "Ins Datasheet Header B2B"; InspectionReceipt: Record "Inspection Receipt Header B2B"; PurchRcptLine: Record "Purch. Rcpt. Line")
     begin
     end;
 

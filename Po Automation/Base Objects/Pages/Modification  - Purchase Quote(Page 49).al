@@ -15,7 +15,39 @@ pageextension 50000 pageextension70000001 extends "Purchase Quote"
                 ApplicationArea = All;
                 Editable = false;
             }
+            field("Vendor Quote No."; Rec."Vendor Quote No.")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the value of the Vendor Quote No. field.';
+            }
+            field("Vendor Quote Date"; Rec."Vendor Quote Date")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the value of the Vendor Quote Date field.';
+            }
         }
+        modify("Vendor Order No.")
+        {
+            Visible = false;
+        }
+        modify("Vendor Shipment No.")
+        {
+            Visible = false;
+        }
+        modify("Purchaser Code")
+        {
+            Visible = false;
+        }
+        modify("Campaign No.")
+        {
+            Visible = false;
+        }
+        modify("Responsibility Center")
+        {
+            Visible = false;
+        }
+
+
     }
 
     //Unsupported feature: PropertyChange. Please convert manually.

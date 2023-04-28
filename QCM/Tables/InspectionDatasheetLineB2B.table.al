@@ -89,6 +89,13 @@ table 33000256 "Inspection Datasheet Line B2B"
 
                 if "Actual Value (Num)" = 0 then
                     Accept := false;
+
+                //4.06 >>
+                if not Accept then
+                    "Style Expression" := 'Attention'
+                else
+                    "Style Expression" := '';
+                //4.06 <<
             end;
         }
         field(10; "Normal Value (Text)"; Code[20])
@@ -117,6 +124,14 @@ table 33000256 "Inspection Datasheet Line B2B"
                     TESTFIELD("Character Type", "Character Type"::Standard);
                     TESTFIELD(Qualitative, true);
                 end;
+
+
+                if ("Actual  Value (Text)" = "Min. Value (Text)") or ("Actual  Value (Text)" = "Max. Value (Text)") then
+                    Accept := true
+                else
+                    Accept := false;
+
+
             end;
         }
         field(14; "Unit of Measure Code"; Code[20])
@@ -214,6 +229,12 @@ table 33000256 "Inspection Datasheet Line B2B"
             Caption = 'Qualitative';
             DataClassification = CustomerContent;
         }
+        //4.06 >>
+        field(50000; "Style Expression"; Text[50])
+        {
+            DataClassification = CustomerContent;
+        }
+        //4.06 <<
     }
 
     keys

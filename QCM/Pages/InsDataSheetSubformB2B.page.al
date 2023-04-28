@@ -88,6 +88,7 @@ page 33000258 "Ins Data Sheet Subform B2B"
                     BlankZero = true;
                     ApplicationArea = all;
                     tooltip = ' Actual values  value to acceptance in number';
+                    StyleExpr = Rec."Style Expression"; //4.06
                 }
                 field("Normal Value (Text)"; Rec."Normal Value (Text)")
                 {
@@ -111,6 +112,12 @@ page 33000258 "Ins Data Sheet Subform B2B"
                 {
                     ApplicationArea = all;
                     tooltip = 'actual permitted value to acceptance in number ';
+
+
+                    trigger OnValidate()
+                    begin
+                        CurrPage.Update(true);
+                    end;
                 }
                 field(Remarks; Rec.Remarks)
                 {
@@ -135,12 +142,27 @@ page 33000258 "Ins Data Sheet Subform B2B"
         DescriptionIndent := 0;
         CharacterCodeOnFormat();
         DescriptionOnFormat();
+
+
     end;
+
+    // //4.06 >>
+    // trigger OnOpenPage()
+    // begin
+
+    //     Clear(StyleExp);
+    //     if ("Min. Value (Num)" <> 0) and ("Max. Value (Num)" <> 0) then
+    //         if not Rec.Accept then
+    //             StyleExp := 'Attention';
+    // end;
+    // //4.06 <<
 
     var
         "Character CodeEmphasize": Boolean;
         DescriptionEmphasize: Boolean;
         DescriptionIndent: Integer;
+
+        StyleExp: Text;//4.06 
 
     local procedure CharacterCodeOnFormat();
     begin

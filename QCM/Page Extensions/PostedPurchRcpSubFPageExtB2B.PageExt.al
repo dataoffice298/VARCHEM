@@ -215,16 +215,55 @@ pageextension 33000304 "PostedPurchRcpSubFPageExt B2B" extends "Posted Purchase 
 
         PIDS: Record 33000263;
         PIDSL: Record 33000264;
-        Text000Err: Label 'You cannot UndoReceipt as Inspections Data Sheets are Posted';
+        Text000Err: Label 'You cannot UndoReceipt as Inspections Reciept are Posted';
     begin
         // Start  B2BQC1.00.00 - 01 UndoReceitLine
         IF Rec."QC Enabled B2B" = TRUE THEN BEGIN
             IDS.reset();
             IDS.SETRANGE("Receipt No.", Rec."Document No.");
             IDS.SETRANGE("Purch. Line No", Rec."Line No.");
-            IF NOT IDS.FIND('-') THEN
-                ERROR(Text000Err)
-            ELSE BEGIN
+            IF NOT IDS.FIND('-') THEN begin
+                // ERROR(Text000Err);
+                IRs.Reset();
+                IRs.SetRange("Receipt No.", Rec."Document No.");
+                IRs.SetRange("Purch Line No", Rec."Line No.");
+                if IRs.Find('-') then begin
+                    if irs.Status then begin
+
+                        if IRs.Quantity <> IRs."Qty. Accepted" then
+                            Error(Text000Err)
+                    end;
+
+                    IRs."Quality Status" := IRs."Quality Status"::Cancel;
+                    IRs.Status := true;
+                    Irs.Modify();
+                    if rec."Item Rcpt. Entry No." <> 0 then begin
+                        QILE.Reset();
+                        QILE.SETRANGE("Document No.", IRs."Receipt No.");
+                        QILE.SETRANGE("item No.", IRs."Item No.");
+                        QILE.SetRange("Entry No.", Rec."Item Rcpt. Entry No.");
+                        IF QILE.FindSet() then
+                            //REPEAT
+                            QILE.DeleteAll();
+                        //UNTIL QILE.NEXT() = 0;
+                    end else begin
+                        ILE.Reset();
+                        ILE.SetRange("Document No.", Rec."Document No.");
+                        ILE.SetRange("Document Line No.", Rec."Line No.");
+                        if ILE.FindSet() then
+                            repeat
+                                QILE.Reset();
+                                QILE.SetRange("Entry No.", ILE."Entry No.");
+                                if QILE.FindSet() then
+                                    QILE.DeleteAll();
+                            until ILE.Next() = 0;
+                        //QILE.SetRange(li);
+                    end;
+
+                end;
+
+
+            end ELSE BEGIN
                 REPEAT
                     PIDS.TRANSFERFIELDS(IDS);
                     PIDS."Quality Status" := PIDS."Quality Status"::Cancel;
@@ -239,18 +278,48 @@ pageextension 33000304 "PostedPurchRcpSubFPageExt B2B" extends "Posted Purchase 
                         IDSL.DELETEALL();
                     END;
                 UNTIL IDS.NEXT() = 0;
-                QILE.SETRANGE("Document No.", IDS."Receipt No.");
+                if rec."Item Rcpt. Entry No." <> 0 then begin
+                    QILE.Reset();
+                    //QILE.SETRANGE("Document No.", Rec."Document No.");
+                    //QILE.SETRANGE("item No.", Rec."No.");
+                    QILE.SetRange("Entry No.", Rec."Item Rcpt. Entry No.");
+                    IF QILE.FindSet() then
+                        //REPEAT
+                            QILE.DeleteAll();
+                    //UNTIL QILE.NEXT() = 0;
+                end else begin
+                    ILE.Reset();
+                    ILE.SetRange("Document No.", Rec."Document No.");
+                    ILE.SetRange("Document Line No.", Rec."Line No.");
+                    if ILE.FindSet() then
+                        repeat
+                            QILE.Reset();
+                            QILE.SetRange("Entry No.", ILE."Entry No.");
+                            if QILE.FindSet() then
+                                QILE.DeleteAll();
+                        until ILE.Next() = 0;
+                    //QILE.SetRange(li);
+                end;
+
+                /*QILE.SETRANGE("Document No.", IDS."Receipt No.");
+
                 IF QILE.FIND('-') THEN
                     REPEAT
                         QILE.DELETE();
-                    UNTIL QILE.NEXT() = 0;
+                    UNTIL QILE.NEXT() = 0;*/
+
             END;
         END;
     end;
+
+
 
     var
         IDS: Record 33000255;
         IDSL: Record 33000256;
         QILE: Record 33000262;
+        IRs: Record 33000269;
+        PostedPurcHdr: Record 120;
+        ILE: Record "Item Ledger Entry";
 
 }

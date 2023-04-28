@@ -35,6 +35,7 @@ tableextension 33000254 "ProdOrderLineExt B2B" extends "Prod. Order Line"
         {
             Caption = 'WIP QC Enabled';
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(33000251; "WIP Spec ID B2B"; Code[20])
         {
@@ -47,12 +48,14 @@ tableextension 33000254 "ProdOrderLineExt B2B" extends "Prod. Order Line"
             Caption = 'Quantity Sent to Quality';
             Editable = false;
             DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 5;
         }
         field(33000253; "Qty Sending to Quality B2B"; Decimal)
         {
             Caption = 'Quantity Sending to Quality';
             MinValue = 0;
             DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 5;
         }
         field(33000254; "Quantity Accepted B2B"; Decimal)
         {
@@ -63,6 +66,7 @@ tableextension 33000254 "ProdOrderLineExt B2B" extends "Prod. Order Line"
                                                                      "Operation No." = FILTER('')));
             Caption = 'Quantity Accepted';
             Editable = false;
+            DecimalPlaces = 0 : 5;
             FieldClass = FlowField;
         }
         field(33000255; "Quantity Rejected B2B"; Decimal)
@@ -74,6 +78,7 @@ tableextension 33000254 "ProdOrderLineExt B2B" extends "Prod. Order Line"
                                                                      "Operation No." = FILTER('')));
             Caption = 'Quantity Rejected';
             Editable = false;
+            DecimalPlaces = 0 : 5;
             FieldClass = FlowField;
         }
         field(33000256; "Quantity Rework B2B"; Decimal)
@@ -85,6 +90,7 @@ tableextension 33000254 "ProdOrderLineExt B2B" extends "Prod. Order Line"
                                                                      "Operation No." = FILTER('')));
             Caption = 'Quantity Rework';
             Editable = false;
+            DecimalPlaces = 0 : 5;
             FieldClass = FlowField;
         }
         field(33000257; "Spec Version Code B2B"; Code[20])

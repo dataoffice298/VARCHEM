@@ -128,6 +128,27 @@ page 33000268 "Posted Inspection Receipt B2B"
                     ApplicationArea = all;
                     tooltip = 'lot numbers but it is required by the item tracking code applied to this item';
                 }
+                //4.14 >>
+                field("QC Certificate(s) Status"; "QC Certificate(s) Status")
+                {
+                    ApplicationArea = all;
+                    ToolTip = 'QC Certificate Status';
+                }
+                field("Certificate Remarks"; "Certificate Remarks")
+                {
+                    ApplicationArea = all;
+                    ToolTip = 'Certificate Remarks';
+                }
+                //4.14 <<
+                //CHB2B27SEP2022>>
+                field("Quality Remarks"; "Quality Remarks")
+                {
+                    ApplicationArea = all;
+                    ToolTip = 'Quality Remarks';
+                    Editable = false;
+
+                }
+                //CHB2B27SEP2022<<
             }
             part(Control1000000032; "Inspection Receipt Subform B2B")
             {
@@ -406,7 +427,7 @@ page 33000268 "Posted Inspection Receipt B2B"
                 }
                 field("Qty. sent to Vendor(Rework)"; Rec."Qty. sent to Vendor(Rework)")
                 {
-                    Editable = false;
+                    //Editable = false;
                     Importance = Promoted;
                     ApplicationArea = all;
                     tooltip = 'which quantity sent to vendor (rework)';
@@ -461,6 +482,42 @@ page 33000268 "Posted Inspection Receipt B2B"
                     Editable = false;
                     ApplicationArea = all;
                     tooltip = 'Enter the quantity to items to be received in the Qty. To Receive (Re work) field';
+                }
+            }
+            group(Hold)
+            {
+                Caption = 'Hold';
+                field("Qty. Hold"; Rec."Qty. Hold")
+                {
+                    Editable = false;
+                    Importance = Promoted;
+                    ApplicationArea = all;
+                    tooltip = 'how much Hold quantity';
+                    Visible = false;
+                }
+
+                field("Qty. sent to Hold"; Rec."Qty. sent to Hold")
+                {
+                    //Editable = false;
+                    Importance = Promoted;
+                    ApplicationArea = all;
+                    tooltip = 'which quantity sent to Hold';
+                }
+
+                field("Qty. to Receive(Hold)"; Rec."Qty. to Receive(Hold)")
+                {
+                    ApplicationArea = all;
+                    tooltip = 'Enter the quantity to items to be received in the Qty. To Receive (Hold) field';
+                    trigger OnValidate();
+                    begin
+
+                    end;
+                }
+                field("Qty. Received(Hold)"; Rec."Qty. Received(Hold)")
+                {
+                    Editable = false;
+                    ApplicationArea = all;
+                    tooltip = 'Enter the quantity to items to be received in the Qty. To Received (Hold) field';
                 }
             }
         }
@@ -630,6 +687,7 @@ page 33000268 "Posted Inspection Receipt B2B"
                             InspectJnlPostLine.UpdateSentBackToVendor(Rec)
                         else
                             InspectJnlPostLine.FillReworkItemJnlLineAndPost(Rec);
+                        CreateRGPOutOnAfterSendToVendor(Rec);
                         CurrPage.UPDATE();
                     end;
                 }
@@ -649,7 +707,41 @@ page 33000268 "Posted Inspection Receipt B2B"
                             InspectJnlPostLine.UpdateReceiveRework(Rec)
                         else
                             InspectJnlPostLine.ReceiveReworkAndPost(Rec);
+                        CreateRGPInOnAfterReceive(Rec);
                         CurrPage.UPDATE();
+                    end;
+                }
+                action("Receive From Hold")
+                {
+                    Caption = 'Receive From Hold Location';
+                    Image = ReceiveLoaner;
+                    Promoted = true;
+                    PromotedOnly = true;
+                    PromotedCategory = Process;
+                    ApplicationArea = all;
+                    tooltip = 'quantity to receive the order';
+                    trigger OnAction();
+                    begin
+                        Rec.TESTFIELD("Qty. to Receive(Hold)");
+                        InspectJnlPostLine.ReceiveHoldAndPost(Rec);
+                        CurrPage.UPDATE();
+                    end;
+                }
+                action(DocAttach)
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Attachments';
+                    Image = Attach;
+                    ToolTip = 'Add a file as an attachment. You can attach images as well as documents.';
+
+                    trigger OnAction()
+                    var
+                        DocumentAttachmentDetails: Page "Document Attachment Details";
+                        RecRef: RecordRef;
+                    begin
+                        RecRef.GetTable(Rec);
+                        DocumentAttachmentDetails.OpenForRecRef(RecRef);
+                        DocumentAttachmentDetails.RunModal();
                     end;
                 }
             }
@@ -699,6 +791,16 @@ page 33000268 "Posted Inspection Receipt B2B"
         if Rec."Item Tracking Exists" then
             QtyToVendorReworkEditable := false;
         CurrPage.UPDATE();
+    end;
+
+    [IntegrationEvent(false, false)]
+    procedure CreateRGPOutOnAfterSendToVendor(InspectionReceiptHdr: Record "Inspection Receipt Header B2B")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure CreateRGPInOnAfterReceive(InspectionReceiptHdr: Record "Inspection Receipt Header B2B")
+    begin
     end;
 }
 

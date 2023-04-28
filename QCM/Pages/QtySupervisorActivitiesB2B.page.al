@@ -40,6 +40,24 @@ page 33000296 "Qty Supervisor Activities B2B"
                      }
                  }
                  */
+                //B2BESGOn12Dec2022>>
+                field("Insepection Receipt"; IRSCount)
+                {
+                    ApplicationArea = All;
+                    trigger OnDrillDown()
+                    begin
+
+
+                        DocumentDateGVar := CalcDate('<-2D>', WorkDate());
+                        InspectionRecpGRec.Reset();
+                        InspectionRecpGRec.SetRange("Document Date", 0D, DocumentDateGVar);
+                        if InspectionRecpGRec.FindSet() then;
+                        InsepectionRecpPageG.SetTableView(InspectionRecpGRec);
+                        InsepectionRecpPageG.Run();
+
+                    end;
+                }
+                //B2BESGOn12Dec2022<<
             }
         }
     }
@@ -58,5 +76,27 @@ page 33000296 "Qty Supervisor Activities B2B"
 
         Rec.SETFILTER("Date Filter", '>=%1', WORKDATE());
     end;
+
+    trigger OnAfterGetCurrRecord();
+    begin
+        IRS_Fun();//B2BESGOn12Dec2022
+    end;
+
+    var
+        InspectionRecpGRec: record "Inspection Receipt Header B2B";
+        InsepectionRecpPageG: Page "Inspection Receipt List B2B";
+        IRSCount: Integer;
+        DocumentDateGVar: Date;
+
+    local procedure IRS_Fun()
+    begin
+        DocumentDateGVar := CalcDate('<-2D>', WorkDate());
+        InspectionRecpGRec.Reset();
+        InspectionRecpGRec.SetRange("Document Date", 0D, DocumentDateGVar);
+        if InspectionRecpGRec.FindSet() then;
+        IRSCount := InspectionRecpGRec.Count;
+    end;
+   
 }
+
 

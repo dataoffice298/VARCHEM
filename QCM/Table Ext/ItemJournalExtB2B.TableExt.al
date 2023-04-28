@@ -21,6 +21,11 @@ tableextension 33000251 "ItemJournalExt B2B" extends "Item Journal Line"
             TableRelation = "Inspection Receipt Header B2B";
             DataClassification = CustomerContent;
         }
+        field(50000; "Vendor Lot No_B2B"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Vendor Lot No.';
+        }
     }
 
 

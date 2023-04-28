@@ -4,13 +4,13 @@ tableextension 50008 tableextension70000014 extends "Purchase Header Archive"
 
     fields
     {
-        modify("Document Type")
-        {
-            OptionCaptionML = ENU = 'Quote,Order,Invoice,Credit Memo,Blanket Order,Return Order,Enquiry', ENN = 'Quote,Order,Invoice,Credit Memo,Blanket Order,Return Order,Enquiry';
+        /* modify("Document Type")
+         {
+             //OptionCaptionML = ENU = 'Quote,Order,Invoice,Credit Memo,Blanket Order,Return Order,Enquiry', ENN = 'Quote,Order,Invoice,Credit Memo,Blanket Order,Return Order,Enquiry';
 
-            //Unsupported feature: Change OptionString on ""Document Type"(Field 1)". Please convert manually.
+             //Unsupported feature: Change OptionString on ""Document Type"(Field 1)". Please convert manually.
 
-        }
+         }*/
         field(33002900; "RFQ No."; Code[20])
         {
             Description = 'PO1.0';
@@ -35,6 +35,10 @@ tableextension 50008 tableextension70000014 extends "Purchase Header Archive"
         field(33002903; "Indent Req No"; Code[20])
         {
             Description = 'PO1.0';
+        }
+        field(50020; "Indent No."; Code[20])
+        {
+          DataClassification = ToBeClassified;
         }
 
     }

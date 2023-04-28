@@ -25,10 +25,6 @@ page 50022 "Indent Requisition Document"
                 {
                     ApplicationArea = All;
                 }
-                field("Resposibility Center"; Rec."Resposibility Center")
-                {
-                    ApplicationArea = All;
-                }
                 field(Status; Rec.Status)
                 {
                     ApplicationArea = All;
@@ -40,6 +36,18 @@ page 50022 "Indent Requisition Document"
                 field("No.Series"; Rec."No.Series")
                 {
                     ApplicationArea = All;
+                }
+                field("Shortcut Dimension 1 Code_B2B"; Rec."Shortcut Dimension 1 Code_B2B")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    ToolTip = 'Specifies the value of the Shortcut Dimension 1 Code field.';
+                }
+                field("Shortcut Dimension 2 Code_B2B"; Rec."Shortcut Dimension 2 Code_B2B")
+                {
+                    ApplicationArea = All;
+                    //Editable = false;
+                    ToolTip = 'Specifies the value of the Shortcut Dimension 2 Code field.';
                 }
             }
             part(Indentrequisations; 50021)
@@ -59,10 +67,13 @@ page 50022 "Indent Requisition Document"
                 Caption = 'Get Requisition Lines';
                 Promoted = true;
                 ApplicationArea = All;
+                PromotedCategory = Process;
 
                 trigger OnAction();
                 begin
-                    IndentReqLines.GetValue(Rec."No.", Rec."Resposibility Center");
+                    Rec.TestField("Shortcut Dimension 1 Code_B2B");
+                    Rec.TestField("Shortcut Dimension 2 Code_B2B");
+                    IndentReqLines.GetValue(Rec."No.", Rec."Resposibility Center", Rec."Shortcut Dimension 1 Code_B2B", Rec."Shortcut Dimension 2 Code_B2B");
                     IndentReqLines.RUN;
                 end;
             }
@@ -71,11 +82,14 @@ page 50022 "Indent Requisition Document"
                 Caption = 'Create &Enquiry';
                 Promoted = true;
                 ApplicationArea = All;
+                PromotedCategory = Process;
 
                 trigger OnAction();
                 begin
                     Rec.TESTFIELD(Status, Rec.Status::Release);
                     Rec.TESTFIELD(Type, Rec.Type::Enquiry);
+                    Rec.TestField("Shortcut Dimension 1 Code_B2B");
+                    Rec.TestField("Shortcut Dimension 2 Code_B2B");
                     Carry := 0;
                     Indentreqline.RESET;
                     Indentreqline.SETRANGE("Document No.", Rec."No.");
@@ -92,16 +106,27 @@ page 50022 "Indent Requisition Document"
                         CreateIndents.RESET;
                         CreateIndents.SETRANGE("Document No.", Rec."No.");
                         CreateIndents.SETRANGE("Carry out Action", TRUE);
-                        CLEAR(VendorList);
-                        VendorList.LOOKUPMODE(TRUE);
-                        IF VendorList.RUNMODAL = ACTION::LookupOK THEN BEGIN
-                            VendorList.SetSelection(Vendor);
-                            IF Vendor.COUNT >= 1 THEN BEGIN
-                                POAutomation.CreateEnquiries(CreateIndents, Vendor, Rec."No.Series");
-                                MESSAGE(Text0010)
-                            END ELSE
-                                EXIT;
-                        END;
+                        CreateIndents.SetRange(Created, false); //B2BJK on nov11
+                        if CreateIndents.FindFirst() then begin //B2BJK on nov11
+                            CLEAR(VendorList);
+                            VendorList.LOOKUPMODE(TRUE);
+                            IF VendorList.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                                if Confirm('Do you want to proceed with selected vendors') then begin
+                                    VendorList.SetSelection(Vendor);
+                                    IF Vendor.COUNT >= 1 THEN BEGIN
+                                        POAutomation.CreateEnquiries(CreateIndents, Vendor, Rec."No.Series");
+                                        MESSAGE(Text0010)
+                                    END ELSE
+                                        EXIT;
+                                end else begin
+                                    exit;
+                                end;
+                            END else begin
+                                exit;
+                            end;
+                        end else begin //B2BJK on nov11
+                            Message('Enquiries have already been created for this requisition lines'); //B2BJK on nov11
+                        end;
                     END;
                 end;
             }
@@ -110,12 +135,15 @@ page 50022 "Indent Requisition Document"
                 Caption = 'Create &Quote';
                 Promoted = true;
                 ApplicationArea = All;
+                PromotedCategory = Process;
 
                 trigger OnAction();
                 begin
 
                     Rec.TESTFIELD(Status, Rec.Status::Release);
                     Rec.TESTFIELD(Type, Rec.Type::Quote);
+                    Rec.TestField("Shortcut Dimension 1 Code_B2B");
+                    Rec.TestField("Shortcut Dimension 2 Code_B2B");
                     Carry := 0;
                     Indentreqline.RESET;
                     Indentreqline.SETRANGE("Document No.", Rec."No.");
@@ -134,15 +162,27 @@ page 50022 "Indent Requisition Document"
                         CreateIndents.RESET;
                         CreateIndents.SETRANGE("Document No.", Rec."No.");
                         CreateIndents.SETRANGE("Carry out Action", TRUE);
-                        CLEAR(VendorList);
-                        VendorList.LOOKUPMODE(TRUE);
-                        VendorList.RUNMODAL;
-                        VendorList.SetSelection(Vendor);
-                        IF Vendor.COUNT >= 1 THEN BEGIN
-                            POAutomation.CreateQuotes(CreateIndents, Vendor, Rec."No.Series");
-                            MESSAGE(Text0011)
-                        END ELSE
-                            EXIT;
+                        CreateIndents.SetRange(Created, false); //B2BJK on nov11
+                        if CreateIndents.FindFirst() then begin //B2BJK on nov11
+                            CLEAR(VendorList);
+                            VendorList.LOOKUPMODE(TRUE);
+                            IF VendorList.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                                if Confirm('Do you want to proceed with selected vendors') then begin
+                                    VendorList.SetSelection(Vendor);
+                                    IF Vendor.COUNT >= 1 THEN BEGIN
+                                        POAutomation.CreateQuotes(CreateIndents, Vendor, Rec."No.Series");
+                                        MESSAGE(Text0011)
+                                    END ELSE
+                                        EXIT;
+                                end else begin
+                                    exit
+                                end;
+                            end else begin
+                                exit;
+                            end;
+                        end else begin //B2BJK on nov11
+                            Message('Quotes have already been created for this requisition lines'); //B2BJK on nov11
+                        end;
                     END;
                 end;
             }
@@ -151,11 +191,14 @@ page 50022 "Indent Requisition Document"
                 Caption = 'Create &Purchase Order';
                 Promoted = true;
                 ApplicationArea = All;
+                PromotedCategory = Process;
 
                 trigger OnAction();
                 begin
                     Rec.TESTFIELD(Status, Rec.Status::Release);
                     Rec.TESTFIELD(Type, Rec.Type::Order);
+                    Rec.TestField("Shortcut Dimension 1 Code_B2B");
+                    Rec.TestField("Shortcut Dimension 2 Code_B2B");
                     Carry := 0;
                     //raju
                     CheckRemainingQuantity;
@@ -172,27 +215,55 @@ page 50022 "Indent Requisition Document"
                     IF Indentreqline.FIND('-') THEN BEGIN
                         IF NOT CONFIRM(Text005) THEN
                             EXIT;
-                        CreateIndents.RESET;
+                        /*CreateIndents.RESET;
                         CreateIndents.SETRANGE("Document No.", Rec."No.");
                         CreateIndents.SETRANGE("Carry out Action", TRUE);
                         //B2B.1.3 S
-                        /*
+                        
                          CLEAR(VendorList);
                          VendorList.LOOKUPMODE(TRUE);
                          VendorList.RUNMODAL;
                          VendorList.SetSelection(Vendor);
 
                          IF Vendor.COUNT>=1 THEN BEGIN
-                         */
+                         
 
                         UpdateReqQty;
                         POAutomation.CreateOrder2(CreateIndents, Vendor, Rec."No.Series");
 
-                        /*
+                        
                         MESSAGE(Text001);
                        END ELSE
-                       EXIT;
-                       */
+                       EXIT;*/
+                        CreateIndents.RESET;
+                        CreateIndents.SETRANGE("Document No.", Rec."No.");
+                        CreateIndents.SETRANGE("Carry out Action", TRUE);
+                        CreateIndents.SetRange(Created, false); //B2BJK on nov11
+                        if CreateIndents.FindSet() then begin //B2BJK on nov11
+                                                              // CLEAR(VendorList);
+                                                              // VendorList.LOOKUPMODE(TRUE);
+
+                            // IF VendorList.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                            // if Confirm('Do you want to proceed with selected vendors') then begin
+                            //  VendorList.SetSelection(Vendor);
+                            //IF Vendor.COUNT >= 1 THEN BEGIN
+                            Vendor.Reset();
+                            if Vendor.FindSet() then;
+                            if Page.RunModal(Page::"Vendor List", Vendor) = Action::LookupOK then begin
+                                POAutomation.CreateOrder(CreateIndents, Vendor, Rec."No.Series");
+                                MESSAGE(Text0012)
+                            END ELSE
+                                EXIT;
+                            // end else begin
+                            //    exit
+                            // end;
+                            // end else begin
+                            //   exit;
+                            //end;
+                        end else begin //B2BJK on nov11
+                            Message('orders have already been created for this requisition lines'); //B2BJK on nov11
+                        end;
+
                         //B2B.1.3 E
                     END;
 
@@ -204,6 +275,7 @@ page 50022 "Indent Requisition Document"
                 Image = ReleaseDoc;
                 Promoted = true;
                 ApplicationArea = All;
+                PromotedCategory = Process;
 
                 trigger OnAction();
                 var
@@ -218,6 +290,8 @@ page 50022 "Indent Requisition Document"
                     //B2BESGOn19May2022--
 
                     Rec.TESTFIELD("Document Date");
+                    Rec.TestField("Shortcut Dimension 1 Code_B2B");
+                    Rec.TestField("Shortcut Dimension 2 Code_B2B");
                     IF Rec.Status = Rec.Status::Release THEN
                         EXIT
                     ELSE
@@ -231,6 +305,7 @@ page 50022 "Indent Requisition Document"
                 Image = ReOpen;
                 Promoted = true;
                 ApplicationArea = All;
+                PromotedCategory = Process;
 
                 trigger OnAction();
                 begin
@@ -286,6 +361,7 @@ page 50022 "Indent Requisition Document"
         Text005: Label 'Do you want to create Orders?';
         Text0010: Label 'Enquiries Created Successfully';
         Text0011: Label 'Quotes Created Successfully';
+        Text0012: Label 'Orders Created Successfully';
 
     procedure CheckRemainingQuantity();
     var

@@ -180,6 +180,12 @@ table 33000264 "Posted Ins Datasheet Line B2B"
             Caption = 'Qualitative';
             DataClassification = CustomerContent;
         }
+        //4.06 >>
+        field(50000; "Style Expression"; Text[50])
+        {
+            DataClassification = CustomerContent;
+        }
+        //4.06 <<
     }
 
     keys

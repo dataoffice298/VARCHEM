@@ -47,6 +47,7 @@ page 33000253 "Specifications B2B"
                     Importance = Promoted;
                     ApplicationArea = all;
                     ToolTip = 'After entry of the relevant data,the status must be changed';
+                    //Editable = BoolGvar;
                     trigger OnValidate();
                     begin
                         StatusOnAfterValidate();
@@ -76,6 +77,20 @@ page 33000253 "Specifications B2B"
                         ActiveVersionCode := Rec.GetSpecVersion(Rec."Spec ID", WORKDATE(), true);
                     end;
                 }
+                //4.05 >>
+                field("ISO Format Number"; "ISO Format Number")
+                {
+                    ApplicationArea = all;
+                }
+                field("Shortcut Dimension 1 Code_B2B"; Rec."Shortcut Dimension 1 Code_B2B")
+                {
+                    ToolTip = 'Specifies the value of the Shortcut Dimension 1 Code field.';
+                }
+                field("Shortcut Dimension 2 Code_B2B"; Rec."Shortcut Dimension 2 Code_B2B")
+                {
+                    ToolTip = 'Specifies the value of the Shortcut Dimension 2 Code field.';
+                }
+                //4.05 <<
             }
             part(Control1000000006; "Specification Subform B2B")
             {
@@ -197,6 +212,7 @@ page 33000253 "Specifications B2B"
 
         ActiveVersionCode := Rec.GetSpecVersion(Rec."Spec ID", WORKDATE(), true);
     end;
+    
 
 
 
@@ -210,6 +226,7 @@ page 33000253 "Specifications B2B"
         SpecHeader: Record "Specification Header B2B";
         SpecCopy: Codeunit "Specification-Copy B2B";
         ActiveVersionCode: Code[20];
+        
 
 }
 

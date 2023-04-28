@@ -29,6 +29,18 @@ tableextension 50004 tableextension70000004 extends "Purch. Inv. Header"
         {
             Description = 'PO1.0';
         }
+        field(50018; "Vendor Quote No."; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50019; "Vendor Quote Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50020; "Indent No."; Code[20])
+        {
+          DataClassification = ToBeClassified;
+        }
     }
 
     //Unsupported feature: PropertyChange. Please convert manually.

@@ -156,6 +156,16 @@ page 50007 "Quotation Comparison"
                     Editable = false;
                     ApplicationArea = all;
                 }
+                //B2BJK >>
+                field("PO Qty"; Rec."PO Qty")
+                {
+                    ApplicationArea = all;
+                }
+                field("Available Inventory"; Rec."Available Inventory")
+                {
+                    ApplicationArea = all;
+                }
+                //B2BJK <<
             }
         }
     }
@@ -314,7 +324,7 @@ page 50007 "Quotation Comparison"
                 action("Quotation Comparision")
                 {
                     Caption = 'Quotation Comparision';
-                    Image = print;
+                    Image = Print;
                     ShortCutKey = 'F9';
                     ApplicationArea = All;
 

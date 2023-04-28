@@ -1,7 +1,6 @@
 page 33000295 "Qty Inspector Activities B2B"
 {
     // version B2BQC1.00.00
-
     // *******************************************************************************
     // B2B     : B2B Software Technologies
     // Project : Quality Control Addon
@@ -9,7 +8,6 @@ page 33000295 "Qty Inspector Activities B2B"
     // VER           SIGN       DATE         DESCRIPTION
     // *******************************************************************************
     // 1.00.00       B2BQC      06-05-15     New Page.
-
     Caption = 'Quality Inspector Activities';
     PageType = CardPart;
     SourceTable = "Quality Inspector Cue B2B";
@@ -59,6 +57,21 @@ page 33000295 "Qty Inspector Activities B2B"
                     ApplicationArea = all;
                     tooltip = 'system does not allow any modification in inspection data sheet';
                 }
+                //B2BESGOn12Dec2022>>
+                field("Inspection Datasheet"; InSepectDataSheetCount)
+                {
+                    Caption = 'Inspection Datasheet-New';
+                    trigger OnDrillDown()
+                    begin
+                        DocuemntDateGVar := CalcDate('<-2D>', WorkDate());
+                        InspectionDataSheetGRec.Reset();
+                        InspectionDataSheetGRec.SetRange("Document Date", 0D, DocuemntDateGVar);
+                        if InspectionDataSheetGRec.FindSet() then;
+                        InspectionDataSheetPage.SetTableView(InspectionDataSheetGRec);
+                        InspectionDataSheetPage.Run();
+                    end;
+                }
+                //B2BESGOn12Dec2022<<
             }
         }
     }
@@ -77,5 +90,27 @@ page 33000295 "Qty Inspector Activities B2B"
 
         Rec.SETFILTER("Date Filter", '>=%1', WORKDATE());
     end;
+
+    trigger OnAfterGetCurrRecord()
+    begin
+        IDS_DateFun();//B2BESGOn12Dec2022
+    end;
+
+    var
+        InspectionDataSheetGRec: Record "Ins Datasheet Header B2B";
+        InSepectDataSheetCount: Integer;
+        DocuemntDateGVar: Date;
+        InspectionDataSheetPage: Page "Inspection Data Sheet List B2B";
+
+    local procedure IDS_DateFun()
+    begin
+        DocuemntDateGVar := CalcDate('<-2D>', WorkDate());
+        InspectionDataSheetGRec.Reset();
+        InspectionDataSheetGRec.SetRange("Document Date", 0D, DocuemntDateGVar);
+        if InspectionDataSheetGRec.FindSet() then;
+        InSepectDataSheetCount := InspectionDataSheetGRec.Count;
+
+    end;
+
 }
 

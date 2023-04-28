@@ -49,7 +49,7 @@ codeunit 33000252 "Inspection Jnl. Check Line B2B"
             ERROR(Text001Err, InspectReceipt."Receipt No.", InspectReceipt."Purch Line No");
         CheckQualityAcceptanceLevels(InspectReceipt);
         if InspectReceipt.Quantity <> InspectReceipt."Qty. Accepted" + InspectReceipt."Qty. Rejected" +
-                                      InspectReceipt."Qty. Rework" + InspectReceipt."Qty. Accepted Under Deviation"
+                                      InspectReceipt."Qty. Rework" + InspectReceipt."Qty. Accepted Under Deviation" + InspectReceipt."Qty. Hold"
         then
             ERROR(Text000Err);
         if InspectReceipt."Qty. Accepted Under Deviation" <> 0 then
@@ -82,6 +82,10 @@ codeunit 33000252 "Inspection Jnl. Check Line B2B"
         InspectAcptLevel.CALCSUMS(Quantity);
         if InspectRcpt."Qty. Rejected" <> InspectAcptLevel.Quantity then
             ERROR(Text003Err, InspectRcpt.FIELDCAPTION("Qty. Rejected"));
+        InspectAcptLevel.SETRANGE("Quality Type", InspectAcptLevel."Quality Type"::Hold);
+        InspectAcptLevel.CALCSUMS(Quantity);
+        if InspectRcpt."Qty. Hold" <> InspectAcptLevel.Quantity then
+            ERROR(Text003Err, InspectRcpt.FIELDCAPTION("Qty. Hold"));
     end;
 }
 

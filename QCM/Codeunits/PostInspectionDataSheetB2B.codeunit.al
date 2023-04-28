@@ -20,8 +20,13 @@ codeunit 33000250 "Post-Inspection Data Sheet B2B"
 
         PostInspectData.TRANSFERFIELDS(Rec);
 
-        if not QualitySetup."Posted IDS. No. is IDS No." then
-            PostInspectData."No." := NoSeriesMgt.GetNextNo(QualitySetup."Posted Inspect. Datasheet Nos.", TODAY(), true);
+        if not QualitySetup."Posted IDS. No. is IDS No." then begin
+            if Rec."Shortcut Dimension 1 Code" = 'DOM' then
+                PostInspectData."No." := NoSeriesMgt.GetNextNo(QualitySetup."Posted Inspect. Datasheet Nos.", TODAY(), true)
+            else
+                if Rec."Shortcut Dimension 1 Code" = 'EOU' then
+                    PostInspectData."No." := NoSeriesMgt.GetNextNo(QualitySetup."Posted InspectDatas Nos.(Eou)", TODAY(), true)
+        end;
         InspReportNo := InsertInspectionReportHeader(PostInspectData);
         PostInspectData."Inspection Receipt No." := InspReportNo;
 
@@ -76,6 +81,10 @@ codeunit 33000250 "Post-Inspection Data Sheet B2B"
 
     procedure InsertInspectionReportHeader(InspectHeader: Record "Posted Ins DatasheetHeader B2B"): Code[20];
     var
+        QualityItemLedgEntry: Record "Quality Item Ledger Entry B2B";
+        RemainQty: Decimal;
+        QtyToApply: Decimal;
+        ItemLedgerEntries: Record "Item Ledger Entry";
     begin
         if InspectHeader."Source Type" = InspectHeader."Source Type"::"In Bound" then begin
             if InspectReportHeader."Quality Before Receipt" then
@@ -97,7 +106,11 @@ codeunit 33000250 "Post-Inspection Data Sheet B2B"
         if not InspectReportHeader.FIND('-') then begin
             InspectReportHeader.INIT();
             InspectReportHeader."Receipt No." := InspectHeader."Receipt No.";
-            InspectReportHeader."No." := NoSeriesMgt.GetNextNo(QualitySetup."Inspection Receipt Nos.", TODAY(), true);
+            if InspectHeader."Shortcut Dimension 1 Code" = 'DOM' then
+                InspectReportHeader."No." := NoSeriesMgt.GetNextNo(QualitySetup."Inspection Receipt Nos.", TODAY(), true)
+            else
+                if InspectHeader."Shortcut Dimension 1 Code" = 'EOU' then
+                    InspectReportHeader."No." := NoSeriesMgt.GetNextNo(QualitySetup."Inspection Receipt Nos.(Eou)", TODAY(), true);
             InspectReportHeader."Order No." := InspectHeader."Order No.";
             if InspectHeader."In Process" then begin
                 InspectReportHeader."Posting Date" := WORKDATE();
@@ -125,12 +138,14 @@ codeunit 33000250 "Post-Inspection Data Sheet B2B"
             InspectReportHeader."Base Unit of Measure" := InspectHeader."Base Unit Of Measure";
             InspectReportHeader."Quantity(Base)" := InspectHeader."Quantity (Base)";
             InspectReportHeader."Lot No." := InspectHeader."Lot No.";
+            InspectReportHeader."Vendor Lot No_B2B" := InspectHeader."Vendor Lot No_B2B";
             if InspectHeader."Rework Level" <> 0 then
                 InspectReportHeader."DC Inbound Ledger Entry." := InspectHeader."DC Inbound Ledger Entry";
             InspectReportHeader."Serial No." := InspectHeader."Serial No.";
             InspectReportHeader."Item Tracking Exists" := InspectHeader."Item Tracking Exists";
             InspectReportHeader."Rework Reference No." := InspectHeader."Rework Reference No.";
             InspectReportHeader."Rework Level" := InspectHeader."Rework Level";
+
             InspectReportHeader."Item Ledger Entry No." := InspectHeader."Item Ledger Entry No.";
             InspectReportHeader."Prod. Order No." := InspectHeader."Prod. Order No.";
             InspectReportHeader."Prod. Order Line" := InspectHeader."Prod. Order Line";
@@ -145,8 +160,38 @@ codeunit 33000250 "Post-Inspection Data Sheet B2B"
             InspectReportHeader."Source Type" := InspectHeader."Source Type";
             InspectReportHeader."Production Batch No." := InspectHeader."Production Batch No.";
             InspectReportHeader."Purchase Consignment" := InspectHeader."Purchase Consignment No.";
+            InspectReportHeader."Shortcut Dimension 1 Code" := InspectHeader."Shortcut Dimension 1 Code";
+            InspectReportHeader."Shortcut Dimension 2 Code" := InspectHeader."Shortcut Dimension 2 Code";
+            InspectReportHeader."From Hold" := InspectHeader."From Hold";
+            if (not InspectHeader."Item Tracking Exists") and (InspectReportHeader."From Hold") then begin
+                ItemLedgerEntries.Reset();
+                ItemLedgerEntries.SetRange("Document No.", InspectHeader."Rework Reference No.");
+                ItemLedgerEntries.SetRange(open, true);
+                if ItemLedgerEntries.FindFirst() then
+                    InspectReportHeader."Item Ledger Entry No." := ItemLedgerEntries."Entry No.";
+            end;
             OnBeforeInsertInspectionReportHeader(InspectReportHeader, InspectHeader);
             InspectReportHeader.INSERT();
+            if InspectReportHeader."From Hold" then begin
+                RemainQty := InspectReportHeader.Quantity;
+                QualityItemLedgEntry.Reset();
+                QualityItemLedgEntry.SETRANGE("Document No.", InspectReportHeader."Rework Reference No.");
+                QualityItemLedgEntry.SetRange(Hold, false);
+                if QualityItemLedgEntry.FindSet() then
+                    repeat
+                        if RemainQty <= QualityItemLedgEntry."Remaining Quantity" then
+                            QtyToApply := RemainQty
+                        else
+                            QtyToApply := QualityItemLedgEntry."Remaining Quantity";
+                        RemainQty := RemainQty - QtyToApply;
+                        if QtyToApply <> 0 then begin
+                            QualityItemLedgEntry."Document No." := InspectReportHeader."No.";
+                            QualityItemLedgEntry.MODIFY();
+                        end;
+                        InspectReportHeader."Item Ledger Entry No." := QualityItemLedgEntry."Entry No.";
+                        InspectReportHeader.Modify();
+                    until QualityItemLedgEntry.Next() = 0;
+            end;
             OnAfterInsertInspectionReportHeader(InspectReportHeader, InspectHeader);
         end;
         exit(InspectReportHeader."No.");
@@ -166,5 +211,6 @@ codeunit 33000250 "Post-Inspection Data Sheet B2B"
     var
         PostInspectData: Record "Posted Ins DatasheetHeader B2B";
         PostInspectDataLine: Record "Posted Ins Datasheet Line B2B";
+
 }
 

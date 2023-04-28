@@ -63,7 +63,7 @@ table 33000263 "Posted Ins DatasheetHeader B2B"
             Caption = 'Vendor Name 2';
             DataClassification = CustomerContent;
         }
-        field(10; Address; Text[50])
+        field(10; Address; Text[100])
         {
             Caption = 'Address';
             DataClassification = CustomerContent;
@@ -84,7 +84,7 @@ table 33000263 "Posted Ins DatasheetHeader B2B"
             TableRelation = Item;
             DataClassification = CustomerContent;
         }
-        field(14; "Item Description"; Text[50])
+        field(14; "Item Description"; Text[100])
         {
             Caption = 'Item Description';
             DataClassification = CustomerContent;
@@ -93,6 +93,7 @@ table 33000263 "Posted Ins DatasheetHeader B2B"
         {
             Caption = 'Quantity';
             DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 5;
         }
         field(16; "Spec ID"; Code[20])
         {
@@ -253,6 +254,7 @@ table 33000263 "Posted Ins DatasheetHeader B2B"
         {
             Caption = 'Qty. per Unit of Measure';
             DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 5;
         }
         field(50; "Prod. Order No."; Code[20])
         {
@@ -321,6 +323,7 @@ table 33000263 "Posted Ins DatasheetHeader B2B"
         {
             Caption = 'Quantity (Base)';
             DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 5;
         }
         field(63; "Serial No."; Code[20])
         {
@@ -369,6 +372,25 @@ table 33000263 "Posted Ins DatasheetHeader B2B"
             Caption = 'Shortcut Dimension 2 Code';
 
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2));
+            DataClassification = CustomerContent;
+        }
+        //4.14 >>
+        field(50000; "QC Certificate(s) Status"; Enum "QC Certificate Status")
+        {
+            DataClassification = CustomerContent;
+        }
+        field(50001; "Certificate Remarks"; Text[1024])
+        {
+            DataClassification = CustomerContent;
+        }
+        field(50018; "Vendor Lot No_B2B"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Vendor Lot No.';
+        }
+        //4.14 <<
+        field(60001; "From Hold"; Boolean)
+        {
             DataClassification = CustomerContent;
         }
     }

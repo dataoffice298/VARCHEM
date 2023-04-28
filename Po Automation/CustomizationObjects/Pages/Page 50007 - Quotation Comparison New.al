@@ -155,6 +155,16 @@ page 50030 "Quotation Comparison New" //PKON22J1
                     Editable = false;
                     ApplicationArea = All;
                 }
+                //B2BJK >>
+               field("PO Qty";"PO Qty")
+               {
+                ApplicationArea = all;
+               }
+                field("Available Inventory"; "Available Inventory")
+                {
+                    ApplicationArea = all;
+                }
+                //B2BJK <<
             }
         }
     }

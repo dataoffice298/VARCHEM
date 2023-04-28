@@ -3,10 +3,11 @@ page 50001 "Indent Line"
     // version PH1.0,PO1.0
 
     AutoSplitKey = true;
-    DelayedInsert = true;
+    //DelayedInsert = true;
     MultipleNewLines = true;
     PageType = ListPart;
     SourceTable = "Indent Line";
+
 
     layout
     {
@@ -55,6 +56,40 @@ page 50001 "Indent Line"
                 {
                     ApplicationArea = All;
                 }
+                //B2BJK >>
+                field("PO Qty"; Rec."PO Qty")
+                {
+                    ApplicationArea = all;
+                }
+                field("Enquiry Qty"; "Enquiry Qty")
+                {
+                    ApplicationArea = all;
+                }
+                field("Available Inventory"; Rec."Available Inventory")
+                {
+                    ApplicationArea = all;
+                }
+                field(Make; Rec.Make)
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Make field.';
+                }
+                field(Model; Rec.Model)
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Model field.';
+                }
+                field("Shortage Qty"; Rec."Shortage Qty")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Shortage Qty field.';
+                }
+                field("Open Quote Qty"; Rec."Open Quote Qty")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Open Quote Qty field.';
+                }
+
             }
         }
     }

@@ -95,6 +95,7 @@ page 33000263 "PostedIns DataSht Subform B2B"
                 {
                     ApplicationArea = all;
                     tooltip = 'actual  permitted value to acceptance in number ';
+                    StyleExpr = Rec."Style Expression"; //4.06
                 }
                 field("Normal Value (Text)"; Rec."Normal Value (Text)")
                 {

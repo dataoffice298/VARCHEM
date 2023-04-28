@@ -1,10 +1,8 @@
 page 50000 "Indent Header"
 {
-    // version PH1.0,PO1.0,REP1.0
-
+    // version PH1.0,PO1.0,REP1.
     PageType = ListPlus;
     SourceTable = "Indent Header";
-
     layout
     {
         area(content)
@@ -16,52 +14,96 @@ page 50000 "Indent Header"
                 {
                     AssistEdit = true;
                     ApplicationArea = All;
-
+                    Editable = BoolGvar;
                     trigger OnAssistEdit();
+                    var
+                        NoSeriesVar: Record "No. Series";
                     begin
-                        IF rec.AssistEdit(xRec) THEN
+                        IF rec.AssistEdit(xRec) THEN begin
+                            //if NoSeriesVar.Get("No. Series") 
                             CurrPage.UPDATE;
+                        end;
                     end;
                 }
                 field(Description; rec.Description)
                 {
                     ApplicationArea = all;
-                }
-                field(Indentor; rec.Indentor)
-                {
-                    Caption = 'Indentor';
-                    ApplicationArea = all;
+                    Editable = BoolGvar;
                 }
                 field(Department; rec.Department)
                 {
                     Visible = true;
                     ApplicationArea = all;
+                    Editable = BoolGvar;
                 }
                 field("Document Date"; rec."Document Date")
                 {
                     Caption = 'Order Date';
                     ApplicationArea = all;
+                    Editable = BoolGvar;
                 }
                 field("Released Status"; rec."Released Status")
                 {
                     Caption = 'Status';
                     ApplicationArea = all;
+                    Editable = BoolGvar;
                 }
                 field("User Id"; rec."User Id")
                 {
                     ApplicationArea = all;
+                    Editable = BoolGvar;
                 }
-                field(Authorized; rec.Authorized)
+
+                field("MRS Requestor"; Rec."MRS Requestor")
                 {
-                    Editable = false;
-                    Visible = false;
-                    ApplicationArea = all;
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the MRS Requestor field.';
                 }
+                field("MRS Department"; Rec."MRS Department")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the MRS Department field.';
+                }
+                field("MRS Requested Date"; Rec."MRS Requested Date")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the MRS Requested Date field.';
+                }
+
+                field("Transfer Order No."; Rec."Transfer Order No.")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Transfer Order No. field.';
+                    Editable = BoolGvar;
+                }
+                /*field("Indent Status"; Rec."Indent Status")
+                {
+                    ApplicationArea = All;
+
+                }*/
+                field("Shortcut Dimension 1 Code_B2B"; Rec."Shortcut Dimension 1 Code_B2B")
+                {
+                    ApplicationArea = all;
+                    Editable = false;
+                }
+                field("Shortcut Dimension 2 Code_B2B"; Rec."Shortcut Dimension 2 Code_B2B")
+                {
+                    ApplicationArea = all;
+                    Editable = BoolGvar;
+                }
+                field("Delivery Location"; Rec."Delivery Location")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Delivery Location field.';
+                }
+
+
             }
             part(indentLine; 50001)
             {
                 SubPageLink = "Document No." = FIELD("No.");
                 ApplicationArea = All;
+                Editable = BoolGvar;
             }
         }
     }
@@ -79,12 +121,12 @@ page 50000 "Indent Header"
 
                     trigger OnAction();
                     var
-                        BOMLineR: Report "Quant Explo of BOM In Indent";
+                       // BOMLineR: Report "Quant Explo of BOM In Indent";
                     begin
                         IF rec."No." = '' then
                             rec.TestField(Rec."No.");
-                        BOMLineR.GetInden(rec."No.");
-                        BOMLineR.Run();
+                        //BOMLineR.GetInden(rec."No.");
+                        //BOMLineR.Run();
                     end;
                 }
                 action("Copy Indent")
@@ -110,6 +152,8 @@ page 50000 "Indent Header"
                     trigger OnAction();
                     begin
                         Rec.TESTFIELD("Document Date");
+                        Rec.TestField("Shortcut Dimension 1 Code_B2B");
+                        rec.TestField(Rec."Shortcut Dimension 2 Code_B2B");
                         IndentLine.SETRANGE("Document No.", Rec."No.");
                         IF IndentLine.FIND('-') THEN
                             Rec.ReleaseIndent
@@ -138,7 +182,7 @@ page 50000 "Indent Header"
                 action("Ca&ncel")
                 {
                     Caption = 'Ca&ncel';
-                    Visible = false;
+                    //Visible = false;
                     ApplicationArea = All;
 
                     trigger OnAction();
@@ -152,7 +196,7 @@ page 50000 "Indent Header"
                 action("Clo&se")
                 {
                     Caption = 'Clo&se';
-                    Visible = false;
+                    //Visible = false;
                     ApplicationArea = All;
 
                     trigger OnAction();
@@ -164,23 +208,16 @@ page 50000 "Indent Header"
                     end;
                 }
             }
-            action("&Print")
-            {
-                Caption = '&Print';
-                Ellipsis = true;
-                Image = Print;
-                Promoted = true;
-                PromotedCategory = Process;
-                ApplicationArea = All;
-
-                trigger OnAction();
-                begin
-                    IndentHeader.SETRANGE(IndentHeader."No.", Rec."No.");
-                    REPORT.RUNMODAL(REPORT::Indent, TRUE, TRUE, IndentHeader);
-                end;
-            }
+            
         }
     }
+    trigger OnAfterGetCurrRecord()
+    begin
+        if Rec."Released Status" = Rec."Released Status"::Open then
+            BoolGvar := true
+        else
+            BoolGvar := false;
+    end;
 
     var
         IndentLine: Record 50002;
@@ -221,6 +258,7 @@ page 50000 "Indent Header"
         PurchSetup: Record 312;
         WFAmount: Decimal;
         IsValid: Boolean;
+        //Re : Record 36;
         UserSetup: Record 91;
         I: Integer;
         Link: Text[1000];
@@ -233,5 +271,6 @@ page 50000 "Indent Header"
         User: Record 2000000120;
         Indent: Page 50002;
         WFPurchLine: Record 39;
+        BoolGvar: Boolean;
 }
 

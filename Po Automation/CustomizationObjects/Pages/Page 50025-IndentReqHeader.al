@@ -4,8 +4,8 @@ page 50025 "IndentRequisitionDocument New"
 
     PageType = Document;
     SourceTable = "Indent Req Header";
-    ApplicationArea = all;
-    UsageCategory = Lists;
+    //ApplicationArea = all;
+    //UsageCategory = Lists;
     Caption = 'Quotation Comparision Doc';
     layout
     {
@@ -261,7 +261,7 @@ page 50025 "IndentRequisitionDocument New"
             {
                 ApplicationArea = All;
                 Image = SendApprovalRequest;
-                Visible = true;
+                Visible = false;
                 Promoted = true;
                 PromotedIsBig = true;
                 PromotedCategory = Process;
@@ -278,7 +278,7 @@ page 50025 "IndentRequisitionDocument New"
             {
                 ApplicationArea = All;
                 Image = CancelApprovalRequest;
-                Visible = true;
+                Visible = false;
                 Promoted = true;
                 PromotedIsBig = true;
                 PromotedCategory = Process;

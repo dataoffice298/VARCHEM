@@ -27,19 +27,19 @@ table 33000257 "Quality Control Setup B2B"
         }
         field(3; "Inspection Datasheet Nos."; Code[20])
         {
-            Caption = 'Inspection Datasheet Nos.';
+            Caption = 'Inspection Datasheet Nos.(DOM)';
             TableRelation = "No. Series".Code;
             DataClassification = CustomerContent;
         }
         field(4; "Posted Inspect. Datasheet Nos."; Code[20])
         {
-            Caption = 'Posted Inspect. Datasheet Nos.';
+            Caption = 'Posted Inspect. Datasheet Nos.(DOM)';
             TableRelation = "No. Series".Code;
             DataClassification = CustomerContent;
         }
         field(5; "Inspection Receipt Nos."; Code[20])
         {
-            Caption = 'Inspection Receipt Nos.';
+            Caption = 'Inspection Receipt Nos.(DOM)';
             TableRelation = "No. Series".Code;
             DataClassification = CustomerContent;
         }
@@ -111,6 +111,30 @@ table 33000257 "Quality Control Setup B2B"
         field(25; "Posted IDS. No. is IDS No."; Boolean)
         {
             Caption = 'Posted IDS. No. is IDS No.';
+            DataClassification = CustomerContent;
+        }
+        field(50500; "Hold Location"; Code[20])
+        {
+            Caption = 'Hold Location';
+            TableRelation = Location.Code;
+            DataClassification = CustomerContent;
+        }
+        field(26; "Inspection Datasheet Nos.(Eou)"; Code[20])
+        {
+            Caption = 'Inspection Datasheet Nos.(EOU)';
+            TableRelation = "No. Series".Code;
+            DataClassification = CustomerContent;
+        }
+        field(27; "Posted InspectDatas Nos.(Eou)"; Code[20])
+        {
+            Caption = 'Posted Inspect. Datasheet Nos.(EOU)';
+            TableRelation = "No. Series".Code;
+            DataClassification = CustomerContent;
+        }
+        field(28; "Inspection Receipt Nos.(Eou)"; Code[20])
+        {
+            Caption = 'Inspection Receipt Nos.(EOU)';
+            TableRelation = "No. Series".Code;
             DataClassification = CustomerContent;
         }
     }
